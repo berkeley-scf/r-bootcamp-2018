@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>This purpose of this module</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>This purpose of this module</h1>
+
+<p>For some of the topics here, my goal is not to teach you how to fish, but merely to tell you that fish exist, they are delicious, that they can be caught, and where one might go to figure out how to catch them.</p>
+
+<h1>Object-oriented programming (OOP) in R</h1>
+
+<p>Confusingly, R has three (well, four) different systems for OOP, and none of them are as elegant and powerful as in Python or other languages more focused on OOP. That said, they get the job done for a lot of tasks.</p>
+
+<ul>
+<li>S3: informal system used for <code>lm()</code>, <code>glm()</code>, and many other core features in R in the <em>stats</em> package</li>
+<li>S4: more formal system, used with <em>lme4</em> </li>
+<li>Reference Classes and R6: new systems allowing for passing objects by reference</li>
+</ul>
+
+<h1>Basics of object-oriented programming (OOP)</h1>
+
+<p>The basic idea is that coding is structured around <em>objects</em>, which belong to a <em>class</em>, and <em>methods</em> that operate on objects in the class.</p>
+
+<p>Objects are like lists, but with methods that are specifically associated with particular classes, as we&#39;ve seen with the <code>lm</code> class.</p>
+
+<p>Objects have fields, analogous to the components of a list. For S4 and reference classes, the fields of the class are fixed and all objects of the class must contain those fields. </p>
+
+<h1>Working with S3 classes and methods</h1>
+
+<pre><code class="r">library(methods)
+sub &lt;- air[air$Month == 1, ]  # to speed up the next steps
+yb &lt;- sub$DepDelay &gt; 15
+yc &lt;- sub$DepDelay
+yc[yc &gt; 180] &lt;- 180
+x &lt;- sub$Dist
+mod1 &lt;- lm(yc ~ x)
+mod2 &lt;- glm(yb ~ x, family = binomial)
+mod2$residuals[1:20] # access field with list-like syntax
+</code></pre>
+
+<pre><code>##         1         2         3         5         6         7         8 
+## -1.332485 -1.332485 -1.332485 -1.332485 -1.332485  4.007653 -1.332485 
+##         9        10        11        12        13        14        15 
+## -1.332485  4.007653 -1.332485 -1.332485 -1.332485 -1.332485 -1.332485 
+##        16        17        18        19        20        21 
+## -1.332485 -1.332485 -1.332485 -1.332485 -1.332485 -1.332485
+</code></pre>
+
+<pre><code class="r">class(mod2)
+</code></pre>
+
+<pre><code>## [1] &quot;glm&quot; &quot;lm&quot;
+</code></pre>
+
+<pre><code class="r">is(mod2, &quot;lm&quot;)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">is.list(mod2)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">names(mod2)
+</code></pre>
+
+<pre><code>##  [1] &quot;coefficients&quot;      &quot;residuals&quot;         &quot;fitted.values&quot;    
+##  [4] &quot;effects&quot;           &quot;R&quot;                 &quot;rank&quot;             
+##  [7] &quot;qr&quot;                &quot;family&quot;            &quot;linear.predictors&quot;
+## [10] &quot;deviance&quot;          &quot;aic&quot;               &quot;null.deviance&quot;    
+## [13] &quot;iter&quot;              &quot;weights&quot;           &quot;prior.weights&quot;    
+## [16] &quot;df.residual&quot;       &quot;df.null&quot;           &quot;y&quot;                
+## [19] &quot;converged&quot;         &quot;boundary&quot;          &quot;model&quot;            
+## [22] &quot;na.action&quot;         &quot;call&quot;              &quot;formula&quot;          
+## [25] &quot;terms&quot;             &quot;data&quot;              &quot;offset&quot;           
+## [28] &quot;control&quot;           &quot;method&quot;            &quot;contrasts&quot;        
+## [31] &quot;xlevels&quot;
+</code></pre>
+
+<pre><code class="r">methods(class = &quot;glm&quot;)
+</code></pre>
+
+<pre><code>##  [1] add1           anova          coerce         confint       
+##  [5] cooks.distance deviance       drop1          effects       
+##  [9] extractAIC     family         formula        influence     
+## [13] initialize     logLik         model.frame    nobs          
+## [17] predict        print          profile        residuals     
+## [21] rstandard      rstudent       show           slotsFromS3   
+## [25] summary        vcov           weights       
+## see &#39;?methods&#39; for accessing help and source code
+</code></pre>
+
+<pre><code class="r">methods(predict)
+</code></pre>
+
+<pre><code>##  [1] predict.ar*                predict.Arima*            
+##  [3] predict.arima0*            predict.bs*               
+##  [5] predict.bSpline*           predict.glm               
+##  [7] predict.glmmPQL*           predict.gls*              
+##  [9] predict.gnls*              predict.HoltWinters*      
+## [11] predict.lda*               predict.lm                
+## [13] predict.lme*               predict.lmList*           
+## [15] predict.loess*             predict.lqs*              
+## [17] predict.mca*               predict.merMod*           
+## [19] predict.mlm*               predict.nbSpline*         
+## [21] predict.nlme*              predict.nls*              
+## [23] predict.npolySpline*       predict.ns*               
+## [25] predict.pbSpline*          predict.polr*             
+## [27] predict.poly*              predict.polySpline*       
+## [29] predict.ppolySpline*       predict.ppr*              
+## [31] predict.prcomp*            predict.princomp*         
+## [33] predict.qda*               predict.rlm*              
+## [35] predict.smooth.spline*     predict.smooth.spline.fit*
+## [37] predict.StructTS*         
+## see &#39;?methods&#39; for accessing help and source code
+</code></pre>
+
+<pre><code class="r">predict
+</code></pre>
+
+<pre><code>## function (object, ...) 
+## UseMethod(&quot;predict&quot;)
+## &lt;bytecode: 0xfde53f0&gt;
+## &lt;environment: namespace:stats&gt;
+</code></pre>
+
+<pre><code class="r"># predict.glm
+</code></pre>
+
+<p>When <code>predict()</code> is called on a GLM object, it first calls the generic <code>predict()</code>, which then recognizes that the first argument is of the class <em>glm</em> and immediately calls the right class-specific method, <code>predict.glm()</code> in this case.</p>
+
+<h1>Making your own S3 class/object/method</h1>
+
+<p>Making an object and class-specific methods under S3 is simple. </p>
+
+<pre><code class="r">rboot2016 &lt;- list(month = &#39;August&#39;, year = 2015, 
+  instructor = &#39;Paciorek&#39;, attendance = 100)
+class(rboot2016) &lt;- &quot;workshop&quot;
+
+rboot2016
+</code></pre>
+
+<pre><code>## $month
+## [1] &quot;August&quot;
+## 
+## $year
+## [1] 2015
+## 
+## $instructor
+## [1] &quot;Paciorek&quot;
+## 
+## $attendance
+## [1] 100
+## 
+## attr(,&quot;class&quot;)
+## [1] &quot;workshop&quot;
+</code></pre>
+
+<pre><code class="r">is(rboot2016, &quot;workshop&quot;)
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<pre><code class="r">rboot2016$instructor 
+</code></pre>
+
+<pre><code>## [1] &quot;Paciorek&quot;
+</code></pre>
+
+<pre><code class="r">print.workshop &lt;- function(x) {
+    with(x,
+       cat(&quot;A workshop held in &quot;, month, &quot; &quot;, year, &quot;; taught by &quot;, instructor, &quot;.\nThe attendance was &quot;, attendance, &quot;.\n&quot;, sep = &quot;&quot;))
+    invisible(x)
+}
+
+# doesn&#39;t execute correctly in the slide creation, so comment out here:
+# rboot2016 
+</code></pre>
+
+<p>Note that we rely on the generic <code>print()</code> already existing in R. Otherwise we&#39;d need to create it.</p>
+
+<p>So what is happening behind the scenes here?</p>
+
+<h1>Using S4 classes and methods</h1>
+
+<p>Unlike S4, S4 classes have a formal definition and objects in the class must have the specified fields. </p>
+
+<p>The fields of an S4 class are called &#39;slots&#39;. Instead of <code>x$field</code> you do <code>x@field</code>.</p>
+
+<p>Here&#39;s a bit of an example of an S4 class for a linear mixed effects model from <em>lme4</em>:</p>
+
+<pre><code class="r">require(lme4)
+require(methods)
+fm1 &lt;- lmer(Reaction ~ Days + (Days|Subject), sleepstudy)
+class(fm1)
+</code></pre>
+
+<pre><code>## [1] &quot;lmerMod&quot;
+## attr(,&quot;package&quot;)
+## [1] &quot;lme4&quot;
+</code></pre>
+
+<pre><code class="r">methods(class = &quot;lmerMod&quot;)
+</code></pre>
+
+<pre><code>## [1] getL show
+## see &#39;?methods&#39; for accessing help and source code
+</code></pre>
+
+<pre><code class="r">slotNames(fm1)
+</code></pre>
+
+<pre><code>##  [1] &quot;resp&quot;    &quot;Gp&quot;      &quot;call&quot;    &quot;frame&quot;   &quot;flist&quot;   &quot;cnms&quot;    &quot;lower&quot;  
+##  [8] &quot;theta&quot;   &quot;beta&quot;    &quot;u&quot;       &quot;devcomp&quot; &quot;pp&quot;      &quot;optinfo&quot;
+</code></pre>
+
+<pre><code class="r">fm1$theta
+</code></pre>
+
+<pre><code>## Error in fm1$theta: $ operator not defined for this S4 class
+</code></pre>
+
+<pre><code class="r">fm1@theta
+</code></pre>
+
+<pre><code>## [1] 0.96673297 0.01516901 0.23090960
+</code></pre>
+
+<h1>A brief mention of Reference Classes</h1>
+
+<p>Reference classes are new in the last few years; for more information, see <code>?ReferenceClasses</code>.</p>
+
+<p>Reference classes are somewhat like S4 in that a class is formally defined and R is careful about the fields of the class.</p>
+
+<p>Methods for reference classes can modify the contents of fields in an object invisibly without the need to copy over the entire object.</p>
+
+<h1>Error and warning messages</h1>
+
+<p>When you write your own functions, and particularly for distributing to others, it&#39;s a good idea to:</p>
+
+<ul>
+<li>Check for possible errors (particularly in the input arguments) and give the user an informative error message</li>
+<li>Warn them if you&#39;re doing something they might not have anticipated</li>
+</ul>
+
+<p>We can use <code>stop()</code> and <code>warning()</code> to do this. They&#39;re the same functions that are being called when you see an error message or a warning in reaction to your own work in R.</p>
+
+<pre><code class="r">mysqrt &lt;- function(x) {
+  if(is.list(x)) {
+    warning(&quot;x is a list; converting to a vector&quot;)
+    x &lt;- unlist(x)
+  }
+  if(!is.numeric(x)) {
+    stop(&quot;What is the square root of &#39;bob&#39;?&quot;)
+  } else {
+      if(any(x &lt; 0)) {
+        warning(&quot;mysqrt: found negative values; proceeding anyway&quot;)
+        x[x &gt;= 0] &lt;- (x[x &gt;= 0])^(1/2)
+        x[x &lt; 0] &lt;- NaN
+        return(x)
+      } else return(x^(1/2))
+  }
+}
+
+mysqrt(c(1, 2, 3))
+</code></pre>
+
+<pre><code>## [1] 1.000000 1.414214 1.732051
+</code></pre>
+
+<pre><code class="r">mysqrt(c(5, -7))
+</code></pre>
+
+<pre><code>## Warning in mysqrt(c(5, -7)): mysqrt: found negative values; proceeding
+## anyway
+</code></pre>
+
+<pre><code>## [1] 2.236068      NaN
+</code></pre>
+
+<pre><code class="r">mysqrt(c(&#39;asdf&#39;, &#39;sdf&#39;))
+</code></pre>
+
+<pre><code>## Error in mysqrt(c(&quot;asdf&quot;, &quot;sdf&quot;)): What is the square root of &#39;bob&#39;?
+</code></pre>
+
+<pre><code class="r">mysqrt(list(5, 3, &#39;ab&#39;))
+</code></pre>
+
+<pre><code>## Warning in mysqrt(list(5, 3, &quot;ab&quot;)): x is a list; converting to a vector
+</code></pre>
+
+<pre><code>## Error in mysqrt(list(5, 3, &quot;ab&quot;)): What is the square root of &#39;bob&#39;?
+</code></pre>
+
+<pre><code class="r">sqrt(c(5, -7))
+</code></pre>
+
+<pre><code>## Warning in sqrt(c(5, -7)): NaNs produced
+</code></pre>
+
+<pre><code>## [1] 2.236068      NaN
+</code></pre>
+
+<pre><code class="r">sqrt(&#39;asdf&#39;)
+</code></pre>
+
+<pre><code>## Error in sqrt(&quot;asdf&quot;): non-numeric argument to mathematical function
+</code></pre>
+
+<pre><code class="r">sqrt(list(5, 3, 2))
+</code></pre>
+
+<pre><code>## Error in sqrt(list(5, 3, 2)): non-numeric argument to mathematical function
+</code></pre>
+
+<p>So we&#39;ve done something similar to what <code>sqrt()</code> actually does in R.</p>
+
+<h1>&#39;Catching&#39; errors</h1>
+
+<p>When you automate analyses, sometimes an R function call will fail. But you don&#39;t want all of your analyses to grind to a halt because one failed. Rather, you want to catch the error, record that it failed, and move on.</p>
+
+<p>For me this is most critical when I&#39;m doing stratified analyses or sequential operations.</p>
+
+<p>The <code>try()</code> function is a powerful tool here.</p>
+
+<h1>Why we need to <code>try()</code></h1>
+
+<p>Suppose we tried to do a stratified analysis of delay on year and month within destinations. I&#39;m going to do this as a for loop for pedagogical reasons, but again, it would be better to do this with apply/by/plyr type tools.</p>
+
+<pre><code class="r">mod &lt;- list()
+Dests &lt;- c(&#39;LAX&#39;, &#39;OAK&#39;, &#39;DRO&#39;, &#39;ORD&#39;)
+sub &lt;- air[air$Dest %in% Dests, ]
+sub$Month &lt;- as.factor(sub$Month)
+for(curDest in Dests) {
+            cat(&quot;Fitting model for destination &quot;, curDest, &quot;.\n&quot;)
+            tmp &lt;- subset(sub, Dest == curDest)
+            mod[[curDest]] &lt;- lm(DepDelay ~ Year + Month, data = tmp)
+}
+</code></pre>
+
+<pre><code>## Fitting model for destination  LAX .
+## Fitting model for destination  OAK .
+</code></pre>
+
+<pre><code>## Error in `contrasts&lt;-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]): contrasts can be applied only to factors with 2 or more levels
+</code></pre>
+
+<p>What happened?</p>
+
+<h1>How we can <code>try()</code> harder</h1>
+
+<pre><code class="r">mod &lt;- list()
+Dests &lt;- c(&#39;LAX&#39;, &#39;OAK&#39;, &#39;DRO&#39;, &#39;ORD&#39;)
+sub &lt;- air[air$Dest %in% Dests, ]
+sub$Month &lt;- as.factor(sub$Month)
+for(curDest in Dests) {
+            cat(&quot;Fitting model for destination &quot;, curDest, &quot;.\n&quot;)
+            tmp &lt;- subset(sub, Dest == curDest)
+            curMod &lt;- try(lm(DepDelay ~ Year + Month, data = tmp))
+            if(is(curMod, &quot;try-error&quot;)) mod[[curDest]] &lt;- NA 
+                       else mod[[curDest]] &lt;- curMod            
+}
+</code></pre>
+
+<pre><code>## Fitting model for destination  LAX .
+## Fitting model for destination  OAK .
+## Fitting model for destination  DRO .
+## Fitting model for destination  ORD .
+</code></pre>
+
+<pre><code class="r">mod[[1]]
+</code></pre>
+
+<pre><code>## 
+## Call:
+## lm(formula = DepDelay ~ Year + Month, data = tmp)
+## 
+## Coefficients:
+## (Intercept)         Year       Month2       Month3       Month4  
+##  -4284.5640       2.1418      -1.1511      -4.9198      -6.8854  
+##      Month5       Month6       Month7       Month8       Month9  
+##     -5.8525      -0.7247      -2.9865      -5.0934      -6.8512  
+##     Month10      Month11      Month12  
+##     -5.1160      -3.4469       4.8093
+</code></pre>
+
+<pre><code class="r">mod[[2]]
+</code></pre>
+
+<pre><code>## [1] NA
+</code></pre>
+
+<h1>Computing on the language</h1>
+
+<p>One of the powerful capabilities you have in R is the ability to use R to modify and create R code. </p>
+
+<p>First we need to understand a bit about how R code is stored and manipulated when we don&#39;t want to immediately evaluate it.</p>
+
+<p>When you send some code to R to execute, it has to &#39;parse&#39; the input; i.e., to process it so that it know how to evaluate it. The parsed input can then be evaluated in the proper context (i.e., the right frame, holding the objects to be operated on and created). </p>
+
+<p>We can capture parsed code before it is evaluated, manipulate it, and execute the modified result.</p>
+
+<h1>Capturing and evaluating parsed code</h1>
+
+<pre><code class="r">code &lt;- quote(n &lt;- 100)
+code
+</code></pre>
+
+<pre><code>## n &lt;- 100
+</code></pre>
+
+<pre><code class="r">class(code)
+</code></pre>
+
+<pre><code>## [1] &quot;&lt;-&quot;
+</code></pre>
+
+<pre><code class="r">n
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;n&#39; not found
+</code></pre>
+
+<pre><code class="r">eval(code)
+n
+</code></pre>
+
+<pre><code>## [1] 100
+</code></pre>
+
+<pre><code class="r">results &lt;- rep(0, n)
+moreCode &lt;- quote(for(i in 1:n) {
+    tmp &lt;- rnorm(30)
+    results[i] &lt;- min(tmp)
+})
+class(moreCode)
+</code></pre>
+
+<pre><code>## [1] &quot;for&quot;
+</code></pre>
+
+<pre><code class="r">as.list(moreCode)
+</code></pre>
+
+<pre><code>## [[1]]
+## `for`
+## 
+## [[2]]
+## i
+## 
+## [[3]]
+## 1:n
+## 
+## [[4]]
+## {
+##     tmp &lt;- rnorm(30)
+##     results[i] &lt;- min(tmp)
+## }
+</code></pre>
+
+<pre><code class="r">newN &lt;- 200
+codeText &lt;- paste(&quot;n&quot;, &quot;&lt;-&quot;, newN)
+codeText
+</code></pre>
+
+<pre><code>## [1] &quot;n &lt;- 200&quot;
+</code></pre>
+
+<pre><code class="r">codeFromText &lt;- parse(text = codeText)
+codeFromText
+</code></pre>
+
+<pre><code>## expression(n &lt;- 200)
+</code></pre>
+
+<pre><code class="r">eval(codeFromText)
+n
+</code></pre>
+
+<pre><code>## [1] 200
+</code></pre>
+
+<p>So you could use R&#39;s string manipulation capabilities to write and then evaluate R code. Meta.</p>
+
+<h1>Using R to automate working with object names</h1>
+
+<p>Suppose you were given a bunch of objects named &ldquo;x1&rdquo;, &ldquo;x2&rdquo;, &ldquo;x3&rdquo;, &hellip; and you wanted to write code to automatically do some computation on them. Here I&#39;ll just demonstrate with three, but this is obviously more compelling if there are many of them.</p>
+
+<pre><code class="r"># assume these objects were provided to you
+x1 &lt;- rnorm(5)
+x2 &lt;- rgamma(10, 1)
+x3 &lt;- runif(20)
+# now you want to work with them
+nVals &lt;- 3
+results &lt;- rep(0, nVals)
+for(i in 1:nVals) { 
+  varName &lt;- paste(&quot;x&quot;, i, sep = &quot;&quot;)
+  tmp &lt;- eval(as.name(varName))
+  # tmp &lt;- get(varName) # an alternative
+   results[i] &lt;- mean(tmp)
+}
+results
+</code></pre>
+
+<pre><code>## [1] -0.07287026  0.71096228  0.46691160
+</code></pre>
+
+<pre><code class="r">varName
+</code></pre>
+
+<pre><code>## [1] &quot;x3&quot;
+</code></pre>
+
+<pre><code class="r">tmp
+</code></pre>
+
+<pre><code>##  [1] 0.52971958 0.78935623 0.02333120 0.47723007 0.73231374 0.69273156
+##  [7] 0.47761962 0.86120948 0.43809711 0.24479728 0.07067905 0.09946616
+## [13] 0.31627171 0.51863426 0.66200508 0.40683019 0.91287592 0.29360337
+## [19] 0.45906573 0.33239467
+</code></pre>
+
+<p>Or suppose you needed to create &ldquo;x1&rdquo;, &ldquo;x2&rdquo;, &ldquo;x3&rdquo;, automatically.</p>
+
+<pre><code class="r">nVals &lt;- 3
+results &lt;- rep(0, nVals)
+for(i in 1:nVals) {  
+   varName &lt;- paste(&quot;x&quot;, i, sep = &quot;&quot;)
+   assign(varName, rnorm(10))
+}
+x2
+</code></pre>
+
+<pre><code>##  [1]  0.6969634  0.5566632 -0.6887557 -0.7074952  0.3645820  0.7685329
+##  [7] -0.1123462  0.8811077  0.3981059 -0.6120264
+</code></pre>
+
+<p>Can you think of any uses of this ability for R to self-generate?</p>
+
+<h1>File encodings</h1>
+
+<p>Text (either in the form of a file with regular language in it or a data file with fields of character strings) will often contain characters that are not part of the <a href="http://en.wikipedia.org/wiki/ASCII">limited ASCII set of characters</a>, which has 128 characters and control codes; basically what you see on a standard US keyboard.</p>
+
+<p>UTF-8 is an encoding for the Unicode characters that include more than 110,000 characters from 100 different alphabets/scripts. It&#39;s widely used on the web.</p>
+
+<p>Latin-1 encodes a small subset of Unicode and contains the characters used in many European languages (e.g., letters with accents).</p>
+
+<h1>Dealing with encodings in R</h1>
+
+<p>To read files with other characters correctly into R, you may need to tell R what encoding the file is in. E.g., see help on <code>read.table()</code> for the <em>fileEncoding</em> and <em>encoding</em> arguments. </p>
+
+<p>With strings already in R, you can convert between encodings with <code>iconv()</code>:</p>
+
+<pre><code class="r">text &lt;- &quot;Melhore sua seguran\xe7a&quot;
+iconv(text, from = &quot;latin1&quot;, to = &quot;UTF-8&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;Melhore sua segurança&quot;
+</code></pre>
+
+<pre><code class="r">iconv(text, from = &quot;latin1&quot;, to = &quot;ASCII&quot;, sub = &quot;???&quot;)
+</code></pre>
+
+<pre><code>## [1] &quot;Melhore sua seguran???a&quot;
+</code></pre>
+
+<p>You can mark a string with an encoding so R can display it correctly:</p>
+
+<pre><code class="r">x &lt;- &quot;fa\xE7ile&quot;
+Encoding(x) &lt;- &quot;latin1&quot;
+x
+</code></pre>
+
+<pre><code>## [1] &quot;façile&quot;
+</code></pre>
+
+<pre><code class="r"># playing around...
+x &lt;- &quot;\xa1 \xa2 \xa3 \xf1 \xf2&quot;
+Encoding(x) &lt;- &quot;latin1&quot;
+x
+</code></pre>
+
+<pre><code>## [1] &quot;¡ ¢ £ ñ ò&quot;
+</code></pre>
+
+<h1>Line endings in text files</h1>
+
+<p>Windows, Mac, and Linux handle line endings in text files somewhat differently. So if you read a text file into R that was created in a different operating system you can run into difficulties.</p>
+
+<ul>
+<li>In Windows lines end in both a newline (the ASCII character <code>\n</code>) and a carriage return (<code>\r</code>). </li>
+<li>In UNIX and Mac OS X, lines end in only a newline.</li>
+</ul>
+
+<p>So in UNIX you might see <code>^M</code> at the end of lines when you open a Windows file in a text editor. The <em>dos2unix</em> or <em>fromdos</em> in UNIX commands can do the necessary conversion</p>
+
+<p>In Windows you might have a UNIX text file appear to be all one line. The <em>unix2dos</em> or <em>todos</em> commands in UNIX can do the conversion. </p>
+
+<p>There may also be Windows tools to deal with this. </p>
+
+<p>As a side note, before Mac OS X, lines ended only in a carriage return.
+There is a UNIX utility call <em>mac2unix</em> that can convert such text files.</p>
+
+<h1>Working with databases</h1>
+
+<p>R has the capability to read and write from a variety of relational database management systems (DBMS). Basically a database is a collection of rectangular format datasets (tables). Some of these tables have fields in common so it makes sense to merge (i.e., join) information from multiple tables. E.g., you might have a database with a table of student information, a table of teacher information and a table of school information. </p>
+
+<p>The <em>DBI</em> package provides a front-end for manipulating databases from a variety of DBMS (MySQL, SQLite, Oracle, among others)</p>
+
+<p>Basically, you tell the package what DBMS is being used on the back-end, link to the actual database, and then you can use the standard functions in the package regardless of the back-end. </p>
+
+<h1>Database example</h1>
+
+<p>The Current Index to Statistics contains records of article and author information from most Statistics journals. </p>
+
+<p>The database is not freely available, so it&#39;s not on Github, but I can do a demo here. (This may not process correctly when producing these slides&hellip;)</p>
+
+<pre><code class="r">library(RSQLite)  # DBI is a dependency
+db &lt;- dbConnect(SQLite(), dbname = &quot;../data/cis.db&quot;) 
+# cis.db is an SQLite database
+
+dbListTables(db)
+</code></pre>
+
+<pre><code>##  [1] &quot;articles&quot;      &quot;authors&quot;       &quot;authorships&quot;   &quot;books&quot;        
+##  [5] &quot;contacts&quot;      &quot;delayed_jobs&quot;  &quot;isbns&quot;         &quot;issns&quot;        
+##  [9] &quot;issues&quot;        &quot;journals&quot;      &quot;tag_relations&quot; &quot;taggings&quot;     
+## [13] &quot;tags&quot;          &quot;volumes&quot;
+</code></pre>
+
+<pre><code class="r">dbListFields(db, &quot;articles&quot;)
+</code></pre>
+
+<pre><code>##  [1] &quot;id&quot;         &quot;type&quot;       &quot;id_entity&quot;  &quot;id_title&quot;   &quot;title&quot;     
+##  [6] &quot;year&quot;       &quot;volume&quot;     &quot;number&quot;     &quot;page_start&quot; &quot;page_end&quot;  
+## [11] &quot;url&quot;        &quot;journal&quot;    &quot;journal_id&quot; &quot;volume_id&quot;  &quot;issue_id&quot;  
+## [16] &quot;zmath&quot;
+</code></pre>
+
+<pre><code class="r">breiman &lt;- dbGetQuery(db, &quot;select * from authors 
+   where name like &#39;Breiman%&#39;&quot;)
+breiman
+</code></pre>
+
+<pre><code>##     id           name
+## 1  532 Breiman, Leo\n
+## 2 1141  Breiman, L.\n
+</code></pre>
+
+<h1>Computer architecture</h1>
+
+<p>Note to participants: I&#39;m having trouble with parallelization in RStudio, so we&#39;ll just run the demo code in this module in a command line R session. You can open the basic R GUI for Mac or Windows, or, on a Mac, start R in a terminal window.</p>
+
+<ul>
+<li>Modern computers have multiple processors and clusters/supercomputers have multiple networked machines, each with multiple processors.</li>
+<li>The key to increasing computational efficiency in these contexts is breaking up the work amongst the processors.</li>
+<li>Processors on a single machine (or &#39;node&#39;) share memory and don&#39;t need to carry out explicit communication (shared memory computation)</li>
+<li>Processors on separate machines need to pass data across a network, often using the MPI protocol (distributed memory computation)</li>
+</ul>
+
+<p>We&#39;ll focus on shared memory computation here.</p>
+
+<h1>How do I know how many cores a computer has?</h1>
+
+<ul>
+<li>Linux - count the processors listed in <em>/proc/cpuinfo</em> or use <code>nproc</code></li>
+<li>Mac - in a terminal: <code>system_profiler | grep -i &#39;Cores&#39;</code></li>
+<li>Windows - count the number of graphs shown for CPU Usage (or CPU Usage History) under &ldquo;Task Manager-&gt;Performance&rdquo;, or <a href="http://www.cpuid.com/cpuz.php">try this program</a> </li>
+</ul>
+
+<p>To see if multiple cores are being used by your job, you can do:</p>
+
+<ul>
+<li>Mac/Linux - use <em>top</em> or <em>ps</em></li>
+<li>Windows - see the &ldquo;Task Manager-&gt;Performance-&gt;CPU Usage&rdquo;</li>
+</ul>
+
+<h1>How can we make use of multiple cores?</h1>
+
+<p>Some basic approaches are:</p>
+
+<ul>
+<li>Use a linear algebra package that distributes computations across &#39;threads&#39;</li>
+<li>Spread independent calculations (embarrassingly parallel problems) across multiple cores
+
+<ul>
+<li><em>for</em> loops with independent calculations</li>
+<li>parallelizing <code>apply()</code> and its variants</li>
+</ul></li>
+</ul>
+
+<h1>Threaded linear algebra</h1>
+
+<p>R comes with a default BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package) that carry out the core linear algebra computations. However, you can generally improve performance (sometimes by an order of magnitude) by using a different BLAS. Furthermore a threaded BLAS will allow you to use multiple cores.</p>
+
+<p>A &#39;thread&#39; is a lightweight process, and the operating system sees multiple threads as part of a single process.</p>
+
+<ul>
+<li>For Linux, <em>openBLAS</em>, Intel&#39;s <em>MKL</em> and AMD&#39;s <em>ACML</em> are both fast and threaded. On the SCF we have openBLAS on the compute servers and ACML on the Linux cluster and R uses these for linear algebra.</li>
+<li>For Mac, Apple&#39;s <em>vecLib</em> (in a library called <em>libRblas.vecLib.dylib</em>) is fast and threaded.</li>
+<li>For Windows, you&#39;re probably out of luck.</li>
+</ul>
+
+<p>We&#39;ll show by demonstration that my Mac laptop is using multiple cores for linear algebra operations.</p>
+
+<pre><code class="r"># note to CJP: don&#39;t run in RStudio
+n &lt;- 5000
+x &lt;- matrix(rnorm(n^2), n)
+U &lt;- chol(crossprod(x))
+</code></pre>
+
+<p>You should see that your R process is using more than 100% of CPU. Inconceivable!</p>
+
+<h1>More details on the BLAS</h1>
+
+<p>You can talk with your systems administrator about linking R to a fast BLAS or you can look into it yourself for your personal machine; see the <a href="http://www.cran.r-project.org/manuals.html">R Installation and Administration manual</a>.</p>
+
+<p>Note that in some cases, in particular for small matrix operations, using multiple threads may actually slow down computation, so you may want to experiment, particularly with Linux. You can force the linear algebra to use only a single core by doing (assuming you&#39;re using the bash shell) <code>export OMP_NUM_THREADS=1</code> in the terminal window <em>before</em> starting R in the same terminal. Or see the <em>RhpcBLASctl</em> package to do it from within R.</p>
+
+<p>Finally, note that threaded BLAS and either <code>foreach</code> or parallel versions of <code>apply()</code> can conflict and cause R to hang, so you&#39;re likely to want to set the number of threads to 1 as above if you&#39;re doing explicit parallelization. </p>
+
+<h1>What is an embarrassingly parallel (EP) problem?</h1>
+
+<p>Do you think you should be asking? </p>
+
+<p>An EP problem is one that can be solved by doing independent computations as separate processes without communication between the processes. You can get the answer by doing separate tasks and then collecting the results. </p>
+
+<p>Examples in statistics include</p>
+
+<ol>
+<li>stratified analyses</li>
+<li>cross-validation</li>
+<li>simulations with many independent replicates</li>
+<li>bootstrapping</li>
+<li>random forests models</li>
+</ol>
+
+<p>Can you think of others in your work?</p>
+
+<p>Some things that are not EP:</p>
+
+<ol>
+<li>Markov chain Monte Carlo for fitting Bayesian models</li>
+<li>optimization</li>
+</ol>
+
+<h1>Using multiple cores for EP problems: <em>foreach</em></h1>
+
+<p>First, make sure your iterations are independent and don&#39;t involve sequential calculations!</p>
+
+<p>The <em>foreach</em> package provides a way to do a for loop using multiple cores. It can use a variety of &#39;back-ends&#39; that handle the nitty-gritty of the parallelization. </p>
+
+<p>To use multiple cores on a single machine, use the <em>parallel</em> back-end from the <em>doParallel</em> package (or <em>multicore</em> from <em>doMC</em>)</p>
+
+<pre><code class="r"># note to CJP: don&#39;t run in RStudio
+require(parallel)
+</code></pre>
+
+<pre><code>## Loading required package: parallel
+</code></pre>
+
+<pre><code class="r">require(doParallel)
+</code></pre>
+
+<pre><code>## Loading required package: doParallel
+</code></pre>
+
+<pre><code>## Loading required package: foreach
+</code></pre>
+
+<pre><code>## Loading required package: iterators
+</code></pre>
+
+<pre><code class="r">require(foreach)
+nCores &lt;- 4  # actually only 2 on my laptop, but appears hyperthreaded
+registerDoParallel(nCores)
+
+fitFun &lt;- function(curDest) {
+            library(mgcv)
+            tmp &lt;- subset(air, Dest == curDest)
+            tmp$Hour &lt;- tmp$CRSDepTime %/% 100
+            curMod &lt;- try(gam(DepDelay ~ Year + s(Month) + s(Hour) + 
+                 as.factor(DayOfWeek), data = tmp))
+            if(is(tmp, &quot;try-error&quot;)) curMod &lt;- NA 
+            return(curMod)
+}
+
+out &lt;- foreach(dest = unique(air$Dest)) %dopar% {
+    cat(&quot;Starting job for &quot;, dest, &quot;.\n&quot;, sep = &quot;&quot;)
+    outSub &lt;- fitFun(dest)
+    cat(&quot;Finishing job for &quot;, dest, &quot;.\n&quot;, sep = &quot;&quot;)
+    outSub # this will become part of the out objec
+}
+out[1:5]
+</code></pre>
+
+<pre><code>## [[1]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.51 7.49  total = 23 
+## 
+## GCV score: 1051.858     
+## 
+## [[2]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.46 8.64  total = 24.1 
+## 
+## GCV score: 1325.755     
+## 
+## [[3]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 5.93 8.70  total = 22.63 
+## 
+## GCV score: 639.5956     
+## 
+## [[4]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.84 8.51  total = 24.35 
+## 
+## GCV score: 880.4363     
+## 
+## [[5]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 8.00 5.68  total = 21.69 
+## 
+## GCV score: 1367.66
+</code></pre>
+
+<p><strong>Question</strong>: What do you think are the advantages and disadvantages of having many small tasks vs. a few large tasks?</p>
+
+<h1>Using multiple cores for EP problems: parallel <em>apply</em> variants</h1>
+
+<p><code>help(clusterApply)</code> shows the wide variety of parallel versions of the <em>apply</em> family of functions.</p>
+
+<pre><code class="r">require(parallel)
+nCores &lt;- 4
+cluster &lt;- makeCluster(nCores)
+cluster
+</code></pre>
+
+<pre><code>## socket cluster with 4 nodes on host &#39;localhost&#39;
+</code></pre>
+
+<pre><code class="r"># you may need to load all required libraries within
+# the function being applied
+# note this produces an error when run during creation of this HTML,
+# but should be fine in a standard R session
+clusterExport(cluster, &#39;air&#39;)
+</code></pre>
+
+<pre><code>## Error in get(name, envir = envir): object &#39;air&#39; not found
+</code></pre>
+
+<pre><code class="r">out &lt;- parLapply(cluster, unique(air$Dest), fitFun)
+out[1:5]
+</code></pre>
+
+<pre><code>## [[1]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.51 7.49  total = 23 
+## 
+## GCV score: 1051.858     
+## 
+## [[2]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.46 8.64  total = 24.1 
+## 
+## GCV score: 1325.755     
+## 
+## [[3]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 5.93 8.70  total = 22.63 
+## 
+## GCV score: 639.5956     
+## 
+## [[4]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.84 8.51  total = 24.35 
+## 
+## GCV score: 880.4363     
+## 
+## [[5]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 8.00 5.68  total = 21.69 
+## 
+## GCV score: 1367.66
+</code></pre>
+
+<p>Note there may be an error in the HTML output from the above code, but it should work when running it directly.</p>
+
+<pre><code class="r">require(parallel)
+nCores &lt;- 4
+out2 &lt;- mclapply(unique(air$Dest), fitFun, mc.cores = nCores)
+</code></pre>
+
+<pre><code>## Error in mcfork(): unable to fork, possible reason: Cannot allocate memory
+</code></pre>
+
+<pre><code class="r">out2[1:5]
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;out2&#39; not found
+</code></pre>
+
+<p>One thing to keep in mind is whether the different tasks all take about the same amount of time or widely different times. In the latter case, one wants to sequentially dispatch tasks as earlier tasks finish, rather than dispatching a block of tasks to each core. Some of these parallel <em>apply</em> variants allow you to control this. </p>
+
+<h1>Parallelization and Random Number Generation</h1>
+
+<p>A tale of the good, the bad, and the ugly</p>
+
+<p>Random numbers on a computer are <a href="http://dilbert.com/strips/comic/2001-10-25">not truly random</a> but are generated as a sequence of pseudo-random numbers. The sequence is finite (but very, very, very, very long) and eventally repeats itself. </p>
+
+<p>A random number seed determines where in the sequence one starts when generating random numbers.</p>
+
+<ul>
+<li>The ugly: Make sure you do not use the same seed for each task</li>
+</ul>
+
+<pre><code class="r">set.seed(0)
+rnorm(5)
+</code></pre>
+
+<pre><code>## [1]  1.2629543 -0.3262334  1.3297993  1.2724293  0.4146414
+</code></pre>
+
+<pre><code class="r">set.seed(0)
+rnorm(5)
+</code></pre>
+
+<pre><code>## [1]  1.2629543 -0.3262334  1.3297993  1.2724293  0.4146414
+</code></pre>
+
+<ul>
+<li><p>The (not so) bad: Use a different seed for each task or each process. It&#39;s possible the subsequences will overlap but quite unlikely.</p></li>
+<li><p>The good: Use the L&#39;Ecuyer algorithm (<code>library(lecuyer)</code>) to ensure distinct subsequences</p>
+
+<ul>
+<li>with <code>foreach</code> you can use <code>%dorng%</code> from the <em>doRNG</em> package in place of <code>%dopar%</code></li>
+<li>with <code>mclapply()</code>, use the <code>mc.set.seed</code> argument (see <code>help(mcparallel)</code>) </li>
+</ul></li>
+<li><p>The ugly but good: Generate all your random numbers in the master process and distribute them to the tasks if feasible.</p></li>
+</ul>
+
+<p>The syntax for using L&#39;Ecuyer is available in my <a href="https://github.com/berkeley-scf/tutorial-parallel-basics">parallel computing tutorial</a>.</p>
+
+<h1>A brief note on distributed computing for advanced users</h1>
+
+<p>If you have access to multiple machines within a networked environment, such as the compute servers in the Statistics Department or the campus-wide Savio cluster or machines on Amazon&#39;s EC2 service, there are a few (sometimes) straightforward ways to parallelize EP jobs across machines.</p>
+
+<ol>
+<li>Use <code>foreach</code> with <em>doMPI</em> as the back-end. You&#39;ll need <em>MPI</em> and <em>Rmpi</em> installed on all machines.</li>
+<li>Use <code>foreach</code> with <em>doSNOW</em> as the backend and start a cluster of type &ldquo;SOCK&rdquo; to avoid needing MPI/Rmpi. </li>
+<li>Use sockets to make a cluster in R and then use <code>parLapply()</code>, <code>parSapply()</code>, <code>mclapply()</code>, etc.</li>
+</ol>
+
+<p>See my <a href="https://github.com/berkeley-scf/tutorial-parallel-distributed">tutorial on distributed computing</a> for syntax and more details. </p>
+
+</body>
+
+</html>

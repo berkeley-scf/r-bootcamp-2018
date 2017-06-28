@@ -1,0 +1,30 @@
+All, you're on the waitlist for the R bootcamp Aug 20-21 at Berkeley.
+I hope to be able to let you attend, but we give first preference to
+Berkeley graduate students and postdocs. We should be able to let you know
+more firmly in early-mid August. Note that for those receiving this who 
+are undergraduates, taking Statistics 133 is
+a good way to learn R and about computing with data more generally.
+
+In the meantime, if you realize you cannot make it, it's important
+that you cancel your waitlisted registration using the link below so we can
+accommodate as many people as possible.
+https://docs.google.com/forms/d/1pmQCWuVgWkGZeGYHmN7oqPqoqi4q7z4k4O12_CgUy08/viewform?c=0&w=1
+
+Thanks,
+Chris Paciorek
+
+----------------------------------------------------------------------------------------------
+Chris Paciorek
+
+Statistical Computing Consultant
+Statistical Computing Facility, Econometrics Laboratory, Berkeley
+Research Computing
+
+Office: 495 Evans Hall                      Email: paciorek@stat.berkeley.edu
+Mailing Address:                            Voice: 510-842-6670
+Department of Statistics                    Fax:   510-642-7892
+367 Evans Hall                              Skype: cjpaciorek
+University of California, Berkeley          WWW:
+www.stat.berkeley.edu/~paciorek
+Berkeley, CA 94720 USA                      Permanent forward:
+paciorek@alumni.cmu.edu

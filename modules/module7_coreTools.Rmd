@@ -1,0 +1,256 @@
+% R bootcamp, Module 7: Core tools
+% August 2016, UC Berkeley
+% Chris Paciorek
+
+```{r chunksetup, include=FALSE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+require(fields)
+require(foreign)
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
+air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+```
+
+
+# Smoothing
+
+Linear regression and GLMs are of course useful, but often the relationship is not linear, even on some transformed scale.
+
+Additive models and generalized additive models (GAMs) are the more flexible variants on linear models and GLMs.
+
+There are a variety of tools in R for modeling nonlinear and smooth relationships, mirroring the variety of methods in the literature.
+
+One workhorse is `gam()` in the *mgcv* package.
+
+# GAM in action
+
+Let's consider month in the airline dataset.
+
+Any hypotheses about the relationship of delays with month and time of day?
+
+```{r gamExample, cache=TRUE, fig.width=10, fig.cap = ""}
+library(mgcv)
+thresh <- function(x, val, upper = TRUE) {
+       if(upper) {
+         x[x > val] <- val
+       } else {
+         x[x < val] <- val
+       }
+       return(x)
+}
+
+
+DestSubset <- c('LAX','SEA','PHX','DEN','MSP','JFK','ATL','DFW','IAH', 'ORD') 
+airSmall <- subset(air, Dest %in% DestSubset)
+# reduce outlier influence
+airSmall$DepDelayCens <- thresh(airSmall$DepDelay, 180)
+airSmall$SchedDepCont <- airSmall$CRSDepTime %/% 100 + (airSmall$CRSDepTime %% 100) / 60
+mod_LAX <- gam(DepDelayCens ~ s(Month, k = 8) + s(SchedDepCont, k = 25), 
+         data = airSmall, subset = airSmall$Dest == "LAX")
+mod_ORD <- gam(DepDelayCens ~ s(Month, k = 8) + s(SchedDepCont, k = 25), 
+         data = airSmall, subset = airSmall$Dest == "ORD")
+summary(mod_LAX)
+summary(mod_ORD)
+par(mfrow = c(2,2))
+plot(mod_LAX)
+plot(mod_ORD)
+```
+
+# A bit more model-building 
+
+If we were willing to assume that the month and time effects are the same across destinations but there are different average delays by destination:
+
+```{r gamExampleFull, cache=TRUE, fig.width=10, fig.cap = ""}
+# this will take a minute or so
+mod_multiple <- gam(DepDelayCens ~ s(Month, k = 8) + s(SchedDepCont, k = 25) +
+        Dest, data = airSmall)
+summary(mod_multiple)
+par(mfrow = c(1,2))
+plot(mod_multiple)
+```
+
+# Distributions
+Since R was developed by statisticians, it handles distributions and simulation seamlessly.
+
+All commonly-used distributions have functions in R. Each distribution has a family of functions: 
+
+* d - probability density/mass function, e.g. `dnorm()`
+* r - generate a random value, e.g., `rnorm()`
+* p - cumulative distribution function, e.g., `pnorm()`
+* q - quantile function (inverse CDF), e.g., `qnorm()`
+
+Some of the distributions include the following (in the form of their random number generator function): `rnorm()`, `runif()`, `rbinom()`, `rpois()`, `rbeta()`, `rgamma()`, `rt()`, `rchisq()`.
+
+# Distributions in action
+
+```{r}
+pnorm(1.96)
+qnorm(.975)
+dbinom(0:10, size = 10, prob = 0.3)
+dnorm(5)
+dt(5, df = 1)
+
+x <- seq(-5, 5, length = 100)
+plot(x, dnorm(x), type = 'l')
+lines(x, dt(x, df = 1), col = 'red')
+```
+
+```{r, fig.cap = ""}
+rmultinom(1, 100, prob = c(.1, .1, .2, .3, .25, .05)) 
+
+x <- seq(0, 10, length = 100)
+plot(x, dchisq(x, df = 1), type = 'l')
+lines(x, dchisq(x, df = 2), col = 'red')
+```
+
+# Other types of simulation and sampling
+
+We can draw a sample with or without replacement.
+
+```{r}
+sample(1:nrow(air), 20, replace = FALSE)
+```
+
+Here's an example of some code that would be part of coding up a bootstrap.
+```{r}
+# actual mean
+mean(air$DepDelay, na.rm = TRUE)
+# here's a bootstrap sample:
+smp <- sample(seq_len(nrow(air)), replace = TRUE) 
+mean(air$DepDelay[smp], na.rm = TRUE)
+```
+
+It's a good idea to use `seq_along()` and `seq_len()` and not syntax like `1:length(air)` in `sample()` because the outcome of `length()` might in some cases be unexpected (e.g., if you're taking subsets of a dataset). Similar reasoning holds when setting up for loops: e.g., 
+
+```{r eval=FALSE}
+for(i in seq_len(nrow(air))) {
+# blah
+}
+```
+
+# The Random Seed
+
+A few key facts about generating random numbers
+
+* Random number generation is based on generating uniformly between 0 and 1 and then transforming to the kind of random number of interest: normal, categorical, etc.
+* Random numbers on a computer are *pseudo-random*; they are generated deterministically from a very, very, very long sequence that repeats
+* The *seed* determines where you are in that sequence
+
+To replicate any work involving random numbers, make sure to set the seed first.
+
+```{r}
+set.seed(0)
+vals <- sample(1:nrow(air), 10)
+vals
+vals <- sample(1:nrow(air), 10)
+vals
+set.seed(0)
+vals <- sample(1:nrow(air), 10)
+vals
+```
+
+# Optimization
+
+R provides functionality for optimization - finding maxima or minima of a function. 
+
+A workhorse is `optim()`, which implements a number of optimization algorithms. 
+
+```{r eval=FALSE, fig.cap = ""} 
+require(fields)  
+```
+```{r fig.width=11, fig.height=5}
+ banana <- function(x) {   ## Rosenbrock Banana function
+         x1 <- x[1]
+         x2 <- x[2]
+         100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+     }
+
+x1s <- x2s <- seq(-5, 5, length = 100)
+x <- expand.grid(x1s, x2s)
+fx <- apply(x, 1, banana)
+
+par(mfrow = c(1, 2), mai = c(.45, .4, .1, .4))
+image.plot(x1s, x2s, matrix(fx, 100), xlab = '', ylab = '')
+image.plot(x1s, x2s, matrix(log(fx), 100), xlab = '', ylab = '')
+
+optim(c(-2,0), banana)
+```
+We can see the progression of evaluations of the objective function:
+```{r eval=FALSE, fig.cap = ""}
+banana <- function(x) {   ## Rosenbrock Banana function
+         points(x[1],x[2])
+         Sys.sleep(.03)
+         x1 <- x[1]
+         x2 <- x[2]
+         100 * (x2 - x1 * x1)^2 + (1 - x1)^2
+     }
+par(mfrow = c(1, 1), mai = c(.45, .4, .1, .4))
+image.plot(x1s, x2s, matrix(log(fx), 100), xlab = '', ylab = '')
+optim(c(-2,0), banana)
+```
+
+
+# Dates
+- R has built-in ways to handle dates (don't reinvent the wheel!) 
+
+```{r dates}
+date1 <- as.Date("03-01-2011", format = "%m-%d-%Y")
+date2 <- as.Date("03/02/11", format = "%m/%d/%y")
+date3 <- as.Date("07-May-11", format = "%d-%b-%y")
+
+date1; date2
+class(date1)
+dates <- c(date1, date2, date3)
+weekdays(dates)
+dates + 30
+date3 - date2
+unclass(dates)
+```
+- The origin date in R is January 1, 1970
+
+
+# Time too!
+
+```{r}
+library(chron)
+d1 <- chron("12/25/2004", "10:37:59") 
+# default format of m/d/Y and h:m:s
+d2 <- chron("12/26/2004", "11:37:59")
+
+class(d1)
+d1
+d1 + 33
+d2 - d1
+d1 + d2
+```
+
+There's lots more packages/functionality for dates/times: see *lubridate* and `?DateTimeClasses`
+ 
+# Breakout 
+
+### Basics
+
+1) Generate 100 random Poisson values with a population mean of 5. How close is the mean of those 100 values to the value of 5?
+
+2) What is the 95th percentile of a chi-square distribution with 1 degree of freedom?
+
+3) What's the probability of getting a value greater than 5 if you draw from a standard normal distribution? What about a t distribution with 1 degree of freedom?
+
+### Using the ideas
+
+4) Consider the code where we used `sample()`.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:
+- resample with replacement a new dataset of the same size as the actual dataset
+- assign the value of the mean of the delay for the bootstrap dataset into the storage vector
+- repeat
+
+Now plot a histogram of the 500 values - this is an estimate of the sampling distribution of the sample mean. 
+
+5) Modify the GAMs of delay on month and time to set `k` to a variety of values and see how the estimated relationships change. 
+
+### Advanced 
+
+6) Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the *airline* dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the *times* argument to the `rep()` function. (If you're not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)
+
+7) Write some code to demonstrate the central limit theorem. Generate many different replicates of samples of size `n` from a skewed or discrete distribution and show that if `n` is big enough, the distribution of the means (of each sample of size `n`) looks approximately normal in a histogram. Do it without any looping (using techniques from earlier modules)! I.e., I want you to show that if you have a large number (say 10,000) of means, each mean being the mean of `n` values from a distribution, the distribution of the means looks approximately normal if `n` is sufficiently big.
+
+

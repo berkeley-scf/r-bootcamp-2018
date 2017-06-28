@@ -1,0 +1,385 @@
+% R bootcamp, Module 4: Calculations
+% August 2016, UC Berkeley
+% Chris Paciorek
+
+```{r chunksetup, include=FALSE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+require(foreign)
+require(fields)
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
+air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+```
+
+# Vectorized calculations
+
+As we've seen, R has many functions that allow you to operate on each element of a vector all at once.
+
+```{r}
+vals <- rnorm(1000)
+chi2vals <- vals^2
+chi2_df1000 <- sum(chi2vals)
+# imagine if the code above were a loop, or three separate loops
+```
+
+Advantages:
+
+* much faster than looping
+* easier to code
+* easier to read and understand the code
+
+Sometimes there are surprises in terms of what is fast, as well as tricks for vectorizing things in unexpected ways:
+```{r}
+vals <- rnorm(1e6)
+system.time(trunc <- ifelse(vals > 0, vals, 0))
+system.time(vals <- vals * (vals > 0))
+```
+
+**Question**: What am I doing with `vals * (vals > 0)` ? What happens behind the scenes in R?
+
+If you use a trick like this, having a comment in your code is a good idea.
+
+Lots of functions in R are vectorized, such as some we've already used.
+
+```{r}
+tmp <- as.character(air$DepTime)
+air$DepHour <- substring(tmp, 1, 2)
+head(air$DepHour)
+```
+
+Question: Note the code above runs and the syntax is perfectly good R syntax, but in terms of what it does, there is a bug in it. See if you can see what it is.
+
+# Linear algebra 
+
+R can do essentially any linear algebra you need. It uses system-level packages called BLAS (basic linear algebra subroutines) and LAPACK (linear algebra package). Note that these calculations will be essentially as fast as if you wrote C code because R just calls C and Fortran routines to do the calculations.
+
+The BLAS that comes with R is fairly slow. It's possible to use a faster BLAS, as well as one that uses multiple cores automatically. This can in some cases give you an order of magnitude speedup if your work involves a lot of matrix manipulations/linear algebra. More details in Module 10.
+
+
+# Vectorized vector/matrix calculations
+
+Recall that `+`, `-`,`*`, `/` do vectorized calculations:
+
+```{r}
+A <- matrix(1:9, 3)
+B <- matrix(seq(4,36, by = 4), 3)
+
+A + B
+A + B[ , 1]
+A * B
+A * B[ , 1]
+```
+
+Matrix/vector multiplication
+
+```{r}
+A %*% B[ , 1]
+A %*% B
+
+identical(t(A)%*%A, crossprod(A))
+```
+
+Some decompositions
+
+```{r cache=TRUE}
+## next 3 lines generate a positive definite matrix
+require(fields)
+times <- seq(0, 1, length = 100)
+R <- exp(-rdist(times) / 0.2) # a correlation matrix
+######################################################
+e <- eigen(R)
+range(e$values)
+e$vectors[ , 1]
+
+sv <- svd(R)
+U <- chol(R)
+
+devs <- rnorm(100)
+Rinvb <- solve(R, devs)  # R^{-1} b
+Rinv <- solve(R) # R^{-1} -- try to avoid this
+```
+
+
+# Pre-allocation
+
+This is slow.
+```{r cache=TRUE}
+vals <- 0
+n <- 50000
+system.time({
+for(i in 1:n)
+      vals <- c(vals, i)
+})
+```
+
+The same holds for using `rbind()`, `cbind()`, or adding to a list, one element at a time.
+
+This is both slow and unclear (in the sense that it appears the code has a bug, but it works):
+```{r cache=TRUE}
+vals <- 0
+n <- 50000
+system.time({
+for(i in 1:n)
+      vals[i] <- i
+})
+```
+
+**Question**: Thoughts on why these are so slow? Think about what R might be doing behind the scenes
+
+# The answer is to pre-allocate memory
+
+This is not so slow. (Please ignore the for-loop hypocrisy and the fact that I could do this as `vals <- 1:n`.)
+
+```{r}
+n <- 50000
+system.time({
+vals <- rep(0, n)
+# alternatively: vals <- as.numeric(NA); length(vals) <- n
+for(i in 1:n)
+      vals[i] <- i
+})
+```
+
+Here's how to pre-allocate an empty list: 
+```{r}
+vals <- list(); length(vals) <- n
+head(vals)
+```
+
+# apply
+
+Some functions aren't vectorized, or you may want to use a function on every row or column of a matrix/data frame, every element of a list, etc.
+
+For this we use the `apply()` family of functions.
+
+```{r}
+mat <- matrix(rnorm(100*1000), nr = 100)
+row_min <- apply(mat, MARGIN = 1, FUN = min)
+col_max <- apply(mat, MARGIN = 2, FUN = max)
+```
+
+There are actually some even faster specialized functions:
+```{r}
+row_mean <- rowMeans(mat)
+col_sum <- colSums(mat)
+```
+
+# `lapply()` and `sapply()`
+
+```{r}
+myList <- list(rnorm(3), rnorm(3), rnorm(5))
+lapply(myList, min)
+sapply(myList, min)
+```
+
+Note that we don't generally want to use `apply()` on a data frame. 
+
+You can use `lapply()` and `sapply()` on regular vectors, such as vectors of indices, which can come in handy, though this is a silly example:
+```{r}
+sapply(1:10, function(x) x^2)
+```
+
+Here's a cool trick to pull off a particular element of a list of lists:
+
+```{r}
+params <- list(a = list(mn = 7, sd = 3), b = list(mn = 6,sd = 1), 
+  c = list(mn = 2, sd = 1))
+sapply(params, "[[", 1)
+```
+
+**Challenge**: Think about why this works. 
+
+Hint:
+```{r}
+test <- list(5, 7, 3)
+test[[2]]
+# `[[`(test, 2)  # need it commented or R Markdown processing messes it up...
+
+# `+`(3, 7)
+```
+
+# And more `apply()`s
+
+There are a bunch of `apply()` variants, as well as parallelized versions of them:
+
+* `tapply()`, `vapply()`, `mapply()`, `rapply()`, `eapply()`
+* for parallelized versions see Module 10 or `?clusterApply`)
+
+# Tabulation 
+
+- Sometimes we need to do some basic checking for the number of observations or types of observations in our dataset
+- To do this quickly and easily, `table()` is our friend
+- Let's look at our observations by year and airline
+
+```{r table}
+unique(air$UniqueCarrier)
+tbl <- table(air$UniqueCarrier, air$Year)
+tbl
+round(prop.table(tbl, margin = 2), 3)
+table(air$UniqueCarrier, air$Month, air$Cancelled)
+with(air[air$UniqueCarrier == 'UA', ], table(Month, Cancelled))
+```
+
+**Challenge**: Can you figure out what `with()` does just by example? 
+
+# Stratified analyses I
+Often we want to do individual analyses within subsets or clusters of our data.
+
+As a first step, we might want to just split our dataset by a stratifying variable.  
+
+```{r, fig.cap ="", fig.width=12}
+# restrict to a few destinations
+DestSubset <- c('LAX','SEA','PHX','DEN','MSP','JFK','ATL','DFW','IAH', 'ORD') 
+airSmall <- subset(air, Dest %in% DestSubset)
+airSmall$DepDelay[airSmall$DepDelay > 60] <- 60
+subsets <- split(airSmall, airSmall$Dest)
+length(subsets)
+dim(subsets[['LAX']])
+par(mfrow = c(1,2))
+boxplot(DepDelay ~ Month, data = subsets[['IAH']], main = 'Houston')
+abline(h = 0, col = 'grey')
+boxplot(DepDelay ~ Month, data = subsets[['ORD']], main = 'Chicago')
+abline(h = 0, col = 'grey')
+```
+
+Note the use of the `%in%` operator can also be helpful.
+
+# Stratified analyses II
+
+Often we want to do individual analyses within subsets or clusters of our data. R has a variety of tools for this; for now we'll look at `aggregate()` and `by()`. These are wrappers of `tapply()`. 
+
+```{r aggregate1}
+airSmallNum <- airSmall[ , c('DepDelay', 'ArrDelay', 'TaxiIn', 'TaxiOut')]
+aggregate(airSmallNum, by = list(destination = airSmall$Dest), FUN = median, na.rm = TRUE)
+aggregate(DepDelay ~ Dest, data = airSmall, FUN = median)
+agg <- aggregate(DepDelay ~ Dest + Month, data = airSmall, FUN = median)
+xtabs(DepDelay ~ ., data = agg)
+```
+
+Notice the 'long' vs. 'wide' formats. You'll see more about that sort of thing in Module 5.
+
+# Discretization
+
+You may need to discretize a continuous variable [or a discrete variable with many levels], e.g., by departure delay severity:
+```{r fig.width=9}
+air$delayStatus <- cut(air$DepDelay, breaks = c(-Inf, -5, 5, 15, 30, 60, 180, Inf))
+levels(air$delayStatus) <- c('early','on-time','slight',
+                        'short','medium','long','hair-pulling')
+tbl <- table(air$UniqueCarrier, air$delayStatus)
+round( prop.table(tbl, margin = 1), 2 )
+```
+
+
+# Stratified analyses III
+
+`aggregate()` works fine when the output is univariate, but what about more complicated analyses than computing the median, such as fitting a set of regressions?
+
+```{r}
+airSmall$late <- airSmall$DepDelay >= 15
+airSmall$Month <- as.factor(airSmall$Month)
+airSmall$Month <- relevel(airSmall$Month, "5")
+airSmall$Dest <- as.character(airSmall$Dest)
+
+out <- by(airSmall, airSmall$Dest, 
+function(x) {
+  if(sum(!is.na(x$late))) 
+    # fit logistic regression
+    glm(late ~ Month, family = binomial, data = x) 
+  else NA
+})
+length(out)
+summary(out[['IAH']])
+summary(out[['ORD']])
+```
+
+**Question**: What's the business with the `if` statement? Why is this good practice?
+
+# Sorting
+
+`sort()` applied to a vector does what you expect.
+
+Sorting a matrix or dataframe based on one or more columns is a somewhat manual process, but once you get the hang of it, it's not bad.
+
+```{r}
+ord <- order(air$DepDelay, air$ArrDelay, decreasing = TRUE)
+ord[1:5]
+air_ordered <- air[ord, ]
+head(air_ordered)
+```
+
+You could of course write your own *sort* function that uses `order()`. More in Module 6.
+
+# Merging Data
+
+We often need to combine data across multiple data frames, merging on common fields (i.e., *keys*). In database terminology, this is a *join* operation.
+
+Here's an example where we want to add a column indicating the number of flights to the given destination.
+
+```{r} 
+numFlights <- as.data.frame(table(air$Dest))
+
+air2 <- merge(air, numFlights, by.x = 'Dest', by.y = 'Var1',
+     all.x = TRUE, all.y = FALSE)
+dim(air)
+dim(air2)
+head(air2)
+```
+
+What's the deal with the `all.x` and `all.y` ?  We can tell R whether we want to keep all of the `x` observations, all the `y` observations, or neither, or both, when there may be rows in either of the datasets that don't match the other dataset.
+
+# Breakout
+
+### Basics
+
+1) Create a vector that concatenates the Dest and Origin to create a 'Route' variable in a vectorized way using the string processing functions.
+
+2) Use `table()` to figure out the number of flights for each year.
+
+### Using the ideas
+
+3) Compute the number of NAs in each column of the *air* dataset using `sapply()` and making use of the `is.na()` function.
+
+4) Merge the info from data/carriers.csv with the airline dataset so that we have the full names of the airlines as a new column in the data frame.
+
+5) Discretize distance into some bins and create a Dist_binned variable. Count the number of flights in each bin.
+
+6) Create a boxplot of delay by binned distance.
+
+7) Sort the dataset and find the shortest flight. Now consider the use of `which.min()` and why using that should be much quicker with large datasets.
+ 
+8)  Suppose we have two categorical variables and we conduct a hypothesis test of independence. The chi-square statistic is: 
+
+$$
+\chi^2 = \sum_{i=1}^{n}\sum_{j=1}^{m} \frac{(y_{ij} - e_{ij})^2}{e_{ij}}, 
+$$ 
+
+where $e_{ij} = \frac{y_{i\cdot} y_{\cdot j}}{y_{\cdot \cdot}}$, with $y_{i\cdot}$ the sum of the values in the i'th row, $y_{\cdot j}$ the sum of values in the j'th column, and $y_{\cdot\cdot}$ the sum of all the values. Suppose I give you a matrix in R with the $y_{ij}$ values. 
+
+You can generate a test matrix as: 
+```{r, eval=FALSE}
+y <- matrix(sample(1:10, 12, replace = TRUE), 
+nrow = 3, ncol = 4)
+```
+
+Compute the statistic without *any* loops as follows:
+
+a. First, assume you have the *e* matrix. How do you compute the statistic without loops as a function of `y` and `e`?
+b. How can you construct the *e* matrix? Hint: the numerator of *e* is just an *outer product* for which the `outer()` function can be used.
+
+### Advanced 
+
+9) For each combination of UniqueCarrier, Month, and DayOfWeek, find the 95th percentile of delay. 
+
+10) This requires a bit of setup. Run the following code:
+```{r, eval=FALSE}
+h <- air$DepTime %/% 100
+m <- air$DepTime %% 100
+h <- as.character(h)
+h[nchar(h) == 1] <- paste('0', h[nchar(h) == 1], sep = '')
+air$DepTimeChar <- paste(h, m, sep = '-')
+```
+
+Now suppose the `DepTimeChar` field is the format the departure time field came in.
+
+Create hour and minute fields using `strsplit()` and `sapply()`. What format is the result of `strsplit()`. Why do you need `sapply()`? 
+

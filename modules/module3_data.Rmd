@@ -1,0 +1,418 @@
+% R bootcamp, Module 3: Working with objects and data
+% August 2016, UC Berkeley
+% Chris Paciorek
+
+```{r chunksetup, include=FALSE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
+air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+```
+
+# Matrices and Arrays
+
+Let's review matrices
+
+- Matrices are two-dimensional collections of values of the same type
+- We can have numeric, integer, character, or logical matrices, character matrices.
+- You can't mix types within a matrix
+```{r}
+mat <- matrix(rnorm(12), nrow = 3, ncol = 4)
+mat
+
+# vectorized calcs work with matrices too
+mat*4
+mat <- cbind(mat, 1:3)
+mat
+```
+
+Arrays are like matrices but can have more or fewer than two dimensions.
+```{r}
+arr <- array(rnorm(12), c(2, 3, 4))
+arr
+```
+
+# Attributes
+
+Objects have *attributes*.
+
+```{r attr}
+attributes(mat)
+rownames(mat) <- c('first', 'middle', 'last')
+mat
+attributes(mat)
+
+names(attributes(air))
+attributes(air)$names
+attributes(air)$row.names[1:10]
+```
+
+Now let's do a bit of manipulation and see if you can infer how R represents matrices internally.
+
+```{r what_is_a_matrix}
+mat[4]
+attributes(mat) <- NULL
+mat
+is.matrix(mat)
+```
+
+**Question**: What can you infer about what a matrix is in R?
+
+**Question**: What kind of object are the attributes themselves? How do I check?
+
+# Matrices are stored column-major
+
+This is like Fortran, MATLAB and Julia but not like C or Python(numpy). 
+
+```{r}
+mat <- matrix(1:12, 3, 4)
+mat
+c(mat)
+```
+You can go smoothly back and forth between a matrix (or an array) and a vector:
+```{r}
+identical(mat, matrix(c(mat), 3, 4))
+identical(mat, matrix(c(mat), 3, 4, byrow = TRUE))
+```
+
+This is a common cause of bugs!
+
+
+# Missing values and other special values
+
+Since it was designed by statisticians, R handles missing values very well relative to other languages.
+
+* `NA` is a missing value
+```{r, fig.cap = ""}
+vec <- rnorm(12)
+vec[c(3, 5)] <- NA
+vec
+length(vec)
+sum(vec)
+sum(vec, na.rm = TRUE)
+hist(vec)
+is.na(vec)
+```
+Be careful because many R functions won't warn you that they are ignoring the missing values.
+
+* To infinity and beyond
+```{r}
+big <- 1e500 
+big
+big + 7
+```
+
+* `NaN` stands for Not a Number
+```{r}
+sqrt(-5)
+big - big
+1/0
+```
+
+* `NULL`
+```{r nulldata}
+vec <- c(vec, NULL) 
+vec
+length(vec)
+a <- NULL
+a + 7
+a[3, 4]
+is.null(a)
+myList <- list(a = 7, b = 5)
+myList$a <- NULL  # works for data frames too
+myList
+```
+
+`NA` can hold a place but `NULL` cannot.
+`NULL` is useful for having a function argument default to 'nothing'. See `help(crossprod)`, which can compute either $X^{\top}X$ or $X^{\top}Y$.  
+
+
+# Logical vectors
+```{r}
+answers <- c(TRUE, TRUE, FALSE, FALSE)
+update <- c(TRUE, FALSE, TRUE, FALSE)
+
+answers & update
+answers | update
+# note the vectorized boolean arithmetic
+
+# what am I doing here?
+sum(answers)
+mean(answers)
+answers + update
+```
+
+**Question**: What do you think R is doing to do arithmetic on logical vectors?
+
+Tricks with logicals...
+
+```{r}
+identical(answers & update, as.logical(answers * update))
+identical(answers | update, as.logical(answers + update))
+```
+
+# Data frames
+
+A review from Module 1...
+
+- Data frames are combinations of vectors of the same length, but can be of different types
+- Data frames are what is used for standard rectangular (record by field) datasets, similar to a spreadsheet
+- Data frames are a functionality that both sets R aside from some languages (e.g., Matlab) and provides functionality similar to some statistical packages (e.g., Stata, SAS)
+
+```{r}
+air <- read.csv('../data/airline.csv')
+class(air)
+head(air)
+str(air)
+```
+
+# Data frames are (special) lists!
+
+```{r}
+is.list(air)
+length(air)
+air[[3]][1:5]
+lapply(air, class) 
+```
+
+`lapply()` is a function used on lists; it works here to apply the `class()` function to each element of the list, which in this case is each field/column.
+
+# But lists are also vectors!
+
+```{r}
+length(air)
+someFields <- air[c(3,5)]
+head(someFields)
+identical(air[c(3,5)], air[ , c(3,5)])
+```
+
+In general the placement of commas in R is crucial, but here, two different operations give the same result because of the underlying structure of data frames.
+
+# Factors
+- A factor is a special data type in R used for categorical data. In some cases it works like magic and in others it is incredibly frustrating. 
+
+```{r fac}
+class(air$Dest)
+head(air$Dest) # What order are the factors in?
+levels(air[["Dest"]])  # note alternate way to get the variable
+summary(air$Dest)
+```
+
+- What if we don't like the order these are in? Factor order is important for all kinds of things like plotting, analysis of variance, regression output, and more
+
+# Ordering the Factor
+- Ordered factors simply have an additional attribute explaining the order of the levels of a factor
+- This is a useful shortcut when we want to preserve some of the meaning provided by the order
+- Think ordinal data
+
+```{r orderedfac, fig.cap = ""}
+# first let's do some pre-processing to get set up for the example
+air$DepDelayCens <- air$DepDelay
+air$DepDelayCens[air$DepDelayCens > 60] <- 60
+air$DepDelayCens[air$DepDelayCens < 0] <- 0
+air$DayOfWeek <- as.factor(air$DayOfWeek)
+air$DayOfWeekSun <- ordered(air$DayOfWeek, 
+     levels = levels(air$DayOfWeek)[c(7,1,2,3,4,5,6)])
+
+# alternative coding
+# air <- within(air, 
+#     DayOfWeekSun <- ordered(DayOfWeek, 
+#        levels = levels(DayOfWeek)[c(7,1,2,3,4,5,6)])
+#)
+
+head(air$DayOfWeekSun)
+levels(air$DayOfWeekSun)
+levels(air$DayOfWeekSun) <- c("Sun","Mon","Tue","Wed","Thu","Fri","Sat")
+boxplot(DepDelayCens ~ DayOfWeekSun, data = air)
+```
+
+**Challenge**: Try to decipher what I just did with that complicated single line of code starting with `within`.
+
+# Reclassifying Factors
+- Turning factors into other data types can be tricky. All factors have an underlying numeric structure.
+
+```{r fac2}
+students <- factor(c('basic','proficient','advanced','basic', 
+      'advanced', 'minimal'))
+levels(students)
+unclass(students)
+```
+
+- Hmmm, what happened?
+- Be careful! The best way to convert a factor is to convert it to a character first.
+
+```{r}
+students <- factor(c('basic','proficient','advanced','basic', 
+      'advanced', 'minimal'))
+score = c(minimal = 3, basic = 1, advanced = 13, proficient = 7) # a named vector
+score["advanced"]  # look up by name
+students[3]
+score[students[3]]
+score[as.character(students[3])]
+```
+
+What went wrong and how did we fix it?  Notice how easily this could be a big bug in your code.
+
+# Subsetting
+
+There are many ways to select subsets in R. The syntax below is useful for vectors, matrices, data frames, arrays and lists.
+
+```{r}
+vec <- rnorm(20)
+mat <- matrix(vec, 4, 5)
+rownames(mat) <- letters[1:4]
+mat
+```
+1) by direct indexing
+
+```{r}
+vec[c(3, 5, 12:14)]
+vec[-c(3,5)]
+mat[c(2,4), 5]
+rowInd <- c(1, 3, 4)
+colInd <- c(2, 2, 1)
+elemInd <- cbind(rowInd, colInd)
+elemInd
+mat[elemInd]
+```
+
+Note the last usage where we give it a 2-column matrix of indices
+
+2) by a vector of logicals
+
+```{r}
+cond <- vec > 0
+vec[cond]
+air[air$DepDelay > 60*12 & !is.na(air$DepDelay), ]
+```
+
+What happened in the last subsetting operation?
+
+3) by a vector of names
+```{r}
+mat[c('a', 'd', 'a'), ]
+```
+4) using *subset()*
+
+```{r}
+subset(air, DepDelay > 60*12)
+```
+
+5) using *dplyr* tools such as *filter()* and *select()* -- more in Module 5
+
+# Assignment into subsets
+
+We can assign into subsets by using similar syntax, as we saw with vectors.
+
+```{r}
+vec[c(3, 5, 12:14)] <- 1:5
+mat[2, 3:5] <- rnorm(3)
+mat[mat[,1] > 0, ] <- -Inf
+```
+
+# Strings
+
+R has lots of functionality for character strings. Usually these are stored as vectors of strings, each with arbitrary length.
+
+```{r}
+chars <- c('hi', 'hallo', "mother's", 'father\'s', "He said, \"hi\"" )
+length(chars)
+nchar(chars)
+paste("bill", "clinton", sep = " ")  # paste together a set of strings
+paste(chars, collapse = ' ')  # paste together things from a vector
+
+strsplit("This is the R bootcamp", split = " ")
+substring(chars, 2, 3)
+chars2 <- chars
+substring(chars2, 2, 3) <- "ZZ"
+chars2
+```
+We can search for patterns in character vectors and replace patterns (both vectorized!)
+```{r}
+grep("ther", chars)
+gsub("hi", "Hi", chars)
+```
+
+# Regular expressions (regex or regexp)
+
+Some of you may be familiar with using *regular expressions*, which is functionality for doing sophisticated pattern matching and replacement with strings. *Python* and *Perl* are both used extensively for such text manipulation. 
+
+R has a full set of regular expression capabilities available through the *grep()*, *gregexpr()*, and *gsub()* functions (among others - many R functions will work with regular expressions). A particularly nice way to make use of this functionality is to use the *stringr* package, which is more user-friendly than directly using the core R functions.
+
+You can basically do any regular expression/string manipulations in R, though the syntax may be a bit clunky at times.
+
+# More details on reading data into R
+
+Remember that you'll need to know the current working directory so that you know where R is looking for files.
+
+The workhorse for reading into a data frame is *read.table()*, which allows any separator (CSV, tab-delimited, etc.). *read.csv()* is a special case of *read.table()* for CSV files.
+
+You've already seen a bit of this, but let's work through a more involved example, so you can see some of the steps and tricks involved in reading data into R.
+
+```{r, cache=TRUE}
+rta <- read.table("../data/RTAData.csv", sep = ",", head = TRUE)
+rta[1:5, 1:5]
+dim(rta)
+# great, we're all set, right?
+# Not so fast...
+unlist(lapply(rta, class))[1:5]
+# ?read.table
+rta2 <- read.table("../data/RTAData.csv", sep = ",", 
+  head = TRUE, stringsAsFactors = FALSE)
+rta2[3,3]
+unlist(lapply(rta2, class))[1:5]
+# let's delve more deeply
+levels(rta[ , 2])[c(1:5, 3041:3044)]
+rta3 <- read.table("../data/RTAData.csv", sep = ",", head = TRUE, 
+      stringsAsFactors = FALSE, na.strings = c('NA', 'x'))
+unlist(lapply(rta3, class))[1:5]
+
+# checking...
+missing <- which(rta[ , 2] == "")
+missing[1:5]
+rta3[head(missing), ]
+```
+
+It's good to first look at your data in plain text format outside of R and then to check it after you've read it into R.
+
+# Other ways to read data into R
+
+The *read.table()* family of functions just skims the surface of things...
+
+1) You can also read in a file as vector of characters, one character string per line of the file with *readLines()*, and then post-process it. 
+2) You can read fixed width format (constant number of characters per field) with *read.fwf()*.
+3) *read_csv()* (and *read_lines()*, *read_fwf()*, etc.) in the *readr* package is a faster, more helpful drop-in replacement for *read.csv()* that plays well with *dplyr* (see Module 5).
+4) the *data.table* package is great for reading and manipulating large datasets (orders of gigabytes or 10s of gigabytes).
+
+
+# Breakout
+
+### Basics
+
+1) Extract the 5th row from the airline dataset.
+
+2) Extract the last row from the airline dataset.
+
+3) Count the number of NAs in the departure delay field of the airline dataset.
+
+4) Set all of the extreme delays (more than 300 minutes) to NA.
+
+5) Consider the first row of the airline dataset, which has UA flight number 548. How do I create a string "UA-548" using `air$UniqueCarrier[1]` and `air$FlightNum[1]`? 
+
+### Using the ideas
+
+6) Create a character string using `paste()` that tells the user how many rows there are in the data frame - do this programmatically such that it would work for any data frame regardless of how many rows it has. The result should look like this: "There are 56,234,234 rows in the dataset"
+
+7) If you didn't do it this way already, extract the last row from the airline dataset without typing the number '539895'.
+
+8) Create a boolean vector indicating if flight on the carrier WN (Southwest) and distance is less than 1000 miles and calculate the proportion of all the flights these represent.
+
+9) Use that vector to create a new data frame that is a subset of the original data frame.
+
+10) Consider the attributes of the *air* dataset. What kind of R object is the set of attributes?
+
+### Advanced
+
+11) Make the destination variable a factor variable and reorder the levels by the number of arrivals from SFO at the destinations. Now create a boxplot of departure delay by destination for January, 2005.
+
+12) Create row names for the data frame based on concatenating the Year, Month, DayofMonth, UniqueCarrier and FlightNum fields.

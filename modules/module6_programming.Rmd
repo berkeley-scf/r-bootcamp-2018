@@ -1,0 +1,412 @@
+% R bootcamp, Module 6: Programming
+% August 2016, UC Berkeley
+% Chris Paciorek
+
+```{r chunksetup, include=FALSE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
+air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+```
+
+# Loops 
+
+In many languages, looping (for loops, while loops, etc.) is one of the main constructs used to carry out computation. Loops are not emphasized as much in R, both because they can be slow and because other syntax is often cleaner. 
+
+But there are lots of times when using a loop does make sense. 
+
+Most of you are probably familiar at least with the basic idea of iterating through a series of steps. A for loop iterates through a pre-determined number of iterations, while a while loop iterates until some condition is met. For loops are more common in R, but while loops can be handy particularly for things like optimization.
+
+Let's take our use of `aggregate()` from Module 4 and use a for loop instead. 
+
+```{r, for-example}
+DestSubset <- c('LAX','SEA','PHX','DEN','MSP','OAK','JFK','ATL','DFW','IAH', 'ORD') 
+airSmall <- subset(air, Dest %in% DestSubset)
+airSmall$late <- airSmall$DepDelay >= 15
+airSmall$Month <- as.factor(airSmall$Month)
+airSmall$Month <- relevel(airSmall$Month, "5")
+airSmall$Dest <- as.character(airSmall$Dest)
+
+out <- list(); length(out) <- length(DestSubset); names(out) <- DestSubset
+
+for( i in seq_along(DestSubset) ) { 
+     # equivalently: for(i in 1:length(DestSubset))
+     sub <- subset(airSmall, airSmall$Dest == DestSubset[i])
+     if(sum(!is.na(sub$late)) && length(sub$late) > 1) { 
+     # fit logistic regression
+       out[[i]] <- glm(late ~ Month, family = binomial, data = sub) 
+     } else {
+       out[[i]] <- NA
+     }
+}
+out[['OAK']]
+summary(out[['IAH']])
+summary(out[['ORD']])
+```
+
+The iterations do not have to explicitly be over sequential numbers.
+
+```{r, for-nonnumeric}
+for( dest in DestSubset ) {
+     cat(dest, '\n')
+}
+```
+
+# While loop
+
+It's not a particularly interesting example, but we can see the while loop syntax in the same example.
+
+```{r, while}
+out <- list(); length(out) <- length(DestSubset); names(out) <- DestSubset
+
+i <- 1
+while( i <= length(DestSubset) ) { 
+     sub <- subset(airSmall, airSmall$Dest == DestSubset[i])
+     if(sum(!is.na(sub$late)) && length(sub$late) > 1) { 
+     # fit logistic regression
+       out[[i]] <- glm(late ~ Month, family = binomial, data = sub) 
+     } else {
+       out[[i]] <- NA
+     }
+     i = i + 1
+}
+summary(out[['IAH']])
+```
+
+# Branching (if-then-else syntax)
+
+We already saw an example of branching in the *for* loop example.
+
+Here's a simple example to illustrate the syntax. Note that the *then* is implicit.
+
+```{r, if}
+val <- rnorm(1)
+val
+if (val < 0) {
+  print("val is negative")
+} else {
+  print("val is positive")
+}
+```
+
+We can chain together `if` statements as follows.
+
+```{r, if-chain}
+val <- rnorm(1)
+val
+if (val < -1) {
+  print("val is more than one standard deviation below the mean.")
+} else if (abs(val) <= 1) {
+  print("val is within one standard deviation of the mean.")
+} else {
+  print("val is more than one standard deviation above the mean.")
+}
+```
+
+In general, the `{` brackets are only needed if you have multiple R expressions, but R will complain when an `else` starts a line of code, so generally using the `{` is good practice. That said, this looks fine:
+
+```{r, if-oneline}
+if( val < 0) print("val is negative") else print("val is positive")
+```
+
+# The condition in an if statement
+
+The condition in the if statement cannot be NA or R will give an error. This is a very common bug.
+
+Suppose we were (inefficiently) setting up a new field using an if statement.
+```{r, if-bug}
+air$late <- rep(0, nrow(air))
+for(i in 1:20) {
+      if(air$DepDelay[i] > 15) 
+          air$late[i] <- 1 else air$late[i] <- 0
+}
+
+print(i)
+if(air$DepDelay[4] > 15) print('here')
+air$DepDelay[4] > 15
+air$DepDelay[4]
+```
+
+An NA/NaN is the main reason an if statement may fail, because R will generally convert other values to logical values. 
+
+Zero evaluates to `FALSE`, all other numbers evaluate to `TRUE`. In general strings are not converted to booleans.
+
+# Flow control: `next` and `break` statements
+
+`next` skips the current evaluation of the loop statements:
+```{r, next}
+out <- list(); length(out) <- length(DestSubset); names(out) <- DestSubset
+
+for( i in seq_along(DestSubset) ) { 
+     # equivalently: for(i in 1:length(DestSubset))
+     sub <- subset(airSmall, airSmall$Dest == DestSubset[i])
+     if(sum(!is.na(sub$late)) && length(sub$late) > 1) { 
+     # fit logistic regression
+       out[[i]] <- glm(late ~ Month, family = binomial, data = sub) 
+     } else {
+       next
+     }
+}
+cat("We got to iteration ", i, " of ", length(DestSubset), " items.", sep = "")
+out[['OAK']]
+```
+
+`break` immediately ends loop evaluation:
+```{r, break}
+out <- list(); length(out) <- length(DestSubset); names(out) <- DestSubset
+
+for( i in seq_along(DestSubset) ) { 
+     # equivalently: for(i in 1:length(DestSubset))
+     sub <- subset(airSmall, airSmall$Dest == DestSubset[i])
+     if(sum(!is.na(sub$late)) && length(sub$late) > 1) { 
+     # fit logistic regression
+       out[[i]] <- glm(late ~ Month, family = binomial, data = sub) 
+     } else {
+       break
+     }
+}
+cat("We got to iteration ", i, " of ", length(DestSubset), " items.", sep = "")
+```
+
+# Functions
+
+Functions are one of the most important constructs in R (and many other languages).
+They allow you to modularize your code - encapsulating a set of repeatable operations as
+an individual function call.
+
+You should rely heavily on functions rather than having long sets of expressions in 
+R scripts.
+
+Functions have many important advantages:
+
+- They reduce bugs by avoiding having multiple instances of the same functionality.
+- They reduce time involved in coding by eliminating redundancy.
+- They make for cleaner and more easily-readable code.
+
+A basic goal is writing functions is *modularity*.
+
+In general, a function should
+
+- be fairly short, 
+- be focused and specific in what it does, and
+- be designed so that it can be used in combination with other functions to carry out more complicated operations.
+
+
+
+# Writing functions
+
+In module 4, we sorted the airline dataframe. 
+
+```{r, order}
+ord <- order(air$DepDelay, air$ArrDelay, decreasing = TRUE)
+ord[1:5]
+air_ordered <- air[ord, ]
+```
+
+How would we encapsulate that functionality generically so that
+we can apply it to other dataframes (or matrices)?
+
+```{r, function}
+colSort <- function(data, col1, col2) {
+    # Sorts a matrix or dataframe based on two  columns
+    #
+    # Args:
+    #     data: a dataframe or matrix with at least columns
+    #                  and any number of rows
+    #     col1: a reference to the column to sort on
+    #     col2: a reference to the column to use for ties
+    #
+    # Returns:
+    #     <data> sorted in increasing order by the values
+    #     in the first column. Any ties should be broken by values
+    #     in the second column. The row pairs should be maintained
+    #     in this result
+
+    ord <- order(data[, col1], data[, col2], decreasing=TRUE)
+    sorted <- data[ord, ]
+    return(sorted)
+}
+
+identical(air_ordered, colSort(air, "DepDelay", "ArrDelay"))
+```
+
+Of course this is somewhat limited in that it is specific to sorting based on two columns. 
+We'd usually want to extend this to be more general, but it's usually good to start with
+something concrete and more limited in generality and then generalize once you are sure it works.
+
+# Function arguments
+
+R can match arguments by name (when provided) or by position (the fall-back). It also allows one to specify default values so that the user doesn't have to explicitly provide all the arguments.
+
+```{r, fun-args}
+colSort <- function(data, col1 = 1, col2 = 2) {
+    ord <- order(data[, col1], data[, col2], decreasing=TRUE)
+    sorted <- data[ord, ]
+    return(sorted)
+}
+identical(colSort(air, 1, 2), colSort(air))
+identical(colSort(col2 = 2, data = air, col1 = 1), colSort(air, 1, 2))
+```
+
+# What is the "..." argument for?
+
+Using `...` as one of the arguments to a function allows a function to pass along user-provided arguments without specifying explicitly what the user might provide.
+
+Here's an example of tailoring some plotting specifications that I use a lot. I generally define `pplot()` in my *.Rprofile* file so it is always available to me.
+
+```{r, usedots, fig.cap = ""}
+pplot <- function(x, y, ...) {
+      plot(x, y, pch = 16, cex = 0.6, ...)
+}
+
+sub <- air[sample(1:nrow(air), 10000, replace = FALSE), ]
+sub$DepDelay[sub$DepDelay > 120] <- 120
+sub$DepDelay[sub$DepDelay < -30] <- -30
+pplot(sub$Dist, sub$DepDelay, xlab = 'distance (miles)', 
+   ylab = 'delay (minutes)', log = 'x')
+```
+
+
+# Important concepts with R functions
+
+Functions in R return an object. In general, R functions are and should be designed
+such that the only effect of the function is through the return value. 
+
+**Side effects** are when a function affects the state of the world in
+addition to its return value.  Can you think of any side effects that
+you saw an R function produce from yesterday?  What about:
+
+- `library()`
+- `setwd()`
+- `plot()`
+
+Functions in R are (roughly) *pass-by-value* and not *pass-by-reference*.
+This means that if you modify an argument inside the
+function it will not change the original value outside the function.  This protects you from
+a major potential source of side effects.  (There are exceptions to this
+rule.)
+
+In actuality, functions in R are *call-by-value*. What this means 
+for our purposes is that you can pass an input argument in without
+a copy being made of it. This saves time and memory.
+At the time that you modify the input
+within the function (if ever), then a copy is made and  the modified input is different 
+than the original value outside the function.
+
+# Variable scope and global variables
+
+In general functions should not make use of variables from outside the function. (However, for quick-and-dirty work and in some other circumstances, one may do this.) This provides modularity and reduces bugs and surprises. 
+
+If R can't find a variable that is used in a function based on the function arguments and variables defined locally in the function, it goes and looks elsewhere following a set of rules called *lexical scoping*. 
+
+Basically this means that it looks for variables relative to where the function is defined (not relative to where the function is called).
+
+This can get involved, but a couple brief examples illustrate the basic idea. 
+
+```{r, scoping}
+x <- 2
+f <- function(y) {
+    return(x + y)
+}
+f(1)
+
+g <- function(y) {
+  x <- 10
+  return(f(y))
+}
+
+g(1)
+
+g <- function(y) {
+  f <- function(y) {
+     return(x + y)
+  }
+  x <- 10
+  return(f(y))
+}
+
+g(1)
+```
+
+Note that `x` is used as a global variable here, which in general is bad practice.
+
+# When do I start programming?
+
+
+> “[W]e wanted users to be able to begin in an interactive environment,
+> where they did not consciously think of themselves as programming.
+> Then as their needs became clearer and their sophistication increased,
+> they should be able **to slide gradually into programming, when the
+> language and system aspects would become more important**.”
+
+[John Chambers, “Stages in the Evolution of S”](http://www.stat.bell-labs.com/S/history.html)
+
+# Key Principles of R
+
+- Everything that exists is an object.
+- Everything that happens is a function call.
+
+   [John Chambers' useR!2014 talk](http://user2014.stat.ucla.edu/files/chambers.pdf)
+
+### What does the 2nd principle mean?
+
+Are arithmetic operations really just functions?
+```{r, plusfun}
+3+2
+'+'(3,2)
+```
+
+What about indexing?
+
+```{r, indexingfun}
+x <- matrix(runif(100), 10)
+x[ , 2]
+'['(x , , 2)
+```
+
+This holds more generally - one can investigate and see the same thing in terms of a for loop.
+
+### What does the 1st principle mean?
+
+```{r, funs-as-objects}
+class(1)
+class(runif)
+class(function(x) x^2)
+square <- function(x) x^2
+class(square)
+```
+
+# Breakout
+
+### Basics
+
+1) Write an R function that will take an input vector and set any negative values in the vector to zero.
+
+### Using the ideas
+
+2) Write an R function that will take an input vector and set any value below a threshold to be the value of threshold. Optionally, the function should instead set values above a threshold to the value of the threshold.
+
+3) Augment your function so that it checks that the input is a numeric vector and return an error if not. (See the help information for `stop()`.)
+
+4) Figure out what `invisible()` does and why it is useful when writing functions. Use `invisible()` in your function from just above or in the `colSort()` function.
+
+### Advanced
+
+5) Extend the `colSort()` function to handle an arbitrary number of columns on which to do the sorting. You may need to modify the functionality a bit to use full vectors for the sorting rather than column names.
+
+6) Extend the `colSort()` function so that it can take either numeric indices or character strings indicating columns of the input data or take entire vectors to use in the sorting of the input data. If information specifying columns is given, make sure your function carefully checks that the input refers to legitimate columns and returns an error or warning (see `warning()`) if not.
+
+7) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that `funGenerator()` returns a function as the return object, consistent with the idea that functions are objects in R. This is an example of what is called a *closure* in R. Basically, the function contains object(s) enclosed with and accessible to the function.
+```{r, closure-scoping}
+funGenerator <- function(x) {
+   x <- 10
+   g <- function(y) {
+      return(x + y)
+   }
+   return(g)
+}
+
+x <- 2
+f <- funGenerator()
+f(1)
+```

@@ -1,0 +1,414 @@
+% R bootcamp, Module 1: Basics
+% August 2016, UC Berkeley
+% Chris Paciorek
+
+```{r chunksetup, include=FALSE, cache=TRUE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
+air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+```
+
+# R as a calculator
+
+```{r computing,echo=TRUE,results='markup'}
+2 + 2 # add numbers
+2 * pi # multiply by a constant
+7 + runif(1) # add a random number
+3^4 # powers
+sqrt(4^4) # functions
+log(10)
+log(100, base = 10)
+23 %/% 2 
+23 %% 2
+
+# scientific notation
+5000000000 * 1000
+5e9 * 1e3
+```
+
+Think of a mathematical operation you need - can you guess how to do it in R?
+
+# Assigning values to R objects
+
+A key action in R is to store values in the form of R objects, and to examine the value of R objects.
+
+```{r}
+val <- 3
+val
+print(val)
+
+Val <- 7 # case-sensitive!
+print(c(val, Val))
+```
+
+We can work with (and store) sequences and repetitions
+```{r}
+mySeq <- 1:6
+mySeq
+
+myOtherSeq <- seq(1.1, 11.1, by = 2)
+myOtherSeq
+length(myOtherSeq)
+
+fours <- rep(4, 6)
+fours
+
+# This is a comment: here is an example of non-numeric data
+depts <- c('espm', 'pmb', 'stats')
+depts
+```
+
+If we don't assign the output of a command to an object, we haven't saved it for later use.
+
+R gives us a lot of flexibility (within certain rules) for assigning to (parts of) objects from (parts of) other objects.
+
+# How to be [lazy](http://dilbert.com/strips/comic/2005-05-29/)
+
+If you're starting to type something you've typed before, or the long name of an R object or function, STOP!  You likely don't need to type all of that.
+
+- Tab completion
+- Command history 
+    * up/down arrows
+    * Ctrl-{up arrow} or Command-{up arrow}
+- RStudio: select a line or block for execution
+- Put your code in a file and use `source()`. For example: `source('myRcodeFile.R')`
+
+**Question**: Are there other tricks that anyone knows of?
+
+# Vectors in R
+
+The most basic form of an R object is a vector. In fact, individual (scalar) values are vectors of length one. 
+
+We can concatenate values into a vector with `c()`.
+
+```{r}
+# numeric vector
+nums <- c(1.1, 3, -5.7)
+devs <- rnorm(5)
+devs
+
+# integer vector
+ints <- c(1L, 5L, -3L) # force storage as integer not decimal number
+# 'L' is for 'long integer' (historical)
+
+idevs <- sample(ints, 100, replace = TRUE)
+
+# character vector
+chars <- c('hi', 'hallo', "mother's", 'father\'s', 
+   "She said, 'hi'", "He said, \"hi\"" )
+chars
+cat(chars, sep = "\n")
+
+# logical vector
+bools <- c(TRUE, FALSE, TRUE)
+bools
+```
+
+# Working with indices and subsets
+
+```{r}
+vals <- seq(2, 12, by = 2)
+vals
+
+vals[3]
+vals[3:5]
+vals[c(1, 3, 6)]
+vals[-c(1, 3, 6)]
+vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE)]
+
+# create a simple vector from the airline dataset
+delay <- air$DepDelay
+delay[1:10]
+
+```
+We can substitute values into vectors
+```{r}
+vals[4] <- -35
+vals[1:2] <- 0
+
+vals <- rnorm(100)
+# How does R process these next subset operations?
+vals[vals < 0] <- 0
+vals[1:8]
+
+crazymakers <- delay[delay > 300]
+crazymakers[1:10]
+crazymakers <- crazymakers[ !is.na(crazymakers) ]
+crazymakers[1:10]
+```
+
+# Vectorized calculations and comparisons
+
+At the core of R is the idea of doing calculations on entire vectors.
+
+```{r}
+vec1 <- sample(1:5, 10, replace = TRUE)
+vec2 <- sample(1:5, 10, replace = TRUE)
+vec1
+vec2
+vec1 + vec2
+vec1^vec2
+
+vec1 >= vec2
+vec1 <= 3
+
+# using 'or'
+vec1 <= 0 | vec1 >= 3
+# using 'and'
+vec1 <= 0 & vec1 >= vec2
+
+vec1 == vec2
+vec1 != vec2
+# careful: 
+vec1 = vec2
+identical(vec1, vec2)
+
+delayChange <- air$DepDelay - air$ArrDelay
+tmp <- delayChange[1:100]
+tmp >= 24*60 # full day
+```
+
+An important related concept is that of recycling
+```{r}
+vec3 <- sample(1:5, 5, replace = TRUE)
+vec4 <- sample(1:5, 3, replace = TRUE)
+vec1
+vec3
+vec4 
+
+vec1 + vec3
+vec1 + vec4
+```
+
+**Question**: Tell me what's going on. What choices were made by the R developers?
+
+# R is a functional language
+
+* Operations are carried out with functions. Functions take objects as inputs and return objects as outputs. 
+* An analysis can be considered a pipeline of function calls, with output from a function used later in a subsequent operation as input to another function.
+* Functions themselves are objects: 
+```{r}
+median
+class(median)
+median(delay)
+```
+
+Functions generally take arguments, some of which are often optional:
+```{r}
+median(delay, na.rm = TRUE)
+```
+
+* We can embed function calls: 
+```{r, hist, fig.cap = ""}
+hist(rnorm(1000))
+```
+
+# Getting help about a function
+
+To get information about a function you know exists, use `help` or `?`, e.g., `?lm`. For information on a general topic, use `apropos` or `??`
+
+```{r eval = FALSE}
+help(lm)
+?lm
+
+?log
+
+# ??'regr' # take out the '#' to demo live - there's an issue with Markdown processing...
+```
+
+# Basic kinds of R objects
+
+Vectors are not the only kinds of R objects.
+
+### Vectors 
+
+Vectors of various types (numeric (i.e., decimal/floating point/double), integer, boolean, character), all items must be of the same type
+
+### Matrices
+
+Matrices of various types, all items must be of the same type
+
+```{r}
+mat <- matrix(rnorm(9), nrow = 3)
+t(mat) %*% mat
+dim(mat)
+``` 
+
+### Data frames
+
+Collections of columns of potentially different types
+
+```{r}
+head(air)
+dim(air)
+nrow(air)
+names(air)
+class(air)
+is.matrix(air)
+class(air$DepDelay)
+class(air$UniqueCarrier)
+class(air$Diverted)
+```
+
+### Lists
+
+Collections of disparate or complicated objects
+
+```{r}
+myList <- list(stuff = 3, mat = matrix(1:4, nrow = 2), 
+   moreStuff = c("china", "japan"), list(5, "bear"))
+myList
+myList[[1]] # result is not (usually) a list (unless you have nested lists)
+identical(myList[[1]], myList$stuff)
+myList$moreStuff[2]
+myList[[4]][[2]]
+myList[1:3] # subset of a list is a list
+myList$newOne <- 'more weird stuff'
+names(myList)
+```
+
+Lists can be used as vectors of complicated objects. E.g., suppose you have a linear regression for each value of a stratifying variable. You could have a list of regression fits. Each regression fit will itself be a list, so you'll have a list of lists.
+
+# Other classes of objects      
+
+R has several approaches to object-oriented programming.  These are widely used, albeit a bit klunky. 
+
+The most basic is 'S3' objects. These objects are generally built upon lists.
+
+```{r}
+mod <- lm(air$DepDelay ~ air$Distance)  # illustration ONLY - poorly-specified model!
+class(mod)
+is.list(mod)
+names(mod)
+mod$coefficients
+mod[['coefficients']]
+mod[[1]]
+```
+
+The magic of OOP here is that methods (i.e., functions) can be tailored to work specifically with specific kinds of objects.
+
+```{r}
+summary(air$DepDelay)
+summary(mod)
+```
+
+**Question**: What do you think R is doing behind the scenes?
+
+Consider `summary.lm`.
+
+# Converting between different types of objects
+
+You can use the `as()` family of functions.
+
+```{r}
+ints <- 1:10
+as.character(ints)
+as.numeric(c('3.7', '4.8'))
+```
+
+Be careful: R tries to be helpful and convert between types/classes when it thinks it's a good idea. Sometimes it is overly optimistic. 
+
+```{r}
+indices <- c(1.7, 2.3)
+ints[indices]
+ints[0.999999999]
+```
+
+
+
+# Managing your objects
+
+R has a number of functions for getting metadata about your objects. Some of this is built in to RStudio.
+
+```{r}
+
+vec1 <- 1:4
+vec2 <- c(1, 2, 3, 4)
+
+length(vec1)
+str(vec1)
+class(vec1)
+typeof(vec1)
+class(vec2)
+typeof(vec2)
+is.vector(vec1)
+is.list(vec1)
+
+is.list(myList)
+is.vector(myList)
+
+is.data.frame(air)
+is.list(air)
+```
+
+**Question**: What have you learned? Does it make sense? 
+
+
+# A bit on plotting
+
+R has several different plotting systems:
+
+- *base* graphics
+- *lattice* graphics
+- *ggplot2* (an add-on package)
+
+We'll see a little bit of *base* graphics here and then *lattice* and *ggplot2* tomorrow in Module 8.
+
+```{r basic_plots, fig.cap =""}
+hist(air$DepDelay)
+# make a random subset for quicker plotting:
+set.seed(0)  # make the subset reproducible
+subset <- air[sample(1:nrow(air), 10000, replace = FALSE), ]
+# censor the outliers to limit plotting range
+subset$DepDelay[subset$DepDelay > 60*3] <- 60*3
+plot(subset$DepDelay ~ subset$Distance)
+boxplot(subset$DepDelay ~ subset$DayOfWeek)
+boxplot(subset$DepDelay ~ subset$UniqueCarrier)
+```
+
+# Graphics options
+
+Check out `help(par)` for various [graphics settings](http://xkcd.com/833/); these are set via `par()` or within the specific graphics command (some can be set in either place), e.g.,
+```{r, parstuff, fig.cap = ""}
+par(pch = 2)
+plot(subset$DepDelay ~ subset$Distance, xlab = 'distance (miles)', 
+   ylab = 'delay (minutes)', log = 'x')
+```
+
+# Breakout
+
+In general, your answers to any questions should involve writing code to manipulate objects. For example, if I ask you to find the maximum flight delay, do not scan through all the values and find it by eye. Use R to do the calculations and print results.
+
+### Basics
+
+1) Create a variable called 'x' that contains the mean flight delay.
+
+2) Use functions in R to round 'x' to two decimal places and to two significant digits.
+
+3) Create a vector of flight distances in units of kilometers rather than miles.
+
+4) Create a boolean (TRUE/FALSE) vector indicating whether the departure delay is shorter than the arrival delay.
+
+### Using the ideas
+
+5) Summarize the difference between the departure and arrival delays. Do flights tend to make up some of the delay time in flight?
+
+6) Plot a histogram of the flight departure delays with negative delays set to zero, censoring delay times at a maximum of 60 minutes. Explore the effect of changing the number of bins in the histogram using the 'breaks' argument.
+
+7) Subset the data to flights going to Chicago (ORD) and Houston (IAH). Plot delay against scheduled departure time (CRSDepTime). Add a title to the plot. Now plot so that flights to Chicago are in one color and  those to Houston in another, using the 'col' argument. What are some problems with the plot?
+
+8) Consider the following regression model.  Figure out how to extract the $R^2$ and residual standard error and store in new R variables. 
+
+```{r}
+y <- rnorm(10)
+x <- rnorm(10)
+mod <- lm(y ~ x)
+summ <- summary(mod)
+```
+
+### Advanced
+
+9) For flights to ORD and IAH, plot departure delay against time in days where day 1 is Jan 1 2005 and the last day is Dec 31 2008. As above, use different colors for the two different destinations.
+
+10) Now modify the size of the points. Add a legend. Rotate the numbers on the y-axis so they are printed horizontally. Recall that `help(par)` will provide a lot of information.

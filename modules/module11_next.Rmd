@@ -1,0 +1,64 @@
+% R bootcamp, Module 11: Next steps
+% August 2016, UC Berkeley
+% Chris Paciorek
+
+```{r chunksetup, include=FALSE} 
+# include any code here you don't want to show up in the document,
+# e.g. package and dataset loading
+```
+
+# The R way
+
+
+As we've seen R is powerful, flexible, and wide-ranging. 
+
+It's also sprawling, disorganized, and use-at-your-own risk. 
+
+Base packages, widely-used packages and packages by frequent R contributors are more trustworthy. 
+
+# Some of the 'features' of R
+
+* R is inconsistent in its naming conventions: Some functions are *camelCase*; others are *dot.separated*; others *use_underscores*. For programmers used to OOP, the use of dots is maddening.
+* Multiple OOP paradigms and OOP is not as clean or full-featured as other languages
+* R has multiple graphics packages that different functions use for default plot construction (`base`, `grid`, `lattice`, and `ggplot2`)
+* R has multiple packages and functions to do the same analysis
+* R obscures some of what happens behind the scenes in a way that can be confusing and lead to errors: type coercion/casting, recycling, etc.
+
+Any other things that you found frustrating and don't think are well-designed?
+
+
+# R tutorials, materials, and assistance
+
+Some of this material was borrowed/modified from [Jared Knowles' bootcamp](http://jaredknowles.com/r-bootcamp/)
+
+CRAN has [manuals](https://cran.r-project.org/manuals.html) and [contributed learning material](https://cran.r-project.org/other-docs.html).
+
+The SCF has a series of [hands-on tutorials](http://statistics.berkeley.edu/computing/training/tutorials) on related topics, some focused on topics in R, others on topics in UNIX/bash, and others on topics in managing workflows and reproducible research.
+
+[D-Lab](http://dlab.berkeley.edu) holds workshops on R and other topics, as well as having drop-in office hours. 
+
+For grad students and researchers in statistics, economics and biostatistics, Chris Paciorek provides consulting via consult@stat.berkeley.edu and consult@econ.berkeley.edu and drop-in discussions in Evans 495.
+
+For researchers around campus, Berkeley Research Computing offers consulting via brc@berkeley.edu on accessing and using cluster and cloud resources on campus and beyond, including R.
+
+Various online tutorials/courses are offered by [DataCamp](https://www.datacamp.com/), [Software Carpentry](http://swcarpentry.github.io/r-novice-inflammation/), [Coursera](https://www.coursera.org/course/rprog), and [Leada](https://www.teamleada.com/courses).
+
+# Some good books
+ 
+R in general:
+
+* Adler, Joseph; R in a Nutshell (available electronically through OskiCat: [http://uclibs.org/PID/151634](http://uclibs.org/PID/151634)) (hands-on)
+* Wickham, Hadley; Advanced R. [http://adv-r.had.co.nz](http://adv-r.had.co.nz) (good coverage of advanced topics in the R language)
+* Chambers, John; Software for Data Analysis: Programming with R (available electronically through OskiCat: [http://dx.doi.org/10.1007/978-0-387-75936-4](http://dx.doi.org/10.1007/978-0-387-75936-4)) (More conceptual/theoretical)
+
+Specific aspects of R:
+
+* Xie, Yihui; Dynamic documents with R and knitr.
+* Nolan, Deborah and and Duncan Temple Lang; XML and Web Technologies for Data Sciences with R (available electronically through OskiCat: [http://dx.doi.org/10.1007/978-1-4614-7900-0](http://dx.doi.org/10.1007/978-1-4614-7900-0))
+* Murrell, Paul; R Graphics, 2nd ed. [http://www.stat.auckland.ac.nz/\~paul/RG2e](http://www.stat.auckland.ac.nz/\~paul/RG2e/)
+* Murrell, Paul; Introduction to Data Technologies. [http://www.stat.auckland.ac.nz/\~paul/ItDT/](http://www.stat.auckland.ac.nz/\~paul/ItDT/)
+
+# Thanks!  
+
+* To Kellie, Rochelle, Evan, Lauren, Alex, and Chris K.
+* To Jon Stiles and D-Lab for co-sponsorship and logistical support

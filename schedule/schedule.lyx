@@ -1,0 +1,607 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\begin_preamble
+\usepackage{/accounts/gen/vis/paciorek/latex/paciorek-asa,times,graphics}
+\input{/accounts/gen/vis/paciorek/latex/paciorekMacros}
+%\renewcommand{\baselinestretch}{1.5}
+\usepackage[unicode=true]{hyperref}
+\hypersetup{unicode=true, pdfusetitle,
+bookmarks=true,bookmarksnumbered=false,bookmarksopen=false,
+ breaklinks=false,pdfborder={0 0 1},backref=false,colorlinks=true,}
+\end_preamble
+\use_default_options false
+\begin_modules
+knitr
+\end_modules
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize 12
+\spacing onehalf
+\use_hyperref false
+\papersize letterpaper
+\use_geometry true
+\use_amsmath 1
+\use_esint 0
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 1in
+\topmargin 1in
+\rightmargin 1in
+\bottommargin 1in
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+R bootcamp - August 2015: Syllabus/schedule
+\end_layout
+
+\begin_layout Subsection*
+\begin_inset Note Note
+status open
+
+\begin_layout Subsection*
+Comments for presenters
+\end_layout
+
+\begin_layout Itemize
+40-50 minutes per session for presentation/demo, 20 minutes for breakout
+ (including answers)
+\end_layout
+
+\begin_layout Itemize
+try to intersperse little coding questions/challenges within the presentation
+ material
+\end_layout
+
+\begin_layout Itemize
+ask participants to play with code as we go along and see if they can break
+ it or tweak it in interesting ways (perhaps reporting this on the bSpace
+ forum)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Unless otherwise noted, modules are about 75 minutes long: 45 minutes for
+ presentation, 20 minutes for breakout and 10 minutes for discussion of
+ solutions.
+\end_layout
+
+\begin_layout Itemize
+Day 1 morning (8:30-12:15) (learning R)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Module 0: Introduction, what is R, starting R, why R? why not R? (Chris
+ P.) (15 minutes)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+scripting, text files, notes
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Module 1: Basics of R, with Rstudio (Chris P.)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+R as a calculator
+\end_layout
+
+\begin_layout Itemize
+helpful shortcuts: tab-complete, up arrow, Ctrl-{up arrow}
+\end_layout
+
+\begin_layout Itemize
+vectors and indexing and subset assignment
+\end_layout
+
+\begin_layout Itemize
+some basic functions; help()
+\end_layout
+
+\begin_layout Itemize
+vectorized calculations, comparisons
+\end_layout
+
+\begin_layout Itemize
+basic R objects: vectors, matrices, dataframes, lists
+\end_layout
+
+\begin_layout Itemize
+basic graphics
+\end_layout
+
+\begin_layout Itemize
+breakout problems 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[perhaps a basic plotting problem that involves some data manipulation]
+\end_layout
+
+\end_inset
+
+ 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+graphics problem, manipulating data frame
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Break (15 minutes)
+\end_layout
+
+\begin_layout Itemize
+Module 2: Managing R and your analyses (Chris P.) (45 minutes)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+managing R objects, the R workspace
+\end_layout
+
+\begin_layout Itemize
+using packages (installing, loading, namespaces)
+\end_layout
+
+\begin_layout Itemize
+the working directory and basic file reading/writing
+\end_layout
+
+\begin_layout Itemize
+Git, Github and version control
+\end_layout
+
+\begin_layout Itemize
+getting R help online 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+R help, Stack Overflow, Google 
+\begin_inset Quotes eld
+\end_inset
+
+in R
+\begin_inset Quotes erd
+\end_inset
+
+, reproducible examples, sessionInfo() [could shift to last session Sunday]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+breakout problems
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Module 3: Working with data (Chris P.) (45 minutes)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+dataframes/matrices
+\end_layout
+
+\begin_layout Itemize
+attributes, missing values and factors
+\end_layout
+
+\begin_layout Itemize
+subsetting
+\end_layout
+
+\begin_layout Itemize
+strings
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+Lunch (on your own) (12:00-1:30)
+\end_layout
+
+\begin_layout Itemize
+Day 1 afternoon (1:30-5:00) (data processing and real-world work)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Module 3: Working with data, continued (Chris P.) (40 minutes)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+more on reading data
+\end_layout
+
+\begin_layout Itemize
+breakout problems
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
++ 5 minute quick break
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Module 4: Calculations (Chris P.)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+vectorized calculations and efficiency
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ (pre-allocate, look-up tables by indexing, linear algebra/BLAS)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+apply, lapply
+\end_layout
+
+\begin_layout Itemize
+tabulation, stratified analyses, aggregation, merging data
+\end_layout
+
+\begin_layout Itemize
+breakout problems 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[work on a data aggregation problem]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Break (15 minutes)
+\end_layout
+
+\begin_layout Itemize
+Module 5: Doing useful stuff (Rochelle)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+stratified analyses: groupwise operations (see dplyr: subset, mutate, summarise,
+ arrange); split-apply-combine
+\end_layout
+
+\begin_layout Itemize
+reshaping and tidying data
+\end_layout
+
+\begin_layout Itemize
+regression, GLMs 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(building on Chris' intro to S3 in module)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+breakout problems/homework 
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+Day 2 morning (9-12:30) (programming and more real-world work)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Module 6: Programming in R (Chris P.)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+loops, if-else
+\end_layout
+
+\begin_layout Itemize
+writing your own functions, function arguments, functions as objects
+\end_layout
+
+\begin_layout Itemize
+basic scoping and environments
+\end_layout
+
+\begin_layout Itemize
+breakout problems
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+ [write a function with arguments - perhaps a sort function using order()]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Module 7: Some core tools (Chris P.) (45 minutes)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+smoothing
+\end_layout
+
+\begin_layout Itemize
+optimization
+\end_layout
+
+\begin_layout Itemize
+simulation, sample()
+\end_layout
+
+\begin_layout Itemize
+dates and times
+\end_layout
+
+\begin_layout Itemize
+breakout problems 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[a small simulation study perhaps]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Break (15 minutes)
+\end_layout
+
+\begin_layout Itemize
+Module 8: Graphics (Kellie)
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+http://teachpress.environmentalinformatics-marburg.de/2013/07/creating-publication
+-quality-graphs-in-r-7/
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+exporting graphics (vector/raster formats)
+\end_layout
+
+\begin_layout Itemize
+lattice graphics
+\end_layout
+
+\begin_layout Itemize
+ggplot2
+\end_layout
+
+\begin_layout Itemize
+breakout problems 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+[creating a nice lattice/ggplot2 graphic]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+Lunch (on your own) (12:30-2:00)
+\end_layout
+
+\begin_layout Itemize
+Day 2 afternoon (2:00-4:30) (more advanced topics) 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Module 9: Workflows, coding practices, and project management
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+http://feedproxy.google.com/~r/RBloggers/~3/H67TlLIYTbQ/?utm_source=feedburner&utm
+_medium=email
+\end_layout
+
+\end_inset
+
+ (Chris P.) (60 minutes)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+debugging, timing, memory use
+\end_layout
+
+\begin_layout Itemize
+scripting, source(), batch jobs
+\end_layout
+
+\begin_layout Itemize
+good coding practices
+\end_layout
+
+\begin_layout Itemize
+reproducible research
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Break (fill out feedback forms) (20 minutes)
+\end_layout
+
+\begin_layout Itemize
+Module 10: Advanced topics morsels (Chris P.) (60 minutes)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+OOP (S3, S4, ReferenceClasses)
+\end_layout
+
+\begin_layout Itemize
+computing on the language (using R to write and evaluate R code)
+\end_layout
+
+\begin_layout Itemize
+errors and try-catch
+\end_layout
+
+\begin_layout Itemize
+encodings
+\end_layout
+
+\begin_layout Itemize
+working with databases
+\end_layout
+
+\begin_layout Itemize
+parallel processing: foreach, parApply, RNG issues
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Module 11: Wrapping up (Chris P.) (15 minutes)
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+R inconsistencies and different ways to do things 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(see Knowles slide)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Where to learn more (campus and non-campus resources)
+\end_layout
+
+\end_deeper
+\end_deeper
+\end_body
+\end_document

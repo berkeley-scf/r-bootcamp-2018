@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>Managing and saving the workspace</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+<!-- Styles for R syntax highlighter -->
+<style type="text/css">
+   pre .operator,
+   pre .paren {
+     color: rgb(104, 118, 135)
+   }
+
+   pre .literal {
+     color: #990073
+   }
+
+   pre .number {
+     color: #099;
+   }
+
+   pre .comment {
+     color: #998;
+     font-style: italic
+   }
+
+   pre .keyword {
+     color: #900;
+     font-weight: bold
+   }
+
+   pre .identifier {
+     color: rgb(0, 0, 0);
+   }
+
+   pre .string {
+     color: #d14;
+   }
+</style>
+
+<!-- R syntax highlighter -->
+<script type="text/javascript">
+var hljs=new function(){function m(p){return p.replace(/&/gm,"&amp;").replace(/</gm,"&lt;")}function f(r,q,p){return RegExp(q,"m"+(r.cI?"i":"")+(p?"g":""))}function b(r){for(var p=0;p<r.childNodes.length;p++){var q=r.childNodes[p];if(q.nodeName=="CODE"){return q}if(!(q.nodeType==3&&q.nodeValue.match(/\s+/))){break}}}function h(t,s){var p="";for(var r=0;r<t.childNodes.length;r++){if(t.childNodes[r].nodeType==3){var q=t.childNodes[r].nodeValue;if(s){q=q.replace(/\n/g,"")}p+=q}else{if(t.childNodes[r].nodeName=="BR"){p+="\n"}else{p+=h(t.childNodes[r])}}}if(/MSIE [678]/.test(navigator.userAgent)){p=p.replace(/\r/g,"\n")}return p}function a(s){var r=s.className.split(/\s+/);r=r.concat(s.parentNode.className.split(/\s+/));for(var q=0;q<r.length;q++){var p=r[q].replace(/^language-/,"");if(e[p]){return p}}}function c(q){var p=[];(function(s,t){for(var r=0;r<s.childNodes.length;r++){if(s.childNodes[r].nodeType==3){t+=s.childNodes[r].nodeValue.length}else{if(s.childNodes[r].nodeName=="BR"){t+=1}else{if(s.childNodes[r].nodeType==1){p.push({event:"start",offset:t,node:s.childNodes[r]});t=arguments.callee(s.childNodes[r],t);p.push({event:"stop",offset:t,node:s.childNodes[r]})}}}}return t})(q,0);return p}function k(y,w,x){var q=0;var z="";var s=[];function u(){if(y.length&&w.length){if(y[0].offset!=w[0].offset){return(y[0].offset<w[0].offset)?y:w}else{return w[0].event=="start"?y:w}}else{return y.length?y:w}}function t(D){var A="<"+D.nodeName.toLowerCase();for(var B=0;B<D.attributes.length;B++){var C=D.attributes[B];A+=" "+C.nodeName.toLowerCase();if(C.value!==undefined&&C.value!==false&&C.value!==null){A+='="'+m(C.value)+'"'}}return A+">"}while(y.length||w.length){var v=u().splice(0,1)[0];z+=m(x.substr(q,v.offset-q));q=v.offset;if(v.event=="start"){z+=t(v.node);s.push(v.node)}else{if(v.event=="stop"){var p,r=s.length;do{r--;p=s[r];z+=("</"+p.nodeName.toLowerCase()+">")}while(p!=v.node);s.splice(r,1);while(r<s.length){z+=t(s[r]);r++}}}}return z+m(x.substr(q))}function j(){function q(x,y,v){if(x.compiled){return}var u;var s=[];if(x.k){x.lR=f(y,x.l||hljs.IR,true);for(var w in x.k){if(!x.k.hasOwnProperty(w)){continue}if(x.k[w] instanceof Object){u=x.k[w]}else{u=x.k;w="keyword"}for(var r in u){if(!u.hasOwnProperty(r)){continue}x.k[r]=[w,u[r]];s.push(r)}}}if(!v){if(x.bWK){x.b="\\b("+s.join("|")+")\\s"}x.bR=f(y,x.b?x.b:"\\B|\\b");if(!x.e&&!x.eW){x.e="\\B|\\b"}if(x.e){x.eR=f(y,x.e)}}if(x.i){x.iR=f(y,x.i)}if(x.r===undefined){x.r=1}if(!x.c){x.c=[]}x.compiled=true;for(var t=0;t<x.c.length;t++){if(x.c[t]=="self"){x.c[t]=x}q(x.c[t],y,false)}if(x.starts){q(x.starts,y,false)}}for(var p in e){if(!e.hasOwnProperty(p)){continue}q(e[p].dM,e[p],true)}}function d(B,C){if(!j.called){j();j.called=true}function q(r,M){for(var L=0;L<M.c.length;L++){if((M.c[L].bR.exec(r)||[null])[0]==r){return M.c[L]}}}function v(L,r){if(D[L].e&&D[L].eR.test(r)){return 1}if(D[L].eW){var M=v(L-1,r);return M?M+1:0}return 0}function w(r,L){return L.i&&L.iR.test(r)}function K(N,O){var M=[];for(var L=0;L<N.c.length;L++){M.push(N.c[L].b)}var r=D.length-1;do{if(D[r].e){M.push(D[r].e)}r--}while(D[r+1].eW);if(N.i){M.push(N.i)}return f(O,M.join("|"),true)}function p(M,L){var N=D[D.length-1];if(!N.t){N.t=K(N,E)}N.t.lastIndex=L;var r=N.t.exec(M);return r?[M.substr(L,r.index-L),r[0],false]:[M.substr(L),"",true]}function z(N,r){var L=E.cI?r[0].toLowerCase():r[0];var M=N.k[L];if(M&&M instanceof Array){return M}return false}function F(L,P){L=m(L);if(!P.k){return L}var r="";var O=0;P.lR.lastIndex=0;var M=P.lR.exec(L);while(M){r+=L.substr(O,M.index-O);var N=z(P,M);if(N){x+=N[1];r+='<span class="'+N[0]+'">'+M[0]+"</span>"}else{r+=M[0]}O=P.lR.lastIndex;M=P.lR.exec(L)}return r+L.substr(O,L.length-O)}function J(L,M){if(M.sL&&e[M.sL]){var r=d(M.sL,L);x+=r.keyword_count;return r.value}else{return F(L,M)}}function I(M,r){var L=M.cN?'<span class="'+M.cN+'">':"";if(M.rB){y+=L;M.buffer=""}else{if(M.eB){y+=m(r)+L;M.buffer=""}else{y+=L;M.buffer=r}}D.push(M);A+=M.r}function G(N,M,Q){var R=D[D.length-1];if(Q){y+=J(R.buffer+N,R);return false}var P=q(M,R);if(P){y+=J(R.buffer+N,R);I(P,M);return P.rB}var L=v(D.length-1,M);if(L){var O=R.cN?"</span>":"";if(R.rE){y+=J(R.buffer+N,R)+O}else{if(R.eE){y+=J(R.buffer+N,R)+O+m(M)}else{y+=J(R.buffer+N+M,R)+O}}while(L>1){O=D[D.length-2].cN?"</span>":"";y+=O;L--;D.length--}var r=D[D.length-1];D.length--;D[D.length-1].buffer="";if(r.starts){I(r.starts,"")}return R.rE}if(w(M,R)){throw"Illegal"}}var E=e[B];var D=[E.dM];var A=0;var x=0;var y="";try{var s,u=0;E.dM.buffer="";do{s=p(C,u);var t=G(s[0],s[1],s[2]);u+=s[0].length;if(!t){u+=s[1].length}}while(!s[2]);if(D.length>1){throw"Illegal"}return{r:A,keyword_count:x,value:y}}catch(H){if(H=="Illegal"){return{r:0,keyword_count:0,value:m(C)}}else{throw H}}}function g(t){var p={keyword_count:0,r:0,value:m(t)};var r=p;for(var q in e){if(!e.hasOwnProperty(q)){continue}var s=d(q,t);s.language=q;if(s.keyword_count+s.r>r.keyword_count+r.r){r=s}if(s.keyword_count+s.r>p.keyword_count+p.r){r=p;p=s}}if(r.language){p.second_best=r}return p}function i(r,q,p){if(q){r=r.replace(/^((<[^>]+>|\t)+)/gm,function(t,w,v,u){return w.replace(/\t/g,q)})}if(p){r=r.replace(/\n/g,"<br>")}return r}function n(t,w,r){var x=h(t,r);var v=a(t);var y,s;if(v){y=d(v,x)}else{return}var q=c(t);if(q.length){s=document.createElement("pre");s.innerHTML=y.value;y.value=k(q,c(s),x)}y.value=i(y.value,w,r);var u=t.className;if(!u.match("(\\s|^)(language-)?"+v+"(\\s|$)")){u=u?(u+" "+v):v}if(/MSIE [678]/.test(navigator.userAgent)&&t.tagName=="CODE"&&t.parentNode.tagName=="PRE"){s=t.parentNode;var p=document.createElement("div");p.innerHTML="<pre><code>"+y.value+"</code></pre>";t=p.firstChild.firstChild;p.firstChild.cN=s.cN;s.parentNode.replaceChild(p.firstChild,s)}else{t.innerHTML=y.value}t.className=u;t.result={language:v,kw:y.keyword_count,re:y.r};if(y.second_best){t.second_best={language:y.second_best.language,kw:y.second_best.keyword_count,re:y.second_best.r}}}function o(){if(o.called){return}o.called=true;var r=document.getElementsByTagName("pre");for(var p=0;p<r.length;p++){var q=b(r[p]);if(q){n(q,hljs.tabReplace)}}}function l(){if(window.addEventListener){window.addEventListener("DOMContentLoaded",o,false);window.addEventListener("load",o,false)}else{if(window.attachEvent){window.attachEvent("onload",o)}else{window.onload=o}}}var e={};this.LANGUAGES=e;this.highlight=d;this.highlightAuto=g;this.fixMarkup=i;this.highlightBlock=n;this.initHighlighting=o;this.initHighlightingOnLoad=l;this.IR="[a-zA-Z][a-zA-Z0-9_]*";this.UIR="[a-zA-Z_][a-zA-Z0-9_]*";this.NR="\\b\\d+(\\.\\d+)?";this.CNR="\\b(0[xX][a-fA-F0-9]+|(\\d+(\\.\\d*)?|\\.\\d+)([eE][-+]?\\d+)?)";this.BNR="\\b(0b[01]+)";this.RSR="!|!=|!==|%|%=|&|&&|&=|\\*|\\*=|\\+|\\+=|,|\\.|-|-=|/|/=|:|;|<|<<|<<=|<=|=|==|===|>|>=|>>|>>=|>>>|>>>=|\\?|\\[|\\{|\\(|\\^|\\^=|\\||\\|=|\\|\\||~";this.ER="(?![\\s\\S])";this.BE={b:"\\\\.",r:0};this.ASM={cN:"string",b:"'",e:"'",i:"\\n",c:[this.BE],r:0};this.QSM={cN:"string",b:'"',e:'"',i:"\\n",c:[this.BE],r:0};this.CLCM={cN:"comment",b:"//",e:"$"};this.CBLCLM={cN:"comment",b:"/\\*",e:"\\*/"};this.HCM={cN:"comment",b:"#",e:"$"};this.NM={cN:"number",b:this.NR,r:0};this.CNM={cN:"number",b:this.CNR,r:0};this.BNM={cN:"number",b:this.BNR,r:0};this.inherit=function(r,s){var p={};for(var q in r){p[q]=r[q]}if(s){for(var q in s){p[q]=s[q]}}return p}}();hljs.LANGUAGES.cpp=function(){var a={keyword:{"false":1,"int":1,"float":1,"while":1,"private":1,"char":1,"catch":1,"export":1,virtual:1,operator:2,sizeof:2,dynamic_cast:2,typedef:2,const_cast:2,"const":1,struct:1,"for":1,static_cast:2,union:1,namespace:1,unsigned:1,"long":1,"throw":1,"volatile":2,"static":1,"protected":1,bool:1,template:1,mutable:1,"if":1,"public":1,friend:2,"do":1,"return":1,"goto":1,auto:1,"void":2,"enum":1,"else":1,"break":1,"new":1,extern:1,using:1,"true":1,"class":1,asm:1,"case":1,typeid:1,"short":1,reinterpret_cast:2,"default":1,"double":1,register:1,explicit:1,signed:1,typename:1,"try":1,"this":1,"switch":1,"continue":1,wchar_t:1,inline:1,"delete":1,alignof:1,char16_t:1,char32_t:1,constexpr:1,decltype:1,noexcept:1,nullptr:1,static_assert:1,thread_local:1,restrict:1,_Bool:1,complex:1},built_in:{std:1,string:1,cin:1,cout:1,cerr:1,clog:1,stringstream:1,istringstream:1,ostringstream:1,auto_ptr:1,deque:1,list:1,queue:1,stack:1,vector:1,map:1,set:1,bitset:1,multiset:1,multimap:1,unordered_set:1,unordered_map:1,unordered_multiset:1,unordered_multimap:1,array:1,shared_ptr:1}};return{dM:{k:a,i:"</",c:[hljs.CLCM,hljs.CBLCLM,hljs.QSM,{cN:"string",b:"'\\\\?.",e:"'",i:"."},{cN:"number",b:"\\b(\\d+(\\.\\d*)?|\\.\\d+)(u|U|l|L|ul|UL|f|F)"},hljs.CNM,{cN:"preprocessor",b:"#",e:"$"},{cN:"stl_container",b:"\\b(deque|list|queue|stack|vector|map|set|bitset|multiset|multimap|unordered_map|unordered_set|unordered_multiset|unordered_multimap|array)\\s*<",e:">",k:a,r:10,c:["self"]}]}}}();hljs.LANGUAGES.r={dM:{c:[hljs.HCM,{cN:"number",b:"\\b0[xX][0-9a-fA-F]+[Li]?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+(?:[eE][+\\-]?\\d*)?L\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\b\\d+\\.(?!\\d)(?:i\\b)?",e:hljs.IMMEDIATE_RE,r:1},{cN:"number",b:"\\b\\d+(?:\\.\\d*)?(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"number",b:"\\.\\d+(?:[eE][+\\-]?\\d*)?i?\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"keyword",b:"(?:tryCatch|library|setGeneric|setGroupGeneric)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\.",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\.\\.\\d+(?![\\w.])",e:hljs.IMMEDIATE_RE,r:10},{cN:"keyword",b:"\\b(?:function)",e:hljs.IMMEDIATE_RE,r:2},{cN:"keyword",b:"(?:if|in|break|next|repeat|else|for|return|switch|while|try|stop|warning|require|attach|detach|source|setMethod|setClass)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"literal",b:"(?:NA|NA_integer_|NA_real_|NA_character_|NA_complex_)\\b",e:hljs.IMMEDIATE_RE,r:10},{cN:"literal",b:"(?:NULL|TRUE|FALSE|T|F|Inf|NaN)\\b",e:hljs.IMMEDIATE_RE,r:1},{cN:"identifier",b:"[a-zA-Z.][a-zA-Z0-9._]*\\b",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"<\\-(?!\\s*\\d)",e:hljs.IMMEDIATE_RE,r:2},{cN:"operator",b:"\\->|<\\-",e:hljs.IMMEDIATE_RE,r:1},{cN:"operator",b:"%%|~",e:hljs.IMMEDIATE_RE},{cN:"operator",b:">=|<=|==|!=|\\|\\||&&|=|\\+|\\-|\\*|/|\\^|>|<|!|&|\\||\\$|:",e:hljs.IMMEDIATE_RE,r:0},{cN:"operator",b:"%",e:"%",i:"\\n",r:1},{cN:"identifier",b:"`",e:"`",r:0},{cN:"string",b:'"',e:'"',c:[hljs.BE],r:0},{cN:"string",b:"'",e:"'",c:[hljs.BE],r:0},{cN:"paren",b:"[[({\\])}]",e:hljs.IMMEDIATE_RE,r:0}]}};
+hljs.initHighlightingOnLoad();
+</script>
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>Managing and saving the workspace</h1>
+
+<p>R has functions for learning about the collection of objects in your workspace. Some of this is built in to RStudio.</p>
+
+<pre><code class="r">x &lt;- rnorm(5)
+y &lt;- c(5L, 2L, 7L)
+z &lt;- list(a = 3, b = c(&#39;sam&#39;, &#39;yang&#39;))
+ls()  # search the user workspace (global environment)
+</code></pre>
+
+<pre><code>## [1] &quot;air&quot; &quot;x&quot;   &quot;y&quot;   &quot;z&quot;
+</code></pre>
+
+<pre><code class="r">rm(x)    # delete a variable
+ls()
+</code></pre>
+
+<pre><code>## [1] &quot;air&quot; &quot;y&quot;   &quot;z&quot;
+</code></pre>
+
+<pre><code class="r">ls.str() # list and describe variables
+</code></pre>
+
+<pre><code>## air : &#39;data.frame&#39;:  539895 obs. of  29 variables:
+##  $ Year             : int  2005 2005 2005 2005 2005 2005 2005 2005 2005 2005 ...
+##  $ Month            : int  1 1 1 1 1 1 1 1 1 1 ...
+##  $ DayofMonth       : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ DayOfWeek        : int  6 7 1 2 3 4 5 6 7 1 ...
+##  $ DepTime          : int  1211 1209 1213 NA 1211 1214 1330 1213 1206 1338 ...
+##  $ CRSDepTime       : int  1216 1216 1216 1216 1216 1215 1215 1215 1215 1215 ...
+##  $ ArrTime          : int  1451 1447 1454 NA 1504 1506 1620 1448 1443 1610 ...
+##  $ CRSArrTime       : int  1502 1502 1502 1502 1502 1505 1505 1505 1505 1505 ...
+##  $ UniqueCarrier    : chr  &quot;UA&quot; &quot;UA&quot; &quot;UA&quot; &quot;UA&quot; ...
+##  $ FlightNum        : int  548 548 548 548 548 548 548 548 548 548 ...
+##  $ TailNum          : chr  &quot;N341UA&quot; &quot;N398UA&quot; &quot;N303UA&quot; &quot;000000&quot; ...
+##  $ ActualElapsedTime: int  100 98 101 NA 113 112 110 95 97 92 ...
+##  $ CRSElapsedTime   : int  106 106 106 106 106 110 110 110 110 110 ...
+##  $ AirTime          : int  81 79 83 NA 85 95 85 72 77 78 ...
+##  $ ArrDelay         : int  -11 -15 -8 NA 2 1 75 -17 -22 65 ...
+##  $ DepDelay         : int  -5 -7 -3 NA -5 -1 75 -2 -9 83 ...
+##  $ Origin           : chr  &quot;SFO&quot; &quot;SFO&quot; &quot;SFO&quot; &quot;SFO&quot; ...
+##  $ Dest             : chr  &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot; ...
+##  $ Distance         : int  599 599 599 599 599 599 599 599 599 599 ...
+##  $ TaxiIn           : int  2 2 3 0 6 6 6 3 3 3 ...
+##  $ TaxiOut          : int  17 17 15 0 22 11 19 20 17 11 ...
+##  $ Cancelled        : int  0 0 0 1 0 0 0 0 0 0 ...
+##  $ CancellationCode : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;A&quot; ...
+##  $ Diverted         : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ CarrierDelay     : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ WeatherDelay     : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ NASDelay         : int  0 0 0 0 0 0 3 0 0 0 ...
+##  $ SecurityDelay    : int  0 0 0 0 0 0 0 0 0 0 ...
+##  $ LateAircraftDelay: int  0 0 0 0 0 0 72 0 0 65 ...
+## y :  int [1:3] 5 2 7
+## z : List of 2
+##  $ a: num 3
+##  $ b: chr [1:2] &quot;sam&quot; &quot;yang&quot;
+</code></pre>
+
+<p>Finally we can save the objects in our R session:</p>
+
+<pre><code class="r">ls()
+</code></pre>
+
+<pre><code>## [1] &quot;air&quot; &quot;y&quot;   &quot;z&quot;
+</code></pre>
+
+<pre><code class="r">save.image(&#39;module2.Rda&#39;)
+rm(list = ls())
+ls()
+</code></pre>
+
+<pre><code>## character(0)
+</code></pre>
+
+<pre><code class="r">load(&#39;module2.Rda&#39;) 
+# the result of this may not be quite right in the slide version
+ls()
+</code></pre>
+
+<pre><code>## [1] &quot;module&quot; &quot;source&quot;
+</code></pre>
+
+<p><strong>Challenge</strong>: how would I find all of my objects that have &#39;x&#39; in their names?</p>
+
+<h1>Packages (R&#39;s killer app)</h1>
+
+<p>Let&#39;s check out the <a href="https://cran.r-project.org/web/packages/">packages on CRAN</a>. In particular check out the <a href="https://cran.r-project.org/web/views/">CRAN Task Views</a>.</p>
+
+<p>Essentially any well-established and many not-so-established statistical methods and other functionality is available in a package. </p>
+
+<p>If you want to sound like an R expert, make sure to call them <em>packages</em> and not <em>libraries</em>. A <em>library</em> is the location in the directory structure where the packages are installed/stored.</p>
+
+<h3>Using packages</h3>
+
+<p>Two steps:</p>
+
+<ol>
+<li>Install the package on your machine</li>
+<li>Load the package</li>
+</ol>
+
+<p>To install a package, in RStudio, just do <code>Packages-&gt;Install Packages</code>.</p>
+
+<p>From the command line, you generally will just do</p>
+
+<pre><code class="r">install.packages(&#39;fields&#39;) 
+</code></pre>
+
+<p>That should work without specifying the repository from which to download the package (though sometimes you will be given a menu of repositories from which to select) but sometimes you&#39;ll get errors indicating a package is not available for your version of R if you don&#39;t include an explicit repository. In this case you&#39;ll likely need to use a repository that uses <code>http</code> rather than <code>https</code>, e.g.,</p>
+
+<pre><code class="r">install.packages(&#39;fields&#39;, repos = &#39;http://cran.cnr.berkeley.edu&#39;) 
+</code></pre>
+
+<p>If you&#39;re on a network and are not the administrator of the machine, you may need to explicitly tell R to install it in a directory you are able to write in:</p>
+
+<pre><code class="r">install.packages(&#39;fields&#39;, lib = file.path(&#39;~&#39;, &#39;R&#39;))
+</code></pre>
+
+<p>If you&#39;re using R directly installed on your laptop (i.e., most of you), now (or at the break) would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:</p>
+
+<pre><code class="r">install.packages(c(&#39;chron&#39;,&#39;colorspace&#39;,&#39;DBI&#39;,&#39;devtools&#39;,&#39;dichromat&#39;,&#39;digest&#39;,
+                   &#39;doParallel&#39;, &#39;dplyr&#39;, &#39;fields&#39;,&#39;foreach&#39;,&#39;ggplot2&#39;,
+                   &#39;gridExtra&#39;,&#39;gtable&#39;,&#39;inline&#39;, &#39;iterators&#39;,&#39;knitr&#39;,
+                   &#39;labeling&#39;,&#39;lme4&#39;,&#39;mapproj&#39;,&#39;maps&#39;,&#39;munsell&#39;, &#39;proto&#39;,
+                   &#39;rbenchmark&#39;,&#39;RColorBrewer&#39;,&#39;Rcpp&#39;,&#39;reshape2&#39;,&#39;rJava&#39;,
+                   &#39;RSQLite&#39;, &#39;scales&#39;,&#39;spam&#39;,&#39;stringr&#39;,&#39;tidyr&#39;,&#39;xlsx&#39;,
+                   &#39;xlsxjars&#39;,&#39;xtable&#39;))
+</code></pre>
+
+<p>Note that packages often are dependent on other packages so these dependencies may be installed and loaded automatically. E.g., <em>fields</em> depends on <em>maps</em> and on <em>spam</em>.</p>
+
+<p>You can also install directly from a package zip/tarball rather than from CRAN by giving a filename instead of a package name.</p>
+
+<h3>General information about a package</h3>
+
+<p>You can use syntax as follows to get a list of the objects in a package and a brief description: <code>library(help = packageName)</code>. </p>
+
+<p>On CRAN there often <em>vignettes</em> that are an overview and describe usage of a package if you click on a specific package. The <em>reference manual</em> is just a single document with the help files for all of the objects/functions in a package, so may be helpful but often it&#39;s hard to get the big picture view from that.</p>
+
+<h1>More on packages</h1>
+
+<h3>The search path</h3>
+
+<p>To see the packages that are loaded and the order in which packages are searched for functions/objects: <code>search()</code>.</p>
+
+<p>To see what <em>libraries</em> (i.e., directory locations) R is retrieving packages from: <code>.libPaths()</code>.</p>
+
+<p>And to see where R is getting specific packages, <code>searchpaths()</code>.</p>
+
+<h3>Package namespaces</h3>
+
+<p>Namespaces are way to keep all the names for objects in a package together in a coherent way and allow R to look for objects in a principled way.</p>
+
+<p>A few useful things to know:</p>
+
+<pre><code class="r">ls(&#39;package:stats&#39;)[1:20]
+</code></pre>
+
+<pre><code>##  [1] &quot;acf&quot;                  &quot;acf2AR&quot;               &quot;add.scope&quot;           
+##  [4] &quot;add1&quot;                 &quot;addmargins&quot;           &quot;aggregate&quot;           
+##  [7] &quot;aggregate.data.frame&quot; &quot;aggregate.ts&quot;         &quot;AIC&quot;                 
+## [10] &quot;alias&quot;                &quot;anova&quot;                &quot;ansari.test&quot;         
+## [13] &quot;aov&quot;                  &quot;approx&quot;               &quot;approxfun&quot;           
+## [16] &quot;ar&quot;                   &quot;ar.burg&quot;              &quot;ar.mle&quot;              
+## [19] &quot;ar.ols&quot;               &quot;ar.yw&quot;
+</code></pre>
+
+<pre><code class="r">lm &lt;- function(i) {
+   print(i)
+}
+lm(7) 
+</code></pre>
+
+<pre><code>## [1] 7
+</code></pre>
+
+<pre><code class="r">x &lt;- rnorm(10); y &lt;- rnorm(10)
+lm(y ~ x)
+</code></pre>
+
+<pre><code>## y ~ x
+## &lt;environment: 0x7f9bdc9696a8&gt;
+</code></pre>
+
+<pre><code class="r">stats::lm(y ~ x)
+</code></pre>
+
+<pre><code>## 
+## Call:
+## stats::lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##     -0.3223      -0.3910
+</code></pre>
+
+<pre><code class="r">rm(lm)
+</code></pre>
+
+<p>Can you explain what is going on? Consider the results of <code>search()</code>.</p>
+
+<h3>Looking inside a package</h3>
+
+<p>Packages are available as &ldquo;Package source&rdquo;, namely the raw code and help files, and &ldquo;binaries&rdquo;, where stuff is packaged up for R to use efficiently. </p>
+
+<p>To look at the raw R code (and possibly C/C++/Fortran code included in some packages), download and unzip the package source tarball. From the command line of a Linux/Mac terminal (note this won&#39;t look right in the slides version of the HTML):</p>
+
+<pre><code class="bash">curl http://www.cran.r-project.org/src/contrib/fields_6.8.tar.gz -o fields_6.8.tar.gz
+tar -xvzf fields_6.8.tar.gz
+cd fields
+ls R
+ls src
+ls man
+ls data
+</code></pre>
+
+<h3>Creating your own R package</h3>
+
+<p>R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone ele, it&#39;s best to have some documentation in the form of function help files. </p>
+
+<p>Why make a package?</p>
+
+<ul>
+<li>It&#39;s an easy way to share code with collaborators</li>
+<li>It&#39;s a good way to create self-contained code for code you commonly use yourself</li>
+<li>It&#39;s how you can share your code and methods with the outside world</li>
+<li>It helps make your work reproducible</li>
+<li>It forces you to be more formal about your coding, which will improve your code</li>
+</ul>
+
+<p>See the <em>devtools</em> package and <code>package.skeleton()</code> for some useful tools to help you create a package. And there are lots of tips/tutorials online, in particular <a href="http://r-pkgs.had.co.nz/">Hadley Wickham&#39;s R packages book</a>.</p>
+
+<h1>The working directory</h1>
+
+<p>To read and write from R, you need to have a firm grasp of where in the computer&#39;s filesystem you are reading and writing from. </p>
+
+<pre><code class="r">getwd()  # what directory will R look in?
+# Linux/Mac specific
+setwd(&#39;~/Desktop/r-bootcamp-2016&#39;) # change the working directory
+setwd(&#39;/Users/paciorek/Desktop&#39;) # absolute path
+getwd()
+setwd(&#39;r-bootcamp-2016/modules&#39;) # relative path
+setwd(&#39;../tmp&#39;) # relative path, up and back down the tree
+
+# Windows - use either \\ or / to indicate directories
+# setwd(&#39;C:\\Users\\Your_username\\Desktop\\r-bootcamp-2016&#39;)
+# setwd(&#39;..\\r-bootcamp-2016&#39;)
+
+# platform-agnostic
+setwd(file.path(&#39;~&#39;, &#39;Desktop&#39;, &#39;r-bootcamp-2016&#39;)) # change the working directory
+setwd(file.path(&#39;/&#39;, &#39;Users&#39;, &#39;paciorek&#39;, &#39;Desktop&#39;, &#39;tmp&#39;)) # absolute path
+getwd()
+setwd(file.path(&#39;..&#39;, &#39;r-bootcamp-2016&#39;, &#39;modules&#39;)) # relative path
+</code></pre>
+
+<p>Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.</p>
+
+<h1>Reading text files into R</h1>
+
+<p>The workhorse for reading into a data frame is <code>read.table()</code>, which allows any separator (CSV, tab-delimited, etc.). <code>read.csv()</code> is a special case of <code>read.table()</code> for CSV files.</p>
+
+<p>Here&#39;s a simple example where R is able to read the data in using the default arguments to <code>read.csv()</code>.</p>
+
+<pre><code class="r">cpds &lt;- read.csv(file.path(&#39;..&#39;, &#39;data&#39;, &#39;cpds.csv&#39;))
+head(cpds)
+</code></pre>
+
+<pre><code>##   year   country vturn outlays realgdpgr unemp
+## 1 1960 Australia  95.5      NA        NA  1.42
+## 2 1961 Australia  95.3      NA     -0.07  2.79
+## 3 1962 Australia  95.3   23.17      5.71  2.63
+## 4 1963 Australia  95.7   23.01      6.10  2.12
+## 5 1964 Australia  95.7   22.88      6.28  1.15
+## 6 1965 Australia  95.7   24.90      4.97  1.15
+</code></pre>
+
+<p>It&#39;s good to first look at your data in plain text format outside of R and then to check it after you&#39;ve read it into R.</p>
+
+<h1>Reading &#39;foreign&#39; format data</h1>
+
+<p>Here&#39;s an example of reading data produced by another statistical package (Stata) with <code>read.dta()</code>. </p>
+
+<pre><code class="r">library(foreign)
+vote &lt;- read.dta(file.path(&#39;..&#39;, &#39;data&#39;, &#39;2004_labeled_processed_race.dta&#39;))
+head(vote)
+</code></pre>
+
+<pre><code>##   state pres04    sex  race  age9 partyid income relign8 age60 age65
+## 1     2      1 female white 25-29    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 18-29 25-29
+## 2     2      2   male white 18-24    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 18-29 18-24
+## 3     2      1 female black 30-39    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 30-39
+## 4     2      1 female black 30-39    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 30-39
+## 5     2      1 female white 40-44    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 40-49
+## 6     2      1 female white 30-39    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 30-39
+##   geocode sizeplac brnagain attend year region y
+## 1       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
+## 2       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 1
+## 3       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
+## 4       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
+## 5       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
+## 6       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
+</code></pre>
+
+<p>There are a number of other formats that we can handle for either reading or writing. Let&#39;s see <code>library(help = foreign)</code>.</p>
+
+<p>R can also read in (and write out) Excel files, netCDF files, HDF5 files, etc., in many cases through add-on packages from CRAN. </p>
+
+<p>A pause for a (gentle) diatribe:</p>
+
+<p>Please try to avoid using Excel files as a data storage format. It&#39;s proprietary, complicated (can have multiple sheets), allows a limited number of rows/columns, and files are not easily readable/viewable (unlike simple text files).</p>
+
+<h1>Writing data out from R</h1>
+
+<p>Here you have a number of options. </p>
+
+<p>1) You can write out R objects to an R Data file, as we&#39;ve seen, using <code>save()</code> and <code>save.image()</code>.
+2) You can use <code>write.csv()</code> and <code>write.table()</code> to write data frames/matrices to flat text files with delimiters such as comma and tab.
+3) You can use <code>write()</code> to write out matrices in a simple flat text format.
+4) You can use <code>cat()</code> to write to a file, while controlling the formatting to a fine degree.
+5) You can write out in the various file formats mentioned on the previous slide</p>
+
+<h3>Writing out plots and tables</h3>
+
+<pre><code class="r">pdf(&#39;myplot.pdf&#39;, width = 7, height = 7)
+x &lt;- rnorm(10); y &lt;- rnorm(10)
+plot(x, y)
+dev.off()
+</code></pre>
+
+<pre><code>## quartz_off_screen 
+##                 2
+</code></pre>
+
+<p><code>xtable()</code> formats tables for HTML and Latex (the default).</p>
+
+<pre><code class="r">require(xtable)
+print(xtable(table(air$UniqueCarrier, air$Cancelled)), type = &quot;html&quot;)
+</code></pre>
+
+<pre><code>## &lt;!-- html table generated in R 3.3.1 by xtable 1.8-2 package --&gt;
+## &lt;!-- Sun Aug 21 08:49:47 2016 --&gt;
+## &lt;table border=1&gt;
+## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; 0 &lt;/th&gt; &lt;th&gt; 1 &lt;/th&gt;  &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; AA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 49222 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1033 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; AS &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 20326 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 282 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; B6 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 3183 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  31 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; CO &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 18933 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  96 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; DH &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 469 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   1 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; DL &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 21446 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 166 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; EV &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 711 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  31 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; F9 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 8366 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  52 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; FL &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 3360 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   8 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; HA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1457 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   3 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; HP &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 4408 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  77 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; MQ &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 6862 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 279 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; NW &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 15290 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  68 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; OH &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  29 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;   1 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; OO &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 156071 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 3587 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; TZ &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 2304 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  17 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; UA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 175569 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 2977 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; US &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 24812 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 288 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; WN &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 14923 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 320 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; XE &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 2353 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  14 &lt;/td&gt; &lt;/tr&gt;
+##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; YV &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 456 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt;  14 &lt;/td&gt; &lt;/tr&gt;
+##    &lt;/table&gt;
+</code></pre>
+
+<p>Recall our discussion of the <code>summary()</code> function used on either a vector or a regression object. What do you think is going on with call to <code>print()</code> above? </p>
+
+<h1>Version control</h1>
+
+<h3>Overview</h3>
+
+<p>At a basic level, a simple principle is to have version numbers for all your work: code, datasets, manuscripts. Whenever you make a change to a dataset, increment the version number. For code and manuscripts, increment when you make substantial changes or have obvious breakpoints in your workflow. </p>
+
+<p>However, this is a hassle to do manually. Instead of manually trying to keep track of what changes you&#39;ve made to code, data, documents, you use software to help you manage the process. This has several benefits:</p>
+
+<ul>
+<li>easily allowing you to go back to earlier versions</li>
+<li>allowing you to have multiple versions you can switch between</li>
+<li>allowing you to share work easily without worrying about conflicts</li>
+<li>providing built-in backup</li>
+</ul>
+
+<h3>Git and Github</h3>
+
+<p>Git is a popular tool for version control. Git is based around the notion of a repository, which is basically a version-controlled project directory. Many people use it with the Github or Bitbucket online hosting services for repositories.</p>
+
+<p>In the introductory material, we&#39;ve already seen how to get a copy of a Github repository on your local machine. </p>
+
+<p>As you&#39;re gathering by now, I&#39;ve used Git and Github to manage all the content for this workshop.</p>
+
+<h3>Making changes to a repository</h3>
+
+<p>We&#39;ll go through a short example of making changes to the r-bootcamp-2016 repository. In this case you don&#39;t have permission to make changes so you&#39;ll just have to follow along as I do it. However, you could start your own repository and then you&#39;d be able to do similar things.</p>
+
+<p>Note that there are <a href="http://git-scm.com/downloads/guis">graphical interfaces to Git</a> that you might want to check out, but here I&#39;m just going to do it from the command line on my Mac.</p>
+
+<p>The basic notion we need is a <em>commit</em>. As we make changes to our files, we want to commit those changes to the repository regularly. A <em>commit</em> is a set of changes recorded with Git. We will often then <em>push</em> those changes to a remote copy of the repository, such as on Github.</p>
+
+<p>Here&#39;s a basic workflow:</p>
+
+<ol>
+<li>Add a file to, or make changes to a file in, a repository</li>
+<li>Commit the changes</li>
+<li>Push the changes to the remote version of the repository</li>
+</ol>
+
+<p>Here&#39;s how this would look from the command line (this won&#39;t look right in the slides version of the HTML):</p>
+
+<pre><code class="bash">git add myfile
+# make changes to mycode.R
+git commit -am&#39;added myfile and fixed bug in mycode.R&#39;
+git push
+</code></pre>
+
+<p>The changes are then available to anyone to <em>pull</em> from the remote repository, using <code>git pull</code>.</p>
+
+<h1>Getting R help online</h1>
+
+<h3>Mailing lists</h3>
+
+<p>There are several mailing lists that have lots of useful postings. In general if you have an error, others have already posted about it.</p>
+
+<ul>
+<li>R help: <a href="http://tolstoy.newcastle.edu.au/R/">R mailing lists archive</a></li>
+<li><a href="http://stackoverflow.com">Stack Overflow</a> (R stuff will be tagged with [R])</li>
+<li>R help special interest groups (SIG) such as <em>r-sig-hpc</em> (high performance computing), <em>r-sig-mac</em> (R on Macs), etc. (not easily searchable)</li>
+<li>Simple Google searches 
+
+<ul>
+<li>You may want to include &ldquo;in R&rdquo;, with the quotes in the search</li>
+<li>To search a SIG you might include the name of the SIG in the search string</li>
+<li><a href="http://Rseek.org">Rseek.org</a> for Google searches restricted to sites that have information on R</li>
+</ul></li>
+</ul>
+
+<p>If you are searching you often want to search for a specific error message. Remember to use double quotes around your error message so it is not broken into individual words by the search engine. </p>
+
+<h3>Posting your own questions</h3>
+
+<p>The main rule of thumb is to do your homework first to make sure the answer is not already available on the mailing list or in other documentation. Some of the folks who respond to mailing list questions are not the friendliest so it helps to have a thick skin, even if you have done your homework. On the plus side, they are very knowledgeable and include the world&#39;s foremost R experts/developers.</p>
+
+<p>Here are some guidelines when posting to one of the R mailing lists <a href="http://www.r-project.org/posting-guide.html">http://www.r-project.org/posting-guide.html</a></p>
+
+<p><code>sessionInfo()</code> is a function that will give information about your R version, OS, etc., that you can include in your posting.</p>
+
+<p>You also want to include a short, focused, <a href="http://adv-r.had.co.nz/Reproducibility.html">reproducible</a> example of your problem that others can run. </p>
+
+<h1>Breakout</h1>
+
+<h3>Basics</h3>
+
+<p>1) Make sure you are able to install packages from CRAN. E.g., try to install <em>lmtest</em>.</p>
+
+<p>2) Figure out what your current working directory is.</p>
+
+<h3>Using the ideas</h3>
+
+<p>3) Put the <em>data/cpds.csv</em> file in some other directory on your computer, such as <em>Downloads</em>. Use <code>setwd()</code> to set your working directory to be that directory. Read the file in using <code>read.csv()</code>.  Now use <code>setwd()</code> to point to a different directory such as <em>Desktop</em>. Write the data frame out to a file without any row names and without quotes on the character strings.</p>
+
+<p>4) Make a plot with the airline data. Save it as a PDF in <em>Desktop</em>. Now see what happens if you set the <em>width</em> and <em>height</em> arguments to be very small and see how it affects the resulting PDF. Do the same but setting width and height to be very large.</p>
+
+<p>5) Figure out where (what directory) the <em>graphics</em> package is stored on your machine. Is it the same as where the <em>fields</em> package is stored?</p>
+
+<h3>Advanced</h3>
+
+<p>6) Load the <em>spam</em> package. Note the message about <code>backsolve()</code> being masked from package:base. Now if you enter <code>backsolve</code>, you&#39;ll see the code associated with the version of <code>backsolve()</code> provided by the <em>spam</em> package. Now enter <code>base::backsolve</code> and you&#39;ll see the code for the version of <code>backsolve()</code> provided by base R. Explain why typing <code>backsolve</code> shows the <em>spam</em> version rather than the <em>base</em> version. </p>
+
+</body>
+
+</html>

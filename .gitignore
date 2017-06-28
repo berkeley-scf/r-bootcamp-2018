@@ -1,0 +1,6 @@
+# emacs backup files
+*~
+
+# intermediate markdown files
+*.md
+.Rproj.user

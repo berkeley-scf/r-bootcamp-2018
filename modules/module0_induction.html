@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+
+<title>A few administrative things</title>
+
+<script type="text/javascript">
+window.onload = function() {
+  var imgs = document.getElementsByTagName('img'), i, img;
+  for (i = 0; i < imgs.length; i++) {
+    img = imgs[i];
+    // center an image if it is the only element of its parent
+    if (img.parentElement.childElementCount === 1)
+      img.parentElement.style.textAlign = 'center';
+  }
+};
+</script>
+
+
+
+
+
+<style type="text/css">
+body, td {
+   font-family: sans-serif;
+   background-color: white;
+   font-size: 13px;
+}
+
+body {
+  max-width: 800px;
+  margin: auto;
+  padding: 1em;
+  line-height: 20px;
+}
+
+tt, code, pre {
+   font-family: 'DejaVu Sans Mono', 'Droid Sans Mono', 'Lucida Console', Consolas, Monaco, monospace;
+}
+
+h1 {
+   font-size:2.2em;
+}
+
+h2 {
+   font-size:1.8em;
+}
+
+h3 {
+   font-size:1.4em;
+}
+
+h4 {
+   font-size:1.0em;
+}
+
+h5 {
+   font-size:0.9em;
+}
+
+h6 {
+   font-size:0.8em;
+}
+
+a:visited {
+   color: rgb(50%, 0%, 50%);
+}
+
+pre, img {
+  max-width: 100%;
+}
+pre {
+  overflow-x: auto;
+}
+pre code {
+   display: block; padding: 0.5em;
+}
+
+code {
+  font-size: 92%;
+  border: 1px solid #ccc;
+}
+
+code[class] {
+  background-color: #F8F8F8;
+}
+
+table, td, th {
+  border: none;
+}
+
+blockquote {
+   color:#666666;
+   margin:0;
+   padding-left: 1em;
+   border-left: 0.5em #EEE solid;
+}
+
+hr {
+   height: 0px;
+   border-bottom: none;
+   border-top-width: thin;
+   border-top-style: dotted;
+   border-top-color: #999999;
+}
+
+@media print {
+   * {
+      background: transparent !important;
+      color: black !important;
+      filter:none !important;
+      -ms-filter: none !important;
+   }
+
+   body {
+      font-size:12pt;
+      max-width:100%;
+   }
+
+   a, a:visited {
+      text-decoration: underline;
+   }
+
+   hr {
+      visibility: hidden;
+      page-break-before: always;
+   }
+
+   pre, blockquote {
+      padding-right: 1em;
+      page-break-inside: avoid;
+   }
+
+   tr, img {
+      page-break-inside: avoid;
+   }
+
+   img {
+      max-width: 100% !important;
+   }
+
+   @page :left {
+      margin: 15mm 20mm 15mm 10mm;
+   }
+
+   @page :right {
+      margin: 15mm 10mm 15mm 20mm;
+   }
+
+   p, h2, h3 {
+      orphans: 3; widows: 3;
+   }
+
+   h2, h3 {
+      page-break-after: avoid;
+   }
+}
+</style>
+
+
+
+</head>
+
+<body>
+<h1>A few administrative things</h1>
+
+<h2>Where to find stuff</h2>
+
+<p>The Piazza site (<a href="https://piazza.com/berkeley/summer2016/rbootcamp2016/home">https://piazza.com/berkeley/summer2016/rbootcamp2016/home</a>) is the main site for the bootcamp. It has information on logistics, software installation, and the Q&amp;A area for online questions.  </p>
+
+<p>The Github site (<a href="https://github.com/berkeley-scf/r-bootcamp-2016">https://github.com/berkeley-scf/r-bootcamp-2016</a>) is updated more frequently (sometimes in real time) and is the master repository for materials for the modules; you can also get the individual files from Github. Instructions for accessing the materials on Github are on the Piazza site.</p>
+
+<p>If you have an administrative question, email <a href="mailto:r-bootcamp@lists.berkeley.edu">r-bootcamp@lists.berkeley.edu</a>.</p>
+
+<h2>Wireless</h2>
+
+<p>If you need wireless access as a guest (i.e., you don&#39;t have a CalNet ID), connect to &#39;CalVisitor&#39;.</p>
+
+<h1>A little warm-up</h1>
+
+<p>This isn&#39;t really all that related to R, programming or statistics, but check out the &#39;binary solo&#39; in this <a href="https://www.youtube.com/watch?v=B1BdQcJ2ZYY">Flight of the Conchords song</a>.</p>
+
+<h1>How we&#39;ll operate</h1>
+
+<p>The bootcamp will be organized in modules, each of which will be a combination of lecture/demo presentation concluded by a breakout session in which you&#39;ll work on a variety of problems of different levels of difficulty. The idea is for each person to find problems that challenge them but are not too hard. Solutions to the breakout problems will be presented before the start of the next module. </p>
+
+<p>Many of the modules will use a common dataset as an example on which to carry out various operations. We&#39;ll focus on a dataset of on-time information for US airline flights, 1987-2008 provided by the US government&#39;s Bureau of Transportation Statistics. This dataset is available in its entirety <a href="http://stat-computing.org/dataexpo/2009/the-data.html">here</a>. However, it&#39;s about 3.5 Gb compressed, so we&#39;ll work with a subset of just flights departing from SFO for 2005-2008, available in the Github repository as <em>airline.csv</em>. (Note that this is the full population of such flights &ndash; I&#39;ll fit some statistical models but the interpretation is tricky as we are not working with a sample from a well-defined population.)
+There&#39;s also a smaller subsample of the SFO flights in <em>airlineSubsample.csv</em> - you can use that in place of <em>airline.csv</em> if <em>airline.csv</em> is taking a while to load into R on your machine.</p>
+
+<p>Counselors will be available to help answer any questions you have (just wave to one of them), or feel free to just ask the presenter during the presentation. The counselors will also be monitoring the <a href="https://piazza.com/berkeley/summer2016/rbootcamp2016/home">Piazza Q&amp;A area</a>, so feel free to type in a question there and one of the counselors will answer the question. Or if you know the answer, help us out by answering it yourself or adding your thoughts. </p>
+
+<p>Your counseloRs are: Kellie Ottoboni (Statistics/BIDS), Rochelle Terman (Political Science/D-Lab), Chris Kennedy (Political Science/D-Lab), Evan Muzzall (Biology/D-Lab), Alex Padron (Biology), and Lauren Ponisio (ESPM/BIDS).</p>
+
+<h1>Suggestions on how to get the most out of the bootcamp</h1>
+
+<p>I encourage you to:</p>
+
+<ul>
+<li>try out the code as we walk through it</li>
+<li> keep your eyes open! &ndash; We&#39;ll illustrate a lot of syntax and concepts by example</li>
+<li>try to guess what the syntax means in cases we haven&#39;t yet seen that syntax</li>
+<li>play with it and try variations and try to break it and see what happens</li>
+<li>tell us if something interesting happens as you experiment, or post a comment in the chat room</li>
+<li>ask questions of me, the counselors, and in the chat room</li>
+</ul>
+
+<p>This is a bootcamp. So there may be some pain involved! If you find yourself not following everything, that&#39;s ok. You may miss some details, but try to follow the basics and the big picture. </p>
+
+<p>A few additional thoughts on my pedagogical philosophy here:</p>
+
+<ul>
+<li>I want to expose you to a lot of tools and ideas that you can come back to when you need them and when you have time for more depth.</li>
+<li>My aim is not to show you how to use specific statistical methods or analysis techniques. My goal is to get you up to speed generally in R.</li>
+<li>It can be hard to absorb everything in such a concentrated situation. Hopefully the material presented will be useful to you over the longer-term as you do more work with R.</li>
+</ul>
+
+<h1>RStudio and R Markdown</h1>
+
+<p>We&#39;ll present most of the material from within RStudio, using R Markdown documents with embedded R code. R Markdown is an extension to the Markdown markup language that makes it easy to write HTML in a simple plain text format.  This allows us to both run the R code directly as well as compile on-the-fly to an HTML file that can be used for presentation. All files will be available on <a href="https://github.com/berkeley-scf/r-bootcamp-2016">Github</a>.  </p>
+
+<p>Note: The files named <em>moduleX_blah_slides.html</em> have individual slides, while the files named <em>moduleX_blah.html</em> have the same content but all on one page.</p>
+
+<p>Warning: in some cases the processing of the R code in the R Markdown is screwy and the slides have error messages that do not occur if you just run the code directly in R or RStudio. </p>
+
+<h1>Using Github to get the documents</h1>
+
+<p>To download the files from Github, you can do the following. </p>
+
+<h2>Within RStudio</h2>
+
+<p>Within RStudio go to File-&gt;New Project-&gt;Version Control-&gt;Git and enter:</p>
+
+<ul>
+<li>&ldquo;Repository URL&rdquo;: <a href="https://github.com/berkeley-scf/r-bootcamp-2016">https://github.com/berkeley-scf/r-bootcamp-2016</a></li>
+<li>&ldquo;Project Directory Name&rdquo;: r-bootcamp-2016 (or something else of your choosing)</li>
+<li>&ldquo;Directory&rdquo;: ~/Desktop (or somewhere of your choosing)</li>
+</ul>
+
+<p>Then to update from the repository to get any changes we&#39;ve made, you can select (from within RStudio):
+Tools-&gt;Version Control-&gt;Pull Branches</p>
+
+<p>or from the Environment/History/Git window, click on the Git tab and then on the blue down arrow.</p>
+
+<p>Be warned that you probably do not want to make your own notes or changes to the files we are providing. Because if you do, and you then do a &ldquo;Git Pull&rdquo; to update the materials, you&#39;ll have to deal with the conflict between your local version and our version. You probably will want to make a personal copy of such files in another directory or by making copies of files with new names.</p>
+
+<h2>From a Mac/Linux terminal window</h2>
+
+<p>Run the following commands:</p>
+
+<ul>
+<li><code>cd /directory/where/you/want/repository/located</code></li>
+<li><code>git clone https://github.com/berkeley-scf/r-bootcamp-2016</code></li>
+</ul>
+
+<p>Then to update from the repository to get any changes we&#39;ve made:</p>
+
+<ul>
+<li><code>cd /directory/where/you/put/the/repository/r-bootcamp-2016</code></li>
+<li><code>git pull</code></li>
+</ul>
+
+<h1>What is R?</h1>
+
+<ul>
+<li>R is an Open Source (and freely available) environment for statistical computing and graphics</li>
+<li>It is a full-featured programming language, in particular a scripting language (with similarities to Matlab and Python)</li>
+<li>It can be run interactively or as a batch/background job</li>
+<li>R is being actively developed with ongoing updates/new releases</li>
+<li>R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see <a href="http://www.cran.r-project.org">CRAN</a> for the thousands of add-on packages</li>
+<li>It is freely-available and modifiable </li>
+<li>Available for Windows, Mac OS X, and <a href="http://dilbert.com/strips/comic/1995-06-24/">Linux</a></li>
+</ul>
+
+<h1>Modes of using R</h1>
+
+<ul>
+<li>Using the RStudio GUI, an &#39;integrated development environment&#39;</li>
+<li>From the command line in a Linux/Mac terminal window</li>
+<li>Running an R script in the background on a Linux/Mac machine (Windows?)</li>
+<li>Using the Windows/Mac GUIs</li>
+</ul>
+
+<h1>Starting R and RStudio</h1>
+
+<p>The pieces of an R session include:</p>
+
+<ul>
+<li>The R console</li>
+<li>Scripts containing your code</li>
+<li>Help files</li>
+<li>Graphics windows</li>
+<li>Workspace containing your objects, which hold data and information</li>
+</ul>
+
+<p>RStudio provides an integrated development environment in which all of these pieces are in a single application and tightly integrated, with a built-in editor for your code/scripts. </p>
+
+<h1>Why R?</h1>
+
+<ul>
+<li>R is widely used (statisticians, scientists, social scientists) and has the widest statistical functionality of any software</li>
+<li>Users add functionality via packages all the time</li>
+<li>R is free and available on all major platforms</li>
+<li>As a scripting language, R is very powerful, flexible, and easy to use</li>
+<li>As a scripting language, R allows for reproducibility and automating tasks</li>
+<li>As a language, R can do essentially anything</li>
+<li>Wide usage helps to improve quality and reduce bugs</li>
+<li>R can interact with other software, databases, the operating system, the web, etc.</li>
+<li>R is built on C and can call user-written and external C code and packages (in particular, see the <em>Rcpp</em> R package)</li>
+</ul>
+
+<h1>Why Not R?</h1>
+
+<ul>
+<li><p>Other software is better than R at various tasks</p>
+
+<p>E.g., <a href="http://imgs.xkcd.com/comics/python.png">Python</a> is very good for text manipulation, interacting with the operating system, and as a glue for tying together various applications/software in a workflow</p></li>
+<li><p>R can be much slower than compiled languages (but is often quite fast with good coding practices!)</p></li>
+<li><p>R&#39;s packages are only as good as the person who wrote them; no explicit quality control</p></li>
+<li><p>R is a sprawling and unstandardized ecosystem</p></li>
+</ul>
+
+<h1>What are my other options? Get me out of here!</h1>
+
+<ul>
+<li>Python</li>
+<li>Matlab/Octave</li>
+<li>Julia</li>
+<li>C/C++</li>
+<li>SAS</li>
+<li>Stata</li>
+</ul>
+
+<h1>My hidden agenda</h1>
+
+<p>In addition to learning some R, this workshop will expose you to a way of thinking about doing your computational work. </p>
+
+<p>The building blocks of scientific computing include:</p>
+
+<ul>
+<li>scripting</li>
+<li>reproducibility</li>
+<li>automating repetitive tasks</li>
+<li>version control (note our basic use of Git)</li>
+</ul>
+
+<h1>The Legal Stuff</h1>
+
+<ul>
+<li>Some of this material was drawn from <a href="http://jaredknowles.com/r-bootcamp/url">Jared Knowles R bootcamp</a>.</li>
+<li>Contributions from Kellie Ottoboni, Rochelle Terman, Chris Krogslund, and Jarrod Millman. Thank you!!!</li>
+<li>You are free to use, modify and redistribute any of this material with or without attribution, but if you use chunks of material, I&#39;d appreciate a call-out.</li>
+</ul>
+
+</body>
+
+</html>
