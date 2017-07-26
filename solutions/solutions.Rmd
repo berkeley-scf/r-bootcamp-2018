@@ -238,7 +238,7 @@ air$DayMinutes <- (air$Hour-1)*minutesPerHour + air$Minute
 hist(air$DayMinutes)
 ```
 
-# Module 5: Useful stuff
+# Module 5: Data manipulation using the tidyverse
 
 ```{r, basics5}
 library(plyr)
@@ -265,19 +265,6 @@ gap_wider <- gap_rel_gdp %>%
   select(country, year, gdpPercap_diff) %>% 
   spread(year, gdpPercap_diff)
 
-## 5 ##
-reg1 <- glm(formula = gdpPercap ~ lifeExp + pop + year, 
-                family=gaussian, data=gapminder)
-
-reg2 <- glm(formula = gdpPercap ~ lifeExp + pop + factor(year), 
-                family = gaussian, data = gapminder)
-
-## 6 ## 
-gap_rel_gdp_sign <- gap_rel_gdp %>%
-  mutate(sign = ifelse(gdpPercap_diff > 0, 1, 0))
-
-reg_logit <- glm(formula = sign ~ lifeExp + pop, 
-                family = binomial(link = "logit"), data = gap_rel_gdp_sign)
 ```
 
 # Module 6: Programming
@@ -378,7 +365,20 @@ qchisq(0.95, 1)
 ```
 
 ```{r, using_the_ideas7}
+
 ## 4 ##
+reg1 <- glm(formula = gdpPercap ~ lifeExp + pop + year, 
+                family=gaussian, data=gapminder)
+## here we assume a linear relationship of gdp with year
+## this is not flexible but allows us to fit the model with less data
+
+reg2 <- glm(formula = gdpPercap ~ lifeExp + pop + factor(year), 
+                family = gaussian, data = gapminder)
+## here we assume a completely arbitrary relationship of gdp with year
+## we need enough data in each year to be able to reasonably estimate the average gdp for that year, given the other explanatory variables
+
+
+## 5 ##
 nBoot <- 500
 vals <- rep(0, nBoot)
 
@@ -391,7 +391,7 @@ se <- sd(vals)
 n <- sum(!is.na(air$DepDelay))
 se_norm <- sd(air$DepDelay, na.rm = TRUE) / sqrt(n)
 
-## 5 ##
+## 6 ##
 DestSubset <- c('LAX','SEA','PHX','DEN','MSP','JFK','ATL','DFW','IAH', 'ORD') 
 airSmall <- subset(air, Dest %in% DestSubset)
 airSmall$DepDelayCens <- censor(airSmall$DepDelay, 180)
@@ -403,7 +403,15 @@ plot(mod_LAX)
 ```
 
 ```{r, advanced7}
-## 6 ## 
+
+## 7 ## 
+gap_rel_gdp_sign <- gap_rel_gdp %>%
+  mutate(sign = ifelse(gdpPercap_diff > 0, 1, 0))
+
+reg_logit <- glm(formula = sign ~ lifeExp + pop, 
+                family = binomial(link = "logit"), data = gap_rel_gdp_sign)
+
+## 8 ## 
 nFolds <- 10
 n <- nrow(air)
 fold_size <- rep(round(n / nFolds), nFolds)
@@ -414,7 +422,7 @@ table(fold)
 set.seed(0)
 air$Fold <- sample(fold, replace = TRUE)
 
-## 7 ##
+## 9 ##
 n <- 100
 nReps <- 10000
 data <- matrix(rpois(n*nReps, 3), ncol = nReps)

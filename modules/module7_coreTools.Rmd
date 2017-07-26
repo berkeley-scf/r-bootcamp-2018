@@ -11,6 +11,94 @@ if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
 air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
 ```
 
+# Describing relationships
+
+- Once we've carried out group-wise operations and perhaps reshaped it, we may also like to describe the relationships in the data. Often this involves fitting some style of regression model.  The goal can be pure prediction, description, or inferring a causal relationship between variables.
+
+Of course to infer causality, one has to be quite careful and techniques that try to avoid the usual pitfall that correlation is not causation are way beyond what we can cover here.
+
+We'll just see the basics of how to fit regressions here. 
+
+# Inference/Regression
+
+- Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work)
+
+- Most basic, catch-all regression function in R is *glm*
+
+- *glm* fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
+
+- *lm* is just a standard linear regression (equivalent to glm with family = gaussian(link = "identity"))
+
+- The basic glm call looks something like this:
+
+```{r eval=FALSE}
+glm(formula = y~x1+x2+x3+..., family = familyname(link = "linkname"), data = )
+```
+
+- There are a bunch of families and links to use (help(family) for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
+
+If you're using `lm`, the call looks the same but without the `family` argument. 
+
+- Example: suppose we want to regress the life expectency on the GDP per capita and the population, as well as the continent and year.  The lm/glm call would be something like this:
+
+```{r}
+reg <- lm(formula = lifeExp ~ gdpPercap + pop + continent + year, 
+                data = gapminder)
+```
+
+- When we store this regression in an object, we get access to several items of interest
+
+```{r}
+# View objects contained in the regression output
+objects(reg)
+# Examine regression coefficients
+reg$coefficients
+# Examine regression DoF
+reg$df.residual
+# Examine regression fit (AIC)
+reg$aic
+# See the standard (diagnostic) plots for a regression
+plot(reg)
+```
+
+- R has a helpful summary method for regression objects
+```{r}
+summary(reg)
+```
+
+- Can also extract useful things from the summary object
+
+```{r}
+# Store summary method results
+sum.reg <- summary(reg)
+# View summary method results objects
+objects(sum.reg)
+# View table of coefficients
+sum.reg$coefficients
+```
+
+- Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels)
+
+- If your data aren't factorized, you can tell lm/glm to factorize a variable (i.e. create dummy variables on the fly) by writing
+
+```{r, eval=FALSE}
+glm(formula = y~x1+x2+factor(x3), family = family(link = "link"), data = )
+```
+
+- There are also some useful shortcuts for regressing on interaction terms:
+
+**x1:x2** interacts all terms in x1 with all terms in x2
+```{r}
+summary(glm(formula = lifeExp ~ gdpPercap + pop + continent:factor(year), 
+                family = gaussian, data = gapminder))
+```
+
+**x1*x2** produces the cross of x1 and x2, or x1+x2+x1:x2
+```{r}
+summary(glm(formula = lifeExp ~ gdpPercap + pop + continent*factor(year), 
+                family = gaussian, data = gapminder))
+```
+
 
 # Smoothing
 
@@ -238,19 +326,23 @@ There's lots more packages/functionality for dates/times: see *lubridate* and `?
 
 ### Using the ideas
 
-4) Consider the code where we used `sample()`.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:
+4) Fit two linear regression models from the gapminder data, where the outcome is `gdpPercap` and the explanatory variables are `pop`, `lifeExp`, and `year`. In one model, treat `year` as a numeric variable. In the other, factorize the `year` variable. How do you interpret each model?
+
+5) Consider the code where we used `sample()`.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:
 - resample with replacement a new dataset of the same size as the actual dataset
 - assign the value of the mean of the delay for the bootstrap dataset into the storage vector
 - repeat
 
 Now plot a histogram of the 500 values - this is an estimate of the sampling distribution of the sample mean. 
 
-5) Modify the GAMs of delay on month and time to set `k` to a variety of values and see how the estimated relationships change. 
+6) Modify the GAMs of delay on month and time to set `k` to a variety of values and see how the estimated relationships change. 
 
 ### Advanced 
 
-6) Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the *airline* dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the *times* argument to the `rep()` function. (If you're not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)
+7) Fit a logistic regression model where the outcome is whether `gdpPercap_diff` is positive or negative -- that is, whether an observation is in the upper half or lower half of the continent's wealth in a given year. The explanatory variables should be `country`, `lifeExp`, and `pop`. 
 
-7) Write some code to demonstrate the central limit theorem. Generate many different replicates of samples of size `n` from a skewed or discrete distribution and show that if `n` is big enough, the distribution of the means (of each sample of size `n`) looks approximately normal in a histogram. Do it without any looping (using techniques from earlier modules)! I.e., I want you to show that if you have a large number (say 10,000) of means, each mean being the mean of `n` values from a distribution, the distribution of the means looks approximately normal if `n` is sufficiently big.
+8) Suppose you wanted to do 10-fold cross-validation for some sort of regression model fit to the *airline* dataset. Write some R code that produces a field in the dataset that indicates which fold each observation is in. Ensure each of the folds has an equal (or as nearly equal as possible if the number of observations is not divisible by 10) number of observations. Hint: consider the *times* argument to the `rep()` function. (If you're not familiar with 10-fold cross-validation, it requires one to divide the dataset into 10 subsets of approximately equal size.)
+
+9) Write some code to demonstrate the central limit theorem. Generate many different replicates of samples of size `n` from a skewed or discrete distribution and show that if `n` is big enough, the distribution of the means (of each sample of size `n`) looks approximately normal in a histogram. Do it without any looping (using techniques from earlier modules)! I.e., I want you to show that if you have a large number (say 10,000) of means, each mean being the mean of `n` values from a distribution, the distribution of the means looks approximately normal if `n` is sufficiently big.
 
 
