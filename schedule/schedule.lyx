@@ -1,5 +1,5 @@
-#LyX 2.0 created this file. For more info see http://www.lyx.org/
-\lyxformat 413
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
 \begin_document
 \begin_header
 \textclass article
@@ -24,13 +24,13 @@ knitr
 \font_roman default
 \font_sans default
 \font_typewriter default
+\font_math auto
 \font_default_family default
 \use_non_tex_fonts false
 \font_sc false
 \font_osf false
 \font_sf_scale 100
 \font_tt_scale 100
-
 \graphics default
 \default_output_format default
 \output_sync 0
@@ -41,15 +41,24 @@ knitr
 \use_hyperref false
 \papersize letterpaper
 \use_geometry true
-\use_amsmath 1
-\use_esint 0
-\use_mhchem 1
-\use_mathdots 1
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
 \cite_engine basic
+\cite_engine_type default
+\biblio_style plain
 \use_bibtopic false
 \use_indices false
 \paperorientation portrait
 \suppress_date false
+\justification true
 \use_refstyle 0
 \index Index
 \shortcut idx
@@ -77,7 +86,7 @@ knitr
 \begin_body
 
 \begin_layout Title
-R bootcamp - August 2015: Syllabus/schedule
+R bootcamp - August 2017: Syllabus/schedule
 \end_layout
 
 \begin_layout Subsection*
@@ -348,7 +357,7 @@ Break (15 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 5: Doing useful stuff (Rochelle)
+Module 5: Data manipulation using the tidyverse (Kellie)
 \end_layout
 
 \begin_deeper
@@ -362,27 +371,13 @@ reshaping and tidying data
 \end_layout
 
 \begin_layout Itemize
-regression, GLMs 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-(building on Chris' intro to S3 in module)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
 breakout problems/homework 
 \end_layout
 
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-Day 2 morning (9-12:30) (programming and more real-world work)
+Day 2 morning (9-12:45) (programming and more real-world work)
 \end_layout
 
 \begin_deeper
@@ -419,10 +414,28 @@ status open
 
 \end_deeper
 \begin_layout Itemize
-Module 7: Some core tools (Chris P.) (45 minutes)
+Break (15 minutes)
+\end_layout
+
+\begin_layout Itemize
+Module 7: Data analysis (Chris P.) 
 \end_layout
 
 \begin_deeper
+\begin_layout Itemize
+regression, GLMs 
+\begin_inset Note Note
+status open
+
+\begin_layout Plain Layout
+(building on Chris' intro to S3 in module)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \begin_layout Itemize
 smoothing
 \end_layout
@@ -454,10 +467,6 @@ status open
 \end_layout
 
 \end_deeper
-\begin_layout Itemize
-Break (15 minutes)
-\end_layout
-
 \begin_layout Itemize
 Module 8: Graphics (Kellie)
 \begin_inset Note Note
@@ -503,11 +512,11 @@ status open
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-Lunch (on your own) (12:30-2:00)
+Lunch (on your own) (12:45-2:15)
 \end_layout
 
 \begin_layout Itemize
-Day 2 afternoon (2:00-4:30) (more advanced topics) 
+Day 2 afternoon (2:15-4:30) (more advanced topics) 
 \end_layout
 
 \begin_deeper
