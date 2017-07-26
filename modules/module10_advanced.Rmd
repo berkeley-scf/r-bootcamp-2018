@@ -334,21 +334,26 @@ Basically, you tell the package what DBMS is being used on the back-end, link to
 
 # Database example
 
-The Current Index to Statistics contains records of article and author information from most Statistics journals. 
+You can get an example database of information about Stack Overflow questions and answers from [http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db](http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
 
-The database is not freely available, so it's not on Github, but I can do a demo here. (This may not process correctly when producing these slides...)
 
 ```{r}
 library(RSQLite)  # DBI is a dependency
-db <- dbConnect(SQLite(), dbname = "../data/cis.db") 
-# cis.db is an SQLite database
+db <- dbConnect(SQLite(), dbname = "../data/stackoverflow-2016.db") 
+## stackoverflow-2016.db is an SQLite database
 
+## metadata
 dbListTables(db)
-dbListFields(db, "articles")
-breiman <- dbGetQuery(db, "select * from authors 
-   where name like 'Breiman%'")
-breiman
+dbListFields(db, "questions")
 
+## simple filter operation
+popular <- dbGetQuery(db, "select * from questions 
+   where viewcount > 10000")
+## a join followed by a filter operation
+popularR <- dbGetQuery(db, "select * from questions join questions_tags
+   on questions.questionid = questions_tags.questionid
+   where viewcount > 10000 and
+   tag SIMILAR TO 'r-%|%-r|r|%-r-%'")
 ```
 
 # Computer architecture
