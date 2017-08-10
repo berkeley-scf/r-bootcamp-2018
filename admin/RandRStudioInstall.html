@@ -168,7 +168,7 @@ hr {
 <p>To install R, see:</p>
 
 <ul>
-<li>Mac: install the R-3.3.1.pkg from <a href="http://cran.rstudio.com/bin/macosx/">http://cran.rstudio.com/bin/macosx/</a> (or the R-3.2.1-snowleopard.pkg package if you have OS X 10.8 or older)</li>
+<li>Mac: install the R-3.4.1.pkg from <a href="http://cran.rstudio.com/bin/macosx/">http://cran.rstudio.com/bin/macosx/</a> if you have OS X 10.11 (El Capitan) or higher (or the R-3.3.3.pkg package if you have OS X 10.9 or 10.10)</li>
 <li>Windows: <a href="http://cran.rstudio.com/bin/windows/base/">http://cran.rstudio.com/bin/windows/base/</a></li>
 <li>Linux: <a href="http://cran.rstudio.com/bin/linux/">http://cran.rstudio.com/bin/linux/</a></li>
 </ul>
@@ -179,15 +179,15 @@ hr {
 
 <ul>
 <li>In R, enter the command <code>Sys.getenv()[&#39;R_LIBS_USER&#39;]</code>.</li>
-<li>Create the directory specified in the result that R returns, e.g., on a Mac, this might be <code>~/Library/R/3.3/library</code>.</li>
+<li>Create the directory specified in the result that R returns, e.g., on a Mac, this might be <code>~/Library/R/3.4/library</code>.</li>
 </ul>
 
 <p>R has many, many add-on packages that provide additional functionality. We&#39;ll use some of them during the bootcamp, and it&#39;s best if you&#39;ve already installed them (though you can install them as needed).</p>
 
 <p>To install the packages for the bootcamp, please run the following command within R:</p>
 
-<pre><code>install.packages(c(&#39;chron&#39;,&#39;colorspace&#39;,&#39;DBI&#39;,&#39;devtools&#39;,&#39;dichromat&#39;,&#39;digest&#39;,&#39;doParallel&#39;, &#39;dplyr&#39;, &#39;fields&#39;,&#39;foreach&#39;,
-&#39;ggplot2&#39;,&#39;gridExtra&#39;,&#39;gtable&#39;,&#39;inline&#39;,&#39;iterators&#39;,&#39;knitr&#39;,&#39;labeling&#39;,&#39;lme4&#39;,&#39;mapproj&#39;,&#39;maps&#39;,&#39;munsell&#39;,
+<pre><code>install.packages(c(&#39;chron&#39;,&#39;colorspace&#39;,&#39;DBI&#39;,&#39;devtools&#39;,&#39;dichromat&#39;,&#39;digest&#39;,&#39;doParallel&#39;, &#39;dplyr&#39;, &#39;fields&#39;,
+&#39;foreach&#39;, &#39;ggplot2&#39;,&#39;gridExtra&#39;,&#39;gtable&#39;,&#39;inline&#39;,&#39;iterators&#39;,&#39;knitr&#39;,&#39;labeling&#39;,&#39;lme4&#39;,&#39;mapproj&#39;,&#39;maps&#39;,&#39;munsell&#39;,
 &#39;proto&#39;,&#39;rbenchmark&#39;,&#39;RColorBrewer&#39;,&#39;Rcpp&#39;,&#39;reshape2&#39;,&#39;rJava&#39;,&#39;RSQLite&#39;,&#39;scales&#39;,&#39;spam&#39;,
 &#39;stringr&#39;,&#39;tidyr&#39;,&#39;xlsx&#39;,&#39;xlsxjars&#39;,&#39;xtable&#39;), repos = &quot;https://cran.cnr.berkeley.edu&quot;)
 </code></pre>

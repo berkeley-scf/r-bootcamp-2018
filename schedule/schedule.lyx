@@ -282,7 +282,7 @@ Lunch (on your own) (12:00-1:30)
 \end_layout
 
 \begin_layout Itemize
-Day 1 afternoon (1:30-5:00) (data processing and real-world work)
+Day 1 afternoon (1:30-5:00) (data processing and manipulation)
 \end_layout
 
 \begin_deeper
@@ -362,8 +362,8 @@ Module 5: Data manipulation using the tidyverse (Kellie)
 
 \begin_deeper
 \begin_layout Itemize
-stratified analyses: groupwise operations (see dplyr: subset, mutate, summarise,
- arrange); split-apply-combine
+stratified analyses: groupwise operations and split-apply-combine using
+ dplyr
 \end_layout
 
 \begin_layout Itemize
@@ -377,12 +377,12 @@ breakout problems/homework
 \end_deeper
 \end_deeper
 \begin_layout Itemize
-Day 2 morning (9-12:45) (programming and more real-world work)
+Day 2 morning (9-12:45) (programming and data analysis)
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-Module 6: Programming in R (Chris P.)
+Module 6: Programming in R (Nima)
 \end_layout
 
 \begin_deeper
@@ -563,7 +563,7 @@ Module 10: Advanced topics morsels (Chris P.) (60 minutes)
 
 \begin_deeper
 \begin_layout Itemize
-OOP (S3, S4, ReferenceClasses)
+object-oriented programming (S3, S4, ReferenceClasses)
 \end_layout
 
 \begin_layout Itemize
