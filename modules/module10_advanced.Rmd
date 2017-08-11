@@ -1,5 +1,5 @@
 % R bootcamp, Module 10: Advanced topics
-% August 2016, UC Berkeley
+% August 2017, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE} 
@@ -63,13 +63,13 @@ When `predict()` is called on a GLM object, it first calls the generic `predict(
 Making an object and class-specific methods under S3 is simple. 
 
 ```{r}
-rboot2016 <- list(month = 'August', year = 2015, 
+rboot2017 <- list(month = 'August', year = 2015, 
   instructor = 'Paciorek', attendance = 100)
-class(rboot2016) <- "workshop"
+class(rboot2017) <- "workshop"
 
-rboot2016
-is(rboot2016, "workshop")
-rboot2016$instructor 
+rboot2017
+is(rboot2017, "workshop")
+rboot2017$instructor 
 
 print.workshop <- function(x) {
     with(x,
@@ -78,7 +78,7 @@ print.workshop <- function(x) {
 }
 
 # doesn't execute correctly in the slide creation, so comment out here:
-# rboot2016 
+# rboot2017 
 ```
  
 Note that we rely on the generic `print()` already existing in R. Otherwise we'd need to create it.

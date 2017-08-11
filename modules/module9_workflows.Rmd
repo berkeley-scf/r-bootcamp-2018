@@ -1,5 +1,5 @@
 % R bootcamp, Module 9: Workflows, managing projects and good practices
-% August 2016, UC Berkeley
+% August 2017, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE} 
@@ -341,4 +341,4 @@ Here are some useful articles talking about reproducibility.
 
 Please fill out the feedback survey.
 
-[http://bit.ly/rbootcamp2016](http://bit.ly/rbootcamp2016)
+[http://bit.ly/rbootcamp2017](http://bit.ly/rbootcamp2017)

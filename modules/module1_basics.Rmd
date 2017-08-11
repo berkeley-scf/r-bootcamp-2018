@@ -1,5 +1,5 @@
 % R bootcamp, Module 1: Basics
-% August 2016, UC Berkeley
+% August 2017, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE, cache=TRUE} 
