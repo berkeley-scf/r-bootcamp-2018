@@ -426,14 +426,17 @@ package in the [`tidyverse`](http://www.tidyverse.org/), a set of modern tools
 for "doing data science" in R. `purrr` provides facilities to manipulate data
 sets using functions in a "tidy" manner. Using `purrr` requires familiarity with
 several other core packages of the `tidyverse`, most notably `dplyr` and
-`magrittr`. We won't have time to cover how to use `purrr` here, but we highly
-recommend you look into these packages as you explore R further. We'll leave you
-with an example of how to...
+`magrittr`. We won't have time to cover details of how to use `purrr` here, but
+we highly recommend you look into these packages as you continuing exploring R.
 
 ```{r tidyverse}
 library(dplyr)
 library(purrr)
 ```
+
+We'll leave you with a simple example of how to use `purrr` to deal with a task
+we already looked at with `for` loops. In fact, we'll return to the logistic
+regression exercise that we started with.
 
 ### A simple example
 
@@ -487,6 +490,24 @@ all.equal(coef(airSmall_glms$LAX$result), coef(out$LAX))
 ```
 
 Looks like everything worked out just fine!
+
+### Onwards: Readings and References
+
+* A great reference for learning both basic and advanced concepts in using the R
+  language for data analysis is the book _R for Data Science_, by Garrett
+  Grolemund and Hadley Wickham. An online version is freely available and may be
+  accessed [here](http://r4ds.had.co.nz/). In particular, [chapter 21
+  ("Iteration")](http://r4ds.had.co.nz/iteration.html) is a great review of much
+  of what we have covered in this module.
+
+* [Here](http://purrr.tidyverse.org/) you can explore the documentation website
+  for the `purrr` package. It includes details about functionality we did not
+  have time to discuss and many useful examples that you can use to go further
+  with `purrr`.
+
+* [Here](http://www.tidyverse.org/) you can browse the `tidyverse` documentation
+  website. It includes an introduction to the core packages, the philosophy of
+  this ecosystem of packages, and much more.
 
 # Breakout
 
