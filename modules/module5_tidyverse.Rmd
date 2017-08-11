@@ -1,4 +1,4 @@
-% R Bootcamp, Module 5: Useful Stuff
+% R Bootcamp, Module 5: Data manipulation using the tidyverse
 % August 2016, UC Berkeley
 % Rochelle Terman (rterman@gmail.com) and Chris Krogslund 
 
@@ -14,42 +14,15 @@ library(sandwich)
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
 ```
 
-# What exactly is "useful stuff" in R?
-
-(Credits: Some of these materials in this module were adapted from [Software Carpentry](http://swcarpentry.github.io/r-novice-gapminder/))
-
-For some, it might just be basic calculations
-
-```{r}
-63.24 * pi # Multiply 63.24 by pi
-exp(x = 4.39) # Raise e to the power of 4.39
-log(x = 1.7) # Take the log of 1.7
-tan(x = 58) # Compute the tangent of 58
-```
-
-For others, it might be large or complex mathematical operations
-
-```{r}
-# Take one million samples from the standard normal distribution
-data.sample <- rnorm(n = 1000000, mean = 0, sd = 1) 
-
-# Build a 1000 x 1000 matrix from the sample data
-big.matrix <- matrix(data = data.sample, ncol = 1000) 
-
-dim(x = big.matrix) # Confirm that "big.matrix" is 1000 x 1000
-big.matrix.inverse <- solve(a = big.matrix) # Compute the inverse of "big.matrix"
-system.time(expr = solve(a = big.matrix)) # Compute time required to invert "big.matrix"
-```
-
-# Useful Stuff: Applied Research Edition
+# Overview
 
 > It is often said that 80% of data analysis is spent on the process of cleaning and preparing the data. (Dasu and Johnson, 2003)
 
-For most applied researchers, "useful stuff" that can be done in R boils down to a few core items: 
+Thus before you can even get to doing any sort of sophisticated analysis or plotting, you'll generally first need to: 
 
 1. ***Manipulating*** data frames, e.g. filtering, summarizing, and conducting calculations across groups.
 2. ***Tidying*** data into the appropriate format
-3. Attempting to ***describe relationships*** or conduct ***causal inference*** 
+
 
 # Dataframe Manipulation/Example Dataset
 
@@ -456,114 +429,6 @@ head(gap_medium)
 
 `dplyr` and `tidyr` have many more functions to help you wrangle and manipulate your data. See the  [Data Wrangling Cheat Sheet](https://www.rstudio.com/wp-content/uploads/2015/02/data-wrangling-cheatsheet.pdf) for more.
 
-# Describing Relationships & Causal Inference
-
-- Once we've carried out group-wise operations and perhaps reshaped it, we may also like to attempt describing the relationships in the data or conducting some causal inference
-
-- This often requires doing the following:
-1. Estimating Regressions
-2. Carrying out Regression Diagnostics
-
-# Inference/Regression
-
-- Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work)
-
-- Most basic, catch-all regression function in R is *glm*
-
-- *glm* fits a generalized linear model with your choice of family/link function (gaussian, logit, poisson, etc.)
-
-- *lm* is just a standard linear regression (equivalent to glm with family = gaussian(link = "identity"))
-
-- The basic glm call looks something like this:
-
-```{r eval=FALSE}
-glm(formula = y~x1+x2+x3+..., family = familyname(link = "linkname"), data = )
-```
-
-- There are a bunch of families and links to use (help(family) for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
-
-- Example: suppose we want to regress the life expectency on the GDP per capita and the population, as well as the continent and year.  The glm call would be something like this:
-
-```{r}
-# Regress tip percent on total bill and party size
-reg <- glm(formula = lifeExp ~ gdpPercap + pop + continent + year, 
-                family = gaussian, data = gapminder)
-```
-
-- When we store this regression in an object, we get access to several items of interest
-
-```{r}
-# View objects contained in the regression output
-objects(reg)
-# Examine regression coefficients
-reg$coefficients
-# Examine regression DoF
-reg$df.residual
-# Examine regression fit (AIC)
-reg$aic
-```
-
-- R has a helpful summary method for regression objects
-```{r}
-summary(reg)
-```
-
-- Can also extract useful things from the summary object
-
-```{r}
-# Store summary method results
-sum.reg <- summary(reg)
-# View summary method results objects
-objects(sum.reg)
-# View table of coefficients
-sum.reg$coefficients
-```
-
-- Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels)
-
-- If your data aren't factorized, you can tell glm to factorize a variable (i.e. create dummy variables on the fly) by writing
-
-```{r, eval=FALSE}
-glm(formula = y~x1+x2+factor(x3), family = family(link = "link"), data = )
-```
-
-- There are also some useful shortcuts for regressing on interaction terms:
-
-**x1:x2** interacts all terms in x1 with all terms in x2
-```{r}
-summary(glm(formula = lifeExp ~ gdpPercap + pop + continent:factor(year), 
-                family = gaussian, data = gapminder))
-```
-
-**x1*x2** produces the cross of x1 and x2, or x1+x2+x1:x2
-```{r}
-summary(glm(formula = lifeExp ~ gdpPercap + pop + continent*factor(year), 
-                family = gaussian, data = gapminder))
-```
-
-# Inferences/Regression Diagnostics
-
-- The package *lmtest* has most of what you'll need to run basic regression diagnostics.
-
-- Breusch-Pagan Test for Heteroscedasticity 
-```{r}
-bptest(reg)
-```
-
-- Breusch-Godfrey Test for Higher-order Serial Correlation 
-```{r}
-bgtest(reg)
-```
-
-- Durbin-Watson Test for Autocorrelation of Disturbances
-```{r}
-dwtest(reg)
-```
-
-- Can also estimate heteroscedasticity/autocorrelation consistent standard errors via *coeftest* and the *sandwich* package
-```{r}
-coeftest(x = reg, vcov. = vcovHC)
-```
 
 # Breakout and overnight homework
 
@@ -580,12 +445,4 @@ coeftest(x = reg, vcov. = vcovHC)
 ### tidyr
 
 4. Subset the results from question #3 to select only the `country`, `year`, and `gdpPercap_diff` columns. Use tidyr put it in wide format so that countries are rows and years are columns. 
-
-### regressions
-
-5. Fit two linear regression models from the gapminder data, where the outcome is `gdpPercap` and the explanatory variables are `pop`, `lifeExp`, and `year`. In one model, treat `year` as a numeric variable. In the other, factorize the `year` variable. How do you interpret each model?
-
-6. Fix a logit model where the outcome is whether `gdpPercap_diff` is positive or negative -- that is, whether an observation is in the upper half or lower half of the continent's wealth in a given year. The explanatory variables should be `country`, `lifeExp`, and `pop`. 
-
-
 

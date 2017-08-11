@@ -1,15 +1,15 @@
-All, you're on the waitlist for the R bootcamp Aug 20-21 at Berkeley.
-We give first preference to Berkeley graduate students and postdocs
-so you're at the top of the waitlist. In general there is often
-a lot of flux in the registration up through the day before the 
-bootcamp, so I think it's likely that many of you will be able to
-attend, but I may not be able to let you know until the week of the
-bootcamp. 
+All, you're on the waitlist for the R bootcamp Aug 19-20 at Berkeley.
+We give first preference to Berkeley graduate students, postdocs,
+and researchers so you're at the top of the waitlist. In general
+there is often a lot of flux in the registration up through the day
+before the bootcamp, so I think it's likely that many of you will
+be able to attend, but I may not be able to let you know until
+the week of the bootcamp. 
 
 In the meantime, if you realize you cannot make it, it's important
-that you cancel your waitlisted registration using the link below so we can
+that you cancel your waitlisted registration using this link
+(goo.gl/8iXTWr) so we can
 accommodate as many people as possible.
-https://docs.google.com/forms/d/1pmQCWuVgWkGZeGYHmN7oqPqoqi4q7z4k4O12_CgUy08/viewform?c=0&w=1
 
 Thanks,
 Chris Paciorek
