@@ -1,5 +1,5 @@
 % R Bootcamp, Module 8: Graphics
-% August 2016, UC Berkeley
+% August 2017, UC Berkeley
 % Kellie Ottoboni (kellieotto@berkeley.edu) (built off of material by Chris Krogslund)
 
 ```{r chunksetup, include=FALSE} 
@@ -30,7 +30,7 @@ medals <- read.csv("../data/all_medalists.csv", header = TRUE, stringsAsFactors 
 
 For more info, see [The Guardian Datablog Olympic medal winners: every one since 1896 as open data](https://www.theguardian.com/sport/datablog/2012/jun/25/olympic-medal-winner-list-data)
 
-First, we'll use dplyr and tidyr to count the medals of each type won, for each country and each year.
+First, we'll use `dplyr` and `tidyr` to count the medals of each type won, for each country and each year.
 ```{r}
 head(medals)
 
@@ -251,13 +251,31 @@ ggplot(usa_gold_medals, aes(x = Year, y = count)) + geom_bar(stat = "identity")
 
 ## ggplot2 and tidy data
 
-* Base graphics/lattice and ggplot2 have one big difference: ggplot2 **requires** your data to be in tidy format. For base graphics, it can actually be helpful *not* to have your data in tidy format. Compare:
+* ggplot2 plays nice with dplyr and pipes. If you want to manipulate your data specifically for one plot but not save the new dataset, you can call your dplyr chain and pipe it directly into a ggplot call.
+
+```{r, fig.cap = "", fig.show = "hold"}
+# This combines the subsetting and plotting into one step
+medal_counts %>% 
+  filter(Medal == "Gold") %>%
+  filter(NOC == "USA") %>%
+  ggplot(aes(x = Year, y = count)) + geom_line()
+```
+
+* Base graphics/lattice and ggplot2 have one big difference: ggplot2 **requires** your data to be in tidy format. For base graphics, it can actually be helpful *not* to have your data in tidy format. 
+The difference is that ggplot treats `Medal` as an aesthetic parameter that differentiates kinds of statistics, whereas base graphics treats each (year, medal) pair as a set of inputs to the plot.
+Compare:
 
 ```{r, fig.cap = ""}
 usa_all_medals <- medal_counts %>% filter(NOC == "USA")
+
+# ggplot2 call
+ggplot(data = usa_all_medals, aes(x = Year, y = count)) + 
+            geom_line(aes(color = Medal))
+```
+
+```{r, fig.cap = ""}
 usa_all_medals_untidy <- medal_counts_wide %>% 
                       filter(NOC == "USA") 
-   # Medal is the variable, but it spans multiple columns
 
 # Base graphics call
 plot(usa_all_medals_untidy$Year, usa_all_medals_untidy$Gold, col = "green", 
@@ -266,25 +284,8 @@ lines(usa_all_medals_untidy$Year, usa_all_medals_untidy$Silver, col = "blue")
 lines(usa_all_medals_untidy$Year, usa_all_medals_untidy$Bronze, col = "red")
 legend("right", legend = c("Gold", "Silver", "Bronze"), 
                 fill = c("green", "blue", "red"))
-
-# ggplot2 call
-ggplot(data = usa_all_medals, aes(x = Year, y = count)) + 
-            geom_line(aes(color = Medal))
 ```
 
-* The difference is that ggplot treats `Medal` as an aesthetic parameter that differentiates kinds of statistics. Base graphics treats each medal type as a layer to the plot.
-* ggplot2 plays nice with dplyr and pipes. If you want to manipulate your data specifically for one plot but not save the new dataset, you can call your dplyr chain and pipe it directly into a ggplot call:
-
-```{r, fig.cap = "", fig.show = "hold"}
-# Assuming you've already subsetted your data to USA Gold medals
-ggplot(usa_gold_medals, aes(x = Year, y = count)) + geom_line()
-
-# This combines the subsetting and plotting into one step
-medal_counts %>% 
-  filter(Medal == "Gold") %>%
-  filter(NOC == "USA") %>%
-  ggplot(aes(x = Year, y = count)) + geom_line()
-```
 
 ## Pros/cons of ggplot2
 
@@ -292,6 +293,7 @@ medal_counts %>%
 * Automatically adjusts spacing and sizing as you add more layers
 * Requires data to be in tidy format
 * Syntax is different from base R -- there is a learning curve
+* Plots are actually objects. You can assign them to a variable and do things with it (more on this later)
 
 # Comparing lattice and ggplot2
 
