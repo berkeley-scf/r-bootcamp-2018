@@ -17,7 +17,12 @@ for those of you who have neither done any programming (e.g., Python, C, Java,
 Fortran, R, MATLAB) nor done any script-based data analysis (e.g., R,
 Python, MATLAB, Stata, SAS) before, you may want to instead consider
 the R trainings offered by the D-Lab throughout the fall and spring
-semesters. These go at a slower pace so may be a good option for those
+semesters, in particular this training the week before the bootcamp:
+ http://dlab.berkeley.edu/training/r-fundamentals-part-1-5
+ http://dlab.berkeley.edu/training/r-fundamentals-part-2-5
+ http://dlab.berkeley.edu/training/r-fundamentals-part-3-5
+ http://dlab.berkeley.edu/training/r-fundamentals-part-4-5.
+These go at a slower pace so may be a good option for those
 looking for a more relaxed introduction.
 
 Thanks,

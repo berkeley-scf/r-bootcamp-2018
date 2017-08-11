@@ -24,6 +24,7 @@ Thus before you can even get to doing any sort of sophisticated analysis or plot
 2. ***Tidying*** data into the appropriate format
 
 There are two competing schools of thought within the R community.
+
 * We should stick to the base R functions to do manipulating and tidying; `tidyverse` uses syntax that's unlike base R and is superfluous.
 * We should start teaching students to manipulate data using `tidyverse` tools because they are straightfoward to use, more readable than base R, and speed up the tidying process.
 
@@ -34,7 +35,8 @@ We'll show you some of the `tidyverse` tools so you can make an informed decisio
 For this unit, we'll be working with the "Gapminder" dataset, which is excerpt of the data available at Gapminder.org. For each of 142 countries, the data  provides values for life expectancy, GDP per capita, and population, every five years, from 1952 to 2007.
 
 ```{r}
-gapminder <- read.csv("../data/gapminder-FiveYearData.csv", stringsAsFactors = TRUE)
+gapminder <- read.csv("../data/gapminder-FiveYearData.csv",
+          stringsAsFactors = TRUE)
 head(gapminder)
 ```
 
