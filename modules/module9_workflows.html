@@ -385,7 +385,7 @@ execution, and reporting.  For more information, see Bioconductor&#39;s <a href=
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.795   0.025   0.819
+##   0.776   0.004   0.780
 </code></pre>
 
 <pre><code class="r">library(rbenchmark)
@@ -396,8 +396,8 @@ benchmark(ifelse(x &lt; 0, x, 0),
 </code></pre>
 
 <pre><code>##   replications elapsed
-## 1            5   8.174
-## 2            5   0.828
+## 1            5   3.846
+## 2            5   0.161
 </code></pre>
 
 <h1>Profiling your code</h1>
@@ -473,18 +473,18 @@ object.size(x)
 gc()
 </code></pre>
 
-<pre><code>##             used  (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells   1350882  72.2    2164898  115.7   1995819  106.6
-## Vcells 111230069 848.7  168052612 1282.2 139673706 1065.7
+<pre><code>##             used  (Mb) gc trigger   (Mb)  max used  (Mb)
+## Ncells   1263531  67.5    2164898  115.7   2164898 115.7
+## Vcells 110728849 844.8  167339241 1276.7 130310637 994.2
 </code></pre>
 
 <pre><code class="r">rm(x)
 gc()
 </code></pre>
 
-<pre><code>##            used (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells  1350891 72.2    2164898  115.7   1995819  106.6
-## Vcells 11230096 85.7  134442089 1025.8 139673706 1065.7
+<pre><code>##            used (Mb) gc trigger   (Mb)  max used  (Mb)
+## Ncells  1263522 67.5    2164898  115.7   2164898 115.7
+## Vcells 10728846 81.9  133871392 1021.4 130310637 994.2
 </code></pre>
 
 <h1>Scripting</h1>
@@ -598,7 +598,7 @@ c(3,5)
 c
 </code></pre>
 
-<pre><code>## function (..., recursive = FALSE)  .Primitive(&quot;c&quot;)
+<pre><code>## function (...)  .Primitive(&quot;c&quot;)
 </code></pre>
 
 <ul>
@@ -647,7 +647,7 @@ complete set of instructions which generated the figures.</p>
 
 <p>Please fill out the feedback survey.</p>
 
-<p><a href="http://bit.ly/rbootcamp2016">http://bit.ly/rbootcamp2016</a></p>
+<p><a href="http://bit.ly/rbootcamp2017">http://bit.ly/rbootcamp2017</a></p>
 
 </body>
 

@@ -295,24 +295,30 @@ mod2$residuals[1:20] # access field with list-like syntax
 </code></pre>
 
 <pre><code>##  [1] predict.ar*                predict.Arima*            
-##  [3] predict.arima0*            predict.bs*               
-##  [5] predict.bSpline*           predict.glm               
-##  [7] predict.glmmPQL*           predict.gls*              
-##  [9] predict.gnls*              predict.HoltWinters*      
-## [11] predict.lda*               predict.lm                
-## [13] predict.lme*               predict.lmList*           
-## [15] predict.loess*             predict.lqs*              
-## [17] predict.mca*               predict.merMod*           
-## [19] predict.mlm*               predict.nbSpline*         
-## [21] predict.nlme*              predict.nls*              
-## [23] predict.npolySpline*       predict.ns*               
-## [25] predict.pbSpline*          predict.polr*             
-## [27] predict.poly*              predict.polySpline*       
-## [29] predict.ppolySpline*       predict.ppr*              
-## [31] predict.prcomp*            predict.princomp*         
-## [33] predict.qda*               predict.rlm*              
-## [35] predict.smooth.spline*     predict.smooth.spline.fit*
-## [37] predict.StructTS*         
+##  [3] predict.arima0*            predict.bam               
+##  [5] predict.bs*                predict.bSpline*          
+##  [7] predict.fastTps            predict.gam               
+##  [9] predict.glm                predict.glmmPQL*          
+## [11] predict.gls*               predict.gnls*             
+## [13] predict.HoltWinters*       predict.interp.surface    
+## [15] predict.jam*               predict.Krig              
+## [17] predict.lda*               predict.lm                
+## [19] predict.lme*               predict.lmList*           
+## [21] predict.lmList4*           predict.loess*            
+## [23] predict.lqs*               predict.mca*              
+## [25] predict.merMod*            predict.mKrig             
+## [27] predict.mlm*               predict.nbSpline*         
+## [29] predict.nlme*              predict.nls*              
+## [31] predict.npolySpline*       predict.ns*               
+## [33] predict.pbSpline*          predict.polr*             
+## [35] predict.poly*              predict.polySpline*       
+## [37] predict.ppolySpline*       predict.ppr*              
+## [39] predict.prcomp*            predict.princomp*         
+## [41] predict.qda*               predict.qsreg             
+## [43] predict.rlm*               predict.smooth.spline*    
+## [45] predict.smooth.spline.fit* predict.sreg              
+## [47] predict.StructTS*          predict.surface           
+## [49] predict.surface.default    predict.Tps               
 ## see &#39;?methods&#39; for accessing help and source code
 </code></pre>
 
@@ -321,7 +327,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0xfde53f0&gt;
+## &lt;bytecode: 0x2daa890&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -334,11 +340,11 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <p>Making an object and class-specific methods under S3 is simple. </p>
 
-<pre><code class="r">rboot2016 &lt;- list(month = &#39;August&#39;, year = 2015, 
+<pre><code class="r">rboot2017 &lt;- list(month = &#39;August&#39;, year = 2015, 
   instructor = &#39;Paciorek&#39;, attendance = 100)
-class(rboot2016) &lt;- &quot;workshop&quot;
+class(rboot2017) &lt;- &quot;workshop&quot;
 
-rboot2016
+rboot2017
 </code></pre>
 
 <pre><code>## $month
@@ -357,13 +363,13 @@ rboot2016
 ## [1] &quot;workshop&quot;
 </code></pre>
 
-<pre><code class="r">is(rboot2016, &quot;workshop&quot;)
+<pre><code class="r">is(rboot2017, &quot;workshop&quot;)
 </code></pre>
 
 <pre><code>## [1] TRUE
 </code></pre>
 
-<pre><code class="r">rboot2016$instructor 
+<pre><code class="r">rboot2017$instructor 
 </code></pre>
 
 <pre><code>## [1] &quot;Paciorek&quot;
@@ -376,7 +382,7 @@ rboot2016
 }
 
 # doesn&#39;t execute correctly in the slide creation, so comment out here:
-# rboot2016 
+# rboot2017 
 </code></pre>
 
 <p>Note that we rely on the generic <code>print()</code> already existing in R. Otherwise we&#39;d need to create it.</p>
@@ -425,7 +431,7 @@ class(fm1)
 <pre><code class="r">fm1@theta
 </code></pre>
 
-<pre><code>## [1] 0.96673297 0.01516901 0.23090960
+<pre><code>## [1] 0.96673279 0.01516906 0.23090960
 </code></pre>
 
 <h1>A brief mention of Reference Classes</h1>
@@ -814,40 +820,41 @@ There is a UNIX utility call <em>mac2unix</em> that can convert such text files.
 
 <h1>Database example</h1>
 
-<p>The Current Index to Statistics contains records of article and author information from most Statistics journals. </p>
-
-<p>The database is not freely available, so it&#39;s not on Github, but I can do a demo here. (This may not process correctly when producing these slides&hellip;)</p>
+<p>You can get an example database of information about Stack Overflow questions and answers from <a href="http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db">http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db</a>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</p>
 
 <pre><code class="r">library(RSQLite)  # DBI is a dependency
-db &lt;- dbConnect(SQLite(), dbname = &quot;../data/cis.db&quot;) 
-# cis.db is an SQLite database
+db &lt;- dbConnect(SQLite(), dbname = &quot;../data/stackoverflow-2016.db&quot;) 
+## stackoverflow-2016.db is an SQLite database
 
+## metadata
 dbListTables(db)
 </code></pre>
 
-<pre><code>##  [1] &quot;articles&quot;      &quot;authors&quot;       &quot;authorships&quot;   &quot;books&quot;        
-##  [5] &quot;contacts&quot;      &quot;delayed_jobs&quot;  &quot;isbns&quot;         &quot;issns&quot;        
-##  [9] &quot;issues&quot;        &quot;journals&quot;      &quot;tag_relations&quot; &quot;taggings&quot;     
-## [13] &quot;tags&quot;          &quot;volumes&quot;
+<pre><code>## character(0)
 </code></pre>
 
-<pre><code class="r">dbListFields(db, &quot;articles&quot;)
+<pre><code class="r">dbListFields(db, &quot;questions&quot;)
 </code></pre>
 
-<pre><code>##  [1] &quot;id&quot;         &quot;type&quot;       &quot;id_entity&quot;  &quot;id_title&quot;   &quot;title&quot;     
-##  [6] &quot;year&quot;       &quot;volume&quot;     &quot;number&quot;     &quot;page_start&quot; &quot;page_end&quot;  
-## [11] &quot;url&quot;        &quot;journal&quot;    &quot;journal_id&quot; &quot;volume_id&quot;  &quot;issue_id&quot;  
-## [16] &quot;zmath&quot;
+<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions
 </code></pre>
 
-<pre><code class="r">breiman &lt;- dbGetQuery(db, &quot;select * from authors 
-   where name like &#39;Breiman%&#39;&quot;)
-breiman
+<pre><code class="r">## simple filter operation
+popular &lt;- dbGetQuery(db, &quot;select * from questions 
+   where viewcount &gt; 10000&quot;)
 </code></pre>
 
-<pre><code>##     id           name
-## 1  532 Breiman, Leo\n
-## 2 1141  Breiman, L.\n
+<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions
+</code></pre>
+
+<pre><code class="r">## a join followed by a filter operation
+popularR &lt;- dbGetQuery(db, &quot;select * from questions join questions_tags
+   on questions.questionid = questions_tags.questionid
+   where viewcount &gt; 10000 and
+   tag SIMILAR TO &#39;r-%|%-r|r|%-r-%&#39;&quot;)
+</code></pre>
+
+<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): near &quot;SIMILAR&quot;: syntax error
 </code></pre>
 
 <h1>Computer architecture</h1>
