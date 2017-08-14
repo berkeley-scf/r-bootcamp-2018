@@ -229,14 +229,14 @@ system.time(trunc &lt;- ifelse(vals &gt; 0, vals, 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.064   0.004   0.065
+##   0.068   0.000   0.064
 </code></pre>
 
 <pre><code class="r">system.time(vals &lt;- vals * (vals &gt; 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.008   0.000   0.005
+##   0.004   0.000   0.005
 </code></pre>
 
 <p><strong>Question</strong>: What am I doing with <code>vals * (vals &gt; 0)</code> ? What happens behind the scenes in R?</p>
@@ -422,7 +422,7 @@ for(i in 1:n)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.040   0.000   0.036
+##   0.036   0.000   0.035
 </code></pre>
 
 <p>Here&#39;s how to pre-allocate an empty list: </p>
@@ -1132,7 +1132,7 @@ b. How can you construct the <em>e</em> matrix? Hint: the numerator of <em>e</em
 <pre><code class="r">h &lt;- air$DepTime %/% 100
 m &lt;- air$DepTime %% 100
 h &lt;- as.character(h)
-h[nchar(h) == 1] &lt;- paste(&#39;0&#39;, h[nchar(h) == 1], sep = &#39;&#39;)
+h[!is.na(h) &amp; nchar(h) == 1] &lt;- paste(&#39;0&#39;, h[!is.na(h) &amp; nchar(h) == 1], sep = &#39;&#39;)
 air$DepTimeChar &lt;- paste(h, m, sep = &#39;-&#39;)
 </code></pre>
 
