@@ -8,7 +8,7 @@
 
 The Piazza site ([https://piazza.com/berkeley/summer2017/rbootcamp2017/home](https://piazza.com/berkeley/summer2017/rbootcamp2017/home)) is the main site for the bootcamp. It has information on logistics, software installation, and the Q&A area for online questions.  
 
-The Github site ([https://github.com/berkeley-scf/r-bootcamp-2017](https://github.com/berkeley-scf/r-bootcamp-2017)) is updated more frequently (sometimes in real time) and is the master repository for materials for the modules; you can also get the individual files from Github. Instructions for accessing the materials on Github are on the Piazza site.
+The Github site ([https://github.com/berkeley-scf/r-bootcamp-2017](https://github.com/berkeley-scf/r-bootcamp-2017)) is the master repository for materials for the modules; you can also get the individual files from Github. Instructions for accessing the materials on Github are on the Piazza site.
 
 If you have an administrative question, email r-bootcamp@lists.berkeley.edu.
 
@@ -89,6 +89,9 @@ Then to update from the repository to get any changes we've made:
 - `cd /directory/where/you/put/the/repository/r-bootcamp-2017`
 - `git pull`
 
+## As a zip file
+
+If you don't want to bother using Git or have problems, simply download a zip file with all the material from [https://github.com/berkeley-scf/r-bootcamp-2017/archive/master.zip](https://github.com/berkeley-scf/r-bootcamp-2017/archive/master.zip).
 
 # What is R?
 
@@ -96,7 +99,7 @@ Then to update from the repository to get any changes we've made:
 - It is a full-featured programming language, in particular a scripting language (with similarities to Matlab and Python)
 - It can be run interactively or as a batch/background job
 - R is being actively developed with ongoing updates/new releases
-- R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see [CRAN](http://www.cran.r-project.org) for the thousands of add-on packages
+- R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see [CRAN](https://www.cran.r-project.org/web/packages/index.html) for the thousands of add-on packages
 - It is freely-available and modifiable 
 - Available for Windows, Mac OS X, and [Linux](http://dilbert.com/strips/comic/1995-06-24/)
 
@@ -167,5 +170,5 @@ The building blocks of scientific computing include:
 # The Legal Stuff
 
 - Some of this material was drawn from [Jared Knowles R bootcamp](http://jaredknowles.com/r-bootcamp/url).
-- Contributions from Kellie Ottoboni, Rochelle Terman, Chris Krogslund, and Jarrod Millman. Thank you!!!
+- Contributions from Kellie Ottoboni, Nima Hejazi, Rochelle Terman, Chris Krogslund, and Jarrod Millman. Thank you!!!
 - You are free to use, modify and redistribute any of this material with or without attribution, but if you use chunks of material, I'd appreciate a call-out.

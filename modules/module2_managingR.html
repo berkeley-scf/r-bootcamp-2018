@@ -401,7 +401,7 @@ lm(y ~ x)
 </code></pre>
 
 <pre><code>## y ~ x
-## &lt;environment: 0x30826a8&gt;
+## &lt;environment: 0x471de48&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(y ~ x)
@@ -438,7 +438,7 @@ ls data
 
 <h3>Creating your own R package</h3>
 
-<p>R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone ele, it&#39;s best to have some documentation in the form of function help files. </p>
+<p>R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone else, it&#39;s best to have some documentation in the form of function help files. </p>
 
 <p>Why make a package?</p>
 
@@ -469,10 +469,10 @@ setwd(&#39;../tmp&#39;) # relative path, up and back down the tree
 # setwd(&#39;..\\r-bootcamp-2017&#39;)
 
 # platform-agnostic
-setwd(file.path(&#39;~&#39;, &#39;Desktop&#39;, &#39;r-bootcamp-2017&#39;)) # change the working directory
-setwd(file.path(&#39;/&#39;, &#39;Users&#39;, &#39;paciorek&#39;, &#39;Desktop&#39;, &#39;tmp&#39;)) # absolute path
+setwd(file.path(&#39;~&#39;, &#39;Desktop&#39;, &#39;r-bootcamp-2017&#39;, &#39;modules&#39;)) # change the working directory
+setwd(file.path(&#39;/&#39;, &#39;Users&#39;, &#39;paciorek&#39;, &#39;Desktop&#39;, &#39;r-bootcamp-2017&#39;, &#39;modules&#39;)) # absolute path
 getwd()
-setwd(file.path(&#39;..&#39;, &#39;r-bootcamp-2017&#39;, &#39;modules&#39;)) # relative path
+setwd(file.path(&#39;..&#39;, &#39;data&#39;)) # relative path
 </code></pre>
 
 <p>Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.</p>
@@ -560,7 +560,7 @@ print(xtable(table(air$UniqueCarrier, air$Cancelled)), type = &quot;html&quot;)
 </code></pre>
 
 <pre><code>## &lt;!-- html table generated in R 3.4.1 by xtable 1.8-2 package --&gt;
-## &lt;!-- Sat Aug 12 13:30:31 2017 --&gt;
+## &lt;!-- Sat Aug 12 14:45:31 2017 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; 0 &lt;/th&gt; &lt;th&gt; 1 &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; AA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 49222 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1033 &lt;/td&gt; &lt;/tr&gt;
@@ -636,7 +636,7 @@ git commit -am&#39;added myfile and fixed bug in mycode.R&#39;
 git push
 </code></pre>
 
-<p>The changes are then available to anyone to <em>pull</em> from the remote repository, using <code>git pull</code>.</p>
+<p>The changes are then available to anyone to <em>pull</em> from the remote repository, a using <code>git pull</code> or graphical interfaces, such as using RStudio&#39;s tools to pull the changes to your machine, discussed in the Github slide in module 0.</p>
 
 <h1>Getting R help online</h1>
 

@@ -190,7 +190,7 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>); y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">10</span>)
 <span class="kw">lm</span>(y ~<span class="st"> </span>x)</code></pre></div>
 <pre><code>## y ~ x
-## &lt;environment: 0x28e4548&gt;</code></pre>
+## &lt;environment: 0x3547548&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">stats::<span class="kw">lm</span>(y ~<span class="st"> </span>x)</code></pre></div>
 <pre><code>## 
 ## Call:
@@ -198,7 +198,7 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##    -0.01603      0.30595</code></pre>
+##    0.139665    -0.005894</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(lm)</code></pre></div>
 <p>Can you explain what is going on? Consider the results of <code>search()</code>.</p>
 <h3 id="looking-inside-a-package">Looking inside a package</h3>
@@ -212,7 +212,7 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 <span class="kw">ls</span> man
 <span class="kw">ls</span> data</code></pre></div>
 <h3 id="creating-your-own-r-package">Creating your own R package</h3>
-<p>R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone ele, it's best to have some documentation in the form of function help files.</p>
+<p>R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone else, it's best to have some documentation in the form of function help files.</p>
 <p>Why make a package?</p>
 <ul>
 <li>It's an easy way to share code with collaborators</li>
@@ -239,10 +239,10 @@ z &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">a 
 <span class="co"># setwd('..\\r-bootcamp-2017')</span>
 
 <span class="co"># platform-agnostic</span>
-<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'~'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-bootcamp-2017'</span>)) <span class="co"># change the working directory</span>
-<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'/'</span>, <span class="st">'Users'</span>, <span class="st">'paciorek'</span>, <span class="st">'Desktop'</span>, <span class="st">'tmp'</span>)) <span class="co"># absolute path</span>
+<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'~'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-bootcamp-2017'</span>, <span class="st">'modules'</span>)) <span class="co"># change the working directory</span>
+<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'/'</span>, <span class="st">'Users'</span>, <span class="st">'paciorek'</span>, <span class="st">'Desktop'</span>, <span class="st">'r-bootcamp-2017'</span>, <span class="st">'modules'</span>)) <span class="co"># absolute path</span>
 <span class="kw">getwd</span>()
-<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'..'</span>, <span class="st">'r-bootcamp-2017'</span>, <span class="st">'modules'</span>)) <span class="co"># relative path</span></code></pre></div>
+<span class="kw">setwd</span>(<span class="kw">file.path</span>(<span class="st">'..'</span>, <span class="st">'data'</span>)) <span class="co"># relative path</span></code></pre></div>
 <p>Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.</p>
 </div>
 <div id="reading-text-files-into-r" class="slide section level1">
@@ -307,7 +307,7 @@ x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1
 <pre><code>## Loading required package: xtable</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">print</span>(<span class="kw">xtable</span>(<span class="kw">table</span>(air$UniqueCarrier, air$Cancelled)), <span class="dt">type =</span> <span class="st">&quot;html&quot;</span>)</code></pre></div>
 <pre><code>## &lt;!-- html table generated in R 3.4.1 by xtable 1.8-2 package --&gt;
-## &lt;!-- Sat Aug 12 13:30:19 2017 --&gt;
+## &lt;!-- Sat Aug 12 14:45:19 2017 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; 0 &lt;/th&gt; &lt;th&gt; 1 &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; AA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 49222 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1033 &lt;/td&gt; &lt;/tr&gt;
@@ -364,7 +364,7 @@ x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1
 <span class="co"># make changes to mycode.R</span>
 <span class="kw">git</span> commit -am<span class="st">'added myfile and fixed bug in mycode.R'</span>
 <span class="kw">git</span> push</code></pre></div>
-<p>The changes are then available to anyone to <em>pull</em> from the remote repository, using <code>git pull</code>.</p>
+<p>The changes are then available to anyone to <em>pull</em> from the remote repository, a using <code>git pull</code> or graphical interfaces, such as using RStudio's tools to pull the changes to your machine, discussed in the Github slide in module 0.</p>
 </div>
 <div id="getting-r-help-online" class="slide section level1">
 <h1>Getting R help online</h1>

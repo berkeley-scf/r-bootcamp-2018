@@ -8,7 +8,7 @@
 require(fields)
 require(foreign)
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
-air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
 
 # Describing relationships

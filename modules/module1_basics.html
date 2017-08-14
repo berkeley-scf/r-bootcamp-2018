@@ -328,7 +328,7 @@ fours
 <pre><code>## [1] 4 4 4 4 4 4
 </code></pre>
 
-<pre><code class="r"># This is a comment: here is an example of non-numeric data
+<pre><code class="r">## This is a comment: here is an example of non-numeric data
 depts &lt;- c(&#39;espm&#39;, &#39;pmb&#39;, &#39;stats&#39;)
 depts
 </code></pre>
@@ -364,7 +364,7 @@ depts
 
 <p>We can concatenate values into a vector with <code>c()</code>.</p>
 
-<pre><code class="r"># numeric vector
+<pre><code class="r">## numeric vector
 nums &lt;- c(1.1, 3, -5.7)
 devs &lt;- rnorm(5)
 devs
@@ -373,13 +373,13 @@ devs
 <pre><code>## [1] -2.0534100  1.4481056  1.3537067  0.4747789 -0.2489249
 </code></pre>
 
-<pre><code class="r"># integer vector
+<pre><code class="r">## integer vector
 ints &lt;- c(1L, 5L, -3L) # force storage as integer not decimal number
-# &#39;L&#39; is for &#39;long integer&#39; (historical)
+## &#39;L&#39; is for &#39;long integer&#39; (historical)
 
 idevs &lt;- sample(ints, 100, replace = TRUE)
 
-# character vector
+## character vector
 chars &lt;- c(&#39;hi&#39;, &#39;hallo&#39;, &quot;mother&#39;s&quot;, &#39;father\&#39;s&#39;, 
    &quot;She said, &#39;hi&#39;&quot;, &quot;He said, \&quot;hi\&quot;&quot; )
 chars
@@ -400,7 +400,7 @@ chars
 ## He said, &quot;hi&quot;
 </code></pre>
 
-<pre><code class="r"># logical vector
+<pre><code class="r">## logical vector
 bools &lt;- c(TRUE, FALSE, TRUE)
 bools
 </code></pre>
@@ -447,7 +447,28 @@ vals
 <pre><code>## [1]  2  4  6 12
 </code></pre>
 
-<pre><code class="r"># create a simple vector from the airline dataset
+<pre><code class="r">#######################################################################
+## IMPORTANT: read in the airline dataset from disk;
+## first make sure your working directory is the &#39;modules&#39; directory
+getwd()
+</code></pre>
+
+<pre><code>## [1] &quot;/accounts/gen/vis/paciorek/staff/workshops/r-bootcamp-2017/modules&quot;
+</code></pre>
+
+<pre><code class="r">setwd(&#39;/Users/paciorek/Desktop/r-bootcamp-2017/modules&#39;)
+</code></pre>
+
+<pre><code>## Error in setwd(&quot;/Users/paciorek/Desktop/r-bootcamp-2017/modules&quot;): cannot change working directory
+</code></pre>
+
+<pre><code class="r">## replace &#39;~/Desktop&#39; with whatever directory you put the bootcamp
+## materials in; e.g./ &#39;C:\\Users\\sarah\\r-bootcamp-2017\\modules&#39;
+air &lt;- read.csv(file.path(&#39;..&#39;, &#39;data&#39;, &#39;airline.csv&#39;),
+    stringsAsFactors = FALSE)
+#######################################################################
+
+## create a simple vector from the airline dataset
 delay &lt;- air$DepDelay
 delay[1:10]
 </code></pre>
@@ -461,7 +482,7 @@ delay[1:10]
 vals[1:2] &lt;- 0
 
 vals &lt;- rnorm(100)
-# How does R process these next subset operations?
+## How does R process these next subset operations?
 vals[vals &lt; 0] &lt;- 0
 vals[1:8]
 </code></pre>
@@ -526,14 +547,14 @@ vec1
 <pre><code>##  [1]  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE  TRUE
 </code></pre>
 
-<pre><code class="r"># using &#39;or&#39;
+<pre><code class="r">## using &#39;or&#39;
 vec1 &lt;= 0 | vec1 &gt;= 3
 </code></pre>
 
 <pre><code>##  [1]  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 </code></pre>
 
-<pre><code class="r"># using &#39;and&#39;
+<pre><code class="r">## using &#39;and&#39;
 vec1 &lt;= 0 &amp; vec1 &gt;= vec2
 </code></pre>
 
@@ -552,7 +573,7 @@ vec1 &lt;= 0 &amp; vec1 &gt;= vec2
 <pre><code>##  [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
 </code></pre>
 
-<pre><code class="r"># careful: 
+<pre><code class="r">## careful: 
 vec1 = vec2
 identical(vec1, vec2)
 </code></pre>
@@ -630,7 +651,7 @@ vec1
 
 <pre><code>## function (x, na.rm = FALSE, ...) 
 ## UseMethod(&quot;median&quot;)
-## &lt;bytecode: 0x42930e0&gt;
+## &lt;bytecode: 0x6bb4f78&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -672,7 +693,7 @@ vec1
 
 ?log
 
-# ??&#39;regr&#39; # take out the &#39;#&#39; to demo live - there&#39;s an issue with Markdown processing...
+## ??&#39;regr&#39; # take out the &#39;#&#39; to demo live - there&#39;s an issue with Markdown processing...
 </code></pre>
 
 <h1>Basic kinds of R objects</h1>
@@ -1096,10 +1117,10 @@ length(vec1)
 
 <p><img src="data:image/png;base64,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" alt=""/></p>
 
-<pre><code class="r"># make a random subset for quicker plotting:
+<pre><code class="r">## make a random subset for quicker plotting:
 set.seed(0)  # make the subset reproducible
 subset &lt;- air[sample(1:nrow(air), 10000, replace = FALSE), ]
-# censor the outliers to limit plotting range
+## censor the outliers to limit plotting range
 subset$DepDelay[subset$DepDelay &gt; 60*3] &lt;- 60*3
 plot(subset$DepDelay ~ subset$Distance)
 </code></pre>

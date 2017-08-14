@@ -12,8 +12,7 @@ library(lattice)
 library(gridExtra)
 library(reshape2)
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
-medals <- read.csv("../data/all_medalists.csv", header = TRUE, stringsAsFactors = FALSE)
-
+medals <- read.csv(file.path('..', 'data', 'all_medalists.csv'), stringsAsFactors = FALSE)
 ```
 
 # By way of introduction...

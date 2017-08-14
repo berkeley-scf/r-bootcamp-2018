@@ -9,8 +9,6 @@
 library(dplyr)
 library(tidyr)
 library(ggplot2)
-library(lmtest)
-library(sandwich)
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
 ```
 

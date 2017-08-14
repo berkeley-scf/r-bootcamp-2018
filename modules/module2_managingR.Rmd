@@ -6,7 +6,8 @@
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
 rm(list = ls())
-air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
+air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
 
 # Managing and saving the workspace
@@ -144,7 +145,7 @@ ls data
 
 ### Creating your own R package
 
-R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone ele, it's best to have some documentation in the form of function help files. 
+R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone else, it's best to have some documentation in the form of function help files. 
 
 Why make a package?
 
@@ -174,10 +175,10 @@ setwd('../tmp') # relative path, up and back down the tree
 # setwd('..\\r-bootcamp-2017')
 
 # platform-agnostic
-setwd(file.path('~', 'Desktop', 'r-bootcamp-2017')) # change the working directory
-setwd(file.path('/', 'Users', 'paciorek', 'Desktop', 'tmp')) # absolute path
+setwd(file.path('~', 'Desktop', 'r-bootcamp-2017', 'modules')) # change the working directory
+setwd(file.path('/', 'Users', 'paciorek', 'Desktop', 'r-bootcamp-2017', 'modules')) # absolute path
 getwd()
-setwd(file.path('..', 'r-bootcamp-2017', 'modules')) # relative path
+setwd(file.path('..', 'data')) # relative path
 ```
 Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.
 
@@ -283,7 +284,7 @@ git commit -am'added myfile and fixed bug in mycode.R'
 git push
 ```
 
-The changes are then available to anyone to *pull* from the remote repository, using `git pull`.
+The changes are then available to anyone to *pull* from the remote repository, a using `git pull` or graphical interfaces, such as using RStudio's tools to pull the changes to your machine, discussed in the Github slide in module 0.
 
 
 # Getting R help online

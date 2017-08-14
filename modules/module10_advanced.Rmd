@@ -5,7 +5,7 @@
 ```{r chunksetup, include=FALSE} 
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
-air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
 
 # This purpose of this module

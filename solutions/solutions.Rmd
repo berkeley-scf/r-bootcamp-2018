@@ -228,6 +228,7 @@ quantile, probs = 0.95, na.rm = TRUE)
 h <- air$DepTime %/% 100
 m <- air$DepTime %% 100
 h <- as.character(h)
+h[is.na(h)] <- ''
 h[nchar(h) == 1] <- paste('0', h[nchar(h) == 1], sep = '')
 air$DepTimeChar <- paste(h, m, sep = '-')
 
