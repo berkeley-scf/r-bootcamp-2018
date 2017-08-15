@@ -5,6 +5,7 @@
 ```{r chunksetup, include=FALSE} 
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
 air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
 
@@ -353,7 +354,7 @@ popular <- dbGetQuery(db, "select * from questions
 popularR <- dbGetQuery(db, "select * from questions join questions_tags
    on questions.questionid = questions_tags.questionid
    where viewcount > 10000 and
-   tag SIMILAR TO 'r-%|%-r|r|%-r-%'")
+   tag = 'r'")
 ```
 
 # Computer architecture

@@ -289,7 +289,7 @@ dim(mat); print(mat)
 <pre><code class="r">colSums(mat)
 </code></pre>
 
-<pre><code>## Error in base::colSums(x, na.rm = na.rm, dims = dims, ...): &#39;x&#39; must be an array of at least two dimensions
+<pre><code>## Error in colSums(mat): &#39;x&#39; must be an array of at least two dimensions
 </code></pre>
 
 <pre><code class="r">mat &lt;- matrix(1:4, 2, 2)[1, , drop = FALSE]
@@ -330,7 +330,7 @@ buggyFun(air)
 ## [28] &quot;SecurityDelay&quot;     &quot;LateAircraftDelay&quot;
 </code></pre>
 
-<pre><code>## Error in base::rowSums(x, na.rm = na.rm, dims = dims, ...): &#39;x&#39; must be numeric
+<pre><code>## Error in rowSums(myDF): &#39;x&#39; must be numeric
 </code></pre>
 
 <pre><code class="r">if(FALSE) {
@@ -474,8 +474,8 @@ gc()
 </code></pre>
 
 <pre><code>##             used  (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells   1263531  67.5    2164898  115.7   2164898 115.7
-## Vcells 110728849 844.8  167339241 1276.7 130310637 994.2
+## Ncells    436601  23.4    1442291   77.1   1442291  77.1
+## Vcells 110249106 841.2  166674852 1271.7 129765947 990.1
 </code></pre>
 
 <pre><code class="r">rm(x)
@@ -483,8 +483,8 @@ gc()
 </code></pre>
 
 <pre><code>##            used (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells  1263522 67.5    2164898  115.7   2164898 115.7
-## Vcells 10728846 81.9  133871392 1021.4 130310637 994.2
+## Ncells   436589 23.4    1442291   77.1   1442291  77.1
+## Vcells 10249098 78.2  133339881 1017.4 129765947 990.1
 </code></pre>
 
 <h1>Scripting</h1>

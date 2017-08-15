@@ -223,13 +223,13 @@ summaryRprof(&quot;profile2.out&quot;)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e8</span>)
 <span class="kw">gc</span>()</code></pre></div>
 <pre><code>##             used  (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells   1259270  67.3    2164898  115.7   1442291  77.1
-## Vcells 110712417 844.7  174228377 1329.3 120722978 921.1</code></pre>
+## Ncells    432369  23.1    1442291   77.1   1057733  56.5
+## Vcells 110232034 841.1  173536306 1324.0 120243540 917.4</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(x)
 <span class="kw">gc</span>()</code></pre></div>
 <pre><code>##            used (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells  1259289 67.3    2164898  115.7   1442291  77.1
-## Vcells 10712458 81.8  139382701 1063.5 120722978 921.1</code></pre>
+## Ncells   432391 23.1    1442291   77.1   1057733  56.5
+## Vcells 10232077 78.1  138829044 1059.2 120243540 917.4</code></pre>
 </div>
 <div id="scripting" class="slide section level1">
 <h1>Scripting</h1>
