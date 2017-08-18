@@ -203,29 +203,40 @@ hr {
 <body>
 <h1>Loops</h1>
 
-<p>In many languages, looping (for loops, while loops, etc.) is one of the main constructs used to carry out computation. Loops are not emphasized as much in R, both because they can be slow and because other syntax is often cleaner. </p>
+<p>In many languages, looping (for loops, while loops, etc.) is one of the main
+constructs used to carry out computation. Loops are not emphasized as much in R,
+both because they can be slow and because other syntax is often cleaner.</p>
 
-<p>But there are lots of times when using a loop does make sense. </p>
+<p>But there are lots of times when using a loop does make sense.</p>
 
-<p>Most of you are probably familiar at least with the basic idea of iterating through a series of steps. A for loop iterates through a pre-determined number of iterations, while a while loop iterates until some condition is met. For loops are more common in R, but while loops can be handy particularly for things like optimization.</p>
+<p>Most of you are probably familiar at least with the basic idea of iterating
+through a series of steps. A for loop iterates through a pre-determined number
+of iterations, while a while loop iterates until some condition is met. For
+loops are more common in R, but while loops can be handy particularly for things
+like optimization.</p>
 
-<p>Let&#39;s take our use of <code>aggregate()</code> from Module 4 and use a for loop instead. </p>
+<p>Let&#39;s take our use of <code>aggregate()</code> from Module 4 and use a for loop instead.</p>
 
-<pre><code class="r">DestSubset &lt;- c(&#39;LAX&#39;,&#39;SEA&#39;,&#39;PHX&#39;,&#39;DEN&#39;,&#39;MSP&#39;,&#39;OAK&#39;,&#39;JFK&#39;,&#39;ATL&#39;,&#39;DFW&#39;,&#39;IAH&#39;, &#39;ORD&#39;) 
+<pre><code class="r">DestSubset &lt;- c(&#39;LAX&#39;,&#39;SEA&#39;,&#39;PHX&#39;,&#39;DEN&#39;,&#39;MSP&#39;,&#39;OAK&#39;,&#39;JFK&#39;,&#39;ATL&#39;,&#39;DFW&#39;,&#39;IAH&#39;,
+                &#39;ORD&#39;)
 airSmall &lt;- subset(air, Dest %in% DestSubset)
 airSmall$late &lt;- airSmall$DepDelay &gt;= 15
 airSmall$Month &lt;- as.factor(airSmall$Month)
 airSmall$Month &lt;- relevel(airSmall$Month, &quot;5&quot;)
 airSmall$Dest &lt;- as.character(airSmall$Dest)
 
-out &lt;- list(); length(out) &lt;- length(DestSubset); names(out) &lt;- DestSubset
+out &lt;- list()
+length(out) &lt;- length(DestSubset)
+names(out) &lt;- DestSubset
 
-for( i in seq_along(DestSubset) ) { 
+for (i in seq_along(DestSubset)) {
      # equivalently: for(i in 1:length(DestSubset))
+     # n.b., seq_along(x) is better than 1:length(x), since it handles the case
+     # where the length of an object is 0 or NULL more robustly.
      sub &lt;- subset(airSmall, airSmall$Dest == DestSubset[i])
-     if(sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) { 
+     if (sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) {
      # fit logistic regression
-       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub) 
+       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub)
      } else {
        out[[i]] &lt;- NA
      }
@@ -314,7 +325,7 @@ out[[&#39;OAK&#39;]]
 
 <p>The iterations do not have to explicitly be over sequential numbers.</p>
 
-<pre><code class="r">for( dest in DestSubset ) {
+<pre><code class="r">for (dest in DestSubset) {
      cat(dest, &#39;\n&#39;)
 }
 </code></pre>
@@ -334,16 +345,17 @@ out[[&#39;OAK&#39;]]
 
 <h1>While loop</h1>
 
-<p>It&#39;s not a particularly interesting example, but we can see the while loop syntax in the same example.</p>
+<p>It&#39;s not a particularly interesting example, but we can see the <code>while</code> loop
+syntax in the same example.</p>
 
 <pre><code class="r">out &lt;- list(); length(out) &lt;- length(DestSubset); names(out) &lt;- DestSubset
 
 i &lt;- 1
-while( i &lt;= length(DestSubset) ) { 
+while (i &lt;= length(DestSubset)) {
      sub &lt;- subset(airSmall, airSmall$Dest == DestSubset[i])
-     if(sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) { 
+     if (sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) {
      # fit logistic regression
-       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub) 
+       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub)
      } else {
        out[[i]] &lt;- NA
      }
@@ -391,13 +403,14 @@ summary(out[[&#39;IAH&#39;]])
 
 <p>We already saw an example of branching in the <em>for</em> loop example.</p>
 
-<p>Here&#39;s a simple example to illustrate the syntax. Note that the <em>then</em> is implicit.</p>
+<p>Here&#39;s a simple example to illustrate the syntax. Note that the <em>then</em> is
+implicit.</p>
 
 <pre><code class="r">val &lt;- rnorm(1)
 val
 </code></pre>
 
-<pre><code>## [1] -0.9624134
+<pre><code>## [1] 0.3956462
 </code></pre>
 
 <pre><code class="r">if (val &lt; 0) {
@@ -407,7 +420,7 @@ val
 }
 </code></pre>
 
-<pre><code>## [1] &quot;val is negative&quot;
+<pre><code>## [1] &quot;val is positive&quot;
 </code></pre>
 
 <p>We can chain together <code>if</code> statements as follows.</p>
@@ -416,7 +429,7 @@ val
 val
 </code></pre>
 
-<pre><code>## [1] 0.2622455
+<pre><code>## [1] 0.3259616
 </code></pre>
 
 <pre><code class="r">if (val &lt; -1) {
@@ -431,9 +444,11 @@ val
 <pre><code>## [1] &quot;val is within one standard deviation of the mean.&quot;
 </code></pre>
 
-<p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions, but R will complain when an <code>else</code> starts a line of code, so generally using the <code>{</code> is good practice. That said, this looks fine:</p>
+<p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions,
+but R will complain when an <code>else</code> starts a line of code, so generally using the
+<code>{</code> is good practice. That said, this <em>works just fine</em>:</p>
 
-<pre><code class="r">if( val &lt; 0) print(&quot;val is negative&quot;) else print(&quot;val is positive&quot;)
+<pre><code class="r">if (val &lt; 0) print(&quot;val is negative&quot;) else print(&quot;val is positive&quot;)
 </code></pre>
 
 <pre><code>## [1] &quot;val is positive&quot;
@@ -441,13 +456,14 @@ val
 
 <h1>The condition in an if statement</h1>
 
-<p>The condition in the if statement cannot be NA or R will give an error. This is a very common bug.</p>
+<p>The condition in the if statement cannot be NA or R will give an error. This is
+a very common bug.</p>
 
 <p>Suppose we were (inefficiently) setting up a new field using an if statement.</p>
 
 <pre><code class="r">air$late &lt;- rep(0, nrow(air))
-for(i in 1:20) {
-      if(air$DepDelay[i] &gt; 15) 
+for (i in 1:20) {
+      if(air$DepDelay[i] &gt; 15)
           air$late[i] &lt;- 1 else air$late[i] &lt;- 0
 }
 </code></pre>
@@ -479,9 +495,11 @@ for(i in 1:20) {
 <pre><code>## [1] NA
 </code></pre>
 
-<p>An NA/NaN is the main reason an if statement may fail, because R will generally convert other values to logical values. </p>
+<p>An <code>NA</code>/<code>NaN</code> is the main reason an if statement may fail, because R will
+generally convert other values to logical values.</p>
 
-<p>Zero evaluates to <code>FALSE</code>, all other numbers evaluate to <code>TRUE</code>. In general strings are not converted to booleans.</p>
+<p>Zero evaluates to <code>FALSE</code>, all other numbers evaluate to <code>TRUE</code>. In general
+strings are not converted to booleans.</p>
 
 <h1>Flow control: <code>next</code> and <code>break</code> statements</h1>
 
@@ -489,12 +507,12 @@ for(i in 1:20) {
 
 <pre><code class="r">out &lt;- list(); length(out) &lt;- length(DestSubset); names(out) &lt;- DestSubset
 
-for( i in seq_along(DestSubset) ) { 
+for (i in seq_along(DestSubset)) {
      # equivalently: for(i in 1:length(DestSubset))
      sub &lt;- subset(airSmall, airSmall$Dest == DestSubset[i])
-     if(sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) { 
+     if(sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) {
      # fit logistic regression
-       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub) 
+       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub)
      } else {
        next
      }
@@ -515,12 +533,12 @@ cat(&quot;We got to iteration &quot;, i, &quot; of &quot;, length(DestSubset), &
 
 <pre><code class="r">out &lt;- list(); length(out) &lt;- length(DestSubset); names(out) &lt;- DestSubset
 
-for( i in seq_along(DestSubset) ) { 
+for (i in seq_along(DestSubset)) {
      # equivalently: for(i in 1:length(DestSubset))
      sub &lt;- subset(airSmall, airSmall$Dest == DestSubset[i])
-     if(sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) { 
+     if(sum(!is.na(sub$late)) &amp;&amp; length(sub$late) &gt; 1) {
      # fit logistic regression
-       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub) 
+       out[[i]] &lt;- glm(late ~ Month, family = binomial, data = sub)
      } else {
        break
      }
@@ -531,19 +549,23 @@ cat(&quot;We got to iteration &quot;, i, &quot; of &quot;, length(DestSubset), &
 <pre><code>## We got to iteration 6 of 11 items.
 </code></pre>
 
+<p>Effective use of <code>next</code> and <code>break</code> can make your <code>for</code> (and other) loops both
+more robust and efficient (e.g., by skipping cases where computations may fail).</p>
+
 <h1>Functions</h1>
 
-<p>Functions are one of the most important constructs in R (and many other languages).
-They allow you to modularize your code - encapsulating a set of repeatable operations as
-an individual function call.</p>
+<p>Functions are one of the most important constructs in R (and many other
+languages). They allow you to modularize your code - encapsulating a set of
+repeatable operations as an individual function call.</p>
 
-<p>You should rely heavily on functions rather than having long sets of expressions in 
-R scripts.</p>
+<p>You should rely heavily on functions rather than having long sets of
+expressions in R scripts.</p>
 
 <p>Functions have many important advantages:</p>
 
 <ul>
-<li>They reduce bugs by avoiding having multiple instances of the same functionality.</li>
+<li>They reduce bugs by avoiding having multiple instances of the same
+functionality.</li>
 <li>They reduce time involved in coding by eliminating redundancy.</li>
 <li>They make for cleaner and more easily-readable code.</li>
 </ul>
@@ -553,14 +575,15 @@ R scripts.</p>
 <p>In general, a function should</p>
 
 <ul>
-<li>be fairly short, </li>
+<li>be fairly short,</li>
 <li>be focused and specific in what it does, and</li>
-<li>be designed so that it can be used in combination with other functions to carry out more complicated operations.</li>
+<li>be designed so that it can be used in combination with other functions to
+carry out more complicated operations.</li>
 </ul>
 
 <h1>Writing functions</h1>
 
-<p>In module 4, we sorted the airline dataframe. </p>
+<p>In module 4, we sorted the airline <code>data.frame</code>.</p>
 
 <pre><code class="r">ord &lt;- order(air$DepDelay, air$ArrDelay, decreasing = TRUE)
 ord[1:5]
@@ -573,7 +596,7 @@ ord[1:5]
 </code></pre>
 
 <p>How would we encapsulate that functionality generically so that
-we can apply it to other dataframes (or matrices)?</p>
+we can apply it to other <code>data.frame</code>s (or matrices)?</p>
 
 <pre><code class="r">colSort &lt;- function(data, col1, col2) {
     # Sorts a matrix or dataframe based on two  columns
@@ -601,13 +624,16 @@ identical(air_ordered, colSort(air, &quot;DepDelay&quot;, &quot;ArrDelay&quot;))
 <pre><code>## [1] TRUE
 </code></pre>
 
-<p>Of course this is somewhat limited in that it is specific to sorting based on two columns. 
-We&#39;d usually want to extend this to be more general, but it&#39;s usually good to start with
-something concrete and more limited in generality and then generalize once you are sure it works.</p>
+<p>Of course this is somewhat limited in that it is specific to sorting based on
+two columns. We&#39;d usually want to extend this to be more general, but it&#39;s
+usually good to start with something concrete and more limited in generality and
+then generalize once you are sure it works.</p>
 
 <h1>Function arguments</h1>
 
-<p>R can match arguments by name (when provided) or by position (the fall-back). It also allows one to specify default values so that the user doesn&#39;t have to explicitly provide all the arguments.</p>
+<p>R can match arguments by name (when provided) or by position (the fall-back). It
+also allows one to specify default values so that the user doesn&#39;t have to
+explicitly provide all the arguments.</p>
 
 <pre><code class="r">colSort &lt;- function(data, col1 = 1, col2 = 2) {
     ord &lt;- order(data[, col1], data[, col2], decreasing=TRUE)
@@ -628,9 +654,13 @@ identical(colSort(air, 1, 2), colSort(air))
 
 <h1>What is the &ldquo;&hellip;&rdquo; argument for?</h1>
 
-<p>Using <code>...</code> as one of the arguments to a function allows a function to pass along user-provided arguments without specifying explicitly what the user might provide.</p>
+<p>Using <code>...</code> as one of the arguments to a function allows a function to pass
+along user-provided arguments without specifying explicitly what the user might
+provide.</p>
 
-<p>Here&#39;s an example of tailoring some plotting specifications that I use a lot. I generally define <code>pplot()</code> in my <em>.Rprofile</em> file so it is always available to me.</p>
+<p>Here&#39;s an example of tailoring some plotting specifications that I use a lot. I
+generally define <code>pplot()</code> in my <em>.Rprofile</em> file so it is always available to
+me.</p>
 
 <pre><code class="r">pplot &lt;- function(x, y, ...) {
       plot(x, y, pch = 16, cex = 0.6, ...)
@@ -639,16 +669,16 @@ identical(colSort(air, 1, 2), colSort(air))
 sub &lt;- air[sample(1:nrow(air), 10000, replace = FALSE), ]
 sub$DepDelay[sub$DepDelay &gt; 120] &lt;- 120
 sub$DepDelay[sub$DepDelay &lt; -30] &lt;- -30
-pplot(sub$Dist, sub$DepDelay, xlab = &#39;distance (miles)&#39;, 
-   ylab = &#39;delay (minutes)&#39;, log = &#39;x&#39;)
+pplot(sub$Dist, sub$DepDelay, xlab = &#39;distance (miles)&#39;,
+      ylab = &#39;delay (minutes)&#39;, log = &#39;x&#39;)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt=""/></p>
+<p><img src="data:image/png;base64,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" alt=""/></p>
 
 <h1>Important concepts with R functions</h1>
 
-<p>Functions in R return an object. In general, R functions are and should be designed
-such that the only effect of the function is through the return value. </p>
+<p>Functions in R return an object. In general, R functions are and should be
+designed such that the only effect of the function is through the return value.</p>
 
 <p><strong>Side effects</strong> are when a function affects the state of the world in
 addition to its return value.  Can you think of any side effects that
@@ -660,28 +690,34 @@ you saw an R function produce from yesterday?  What about:</p>
 <li><code>plot()</code></li>
 </ul>
 
-<p>Functions in R are (roughly) <em>pass-by-value</em> and not <em>pass-by-reference</em>.
-This means that if you modify an argument inside the
-function it will not change the original value outside the function.  This protects you from
-a major potential source of side effects.  (There are exceptions to this
-rule.)</p>
+<p>Functions in R are (roughly) <em>pass-by-value</em> and not <em>pass-by-reference</em>. This
+means that if you modify an argument inside the function it will not change the
+original value outside the function. This protects you from a major potential
+source of side effects. (There are exceptions to this rule.)</p>
 
-<p>In actuality, functions in R are <em>call-by-value</em>. What this means 
-for our purposes is that you can pass an input argument in without
-a copy being made of it. This saves time and memory.
-At the time that you modify the input
-within the function (if ever), then a copy is made and  the modified input is different 
+<p>In actuality, functions in R are <em>call-by-value</em>. What this means for our
+purposes is that you can pass an input argument in without a copy being made of
+it. This saves time and memory. At the time that you modify the input within the
+function (if ever), then a copy is made and  the modified input is different
 than the original value outside the function.</p>
 
 <h1>Variable scope and global variables</h1>
 
-<p>In general functions should not make use of variables from outside the function. (However, for quick-and-dirty work and in some other circumstances, one may do this.) This provides modularity and reduces bugs and surprises. </p>
+<p>In general functions should not make use of variables from outside the function.
+(However, for quick-and-dirty work and in some other circumstances, one may do
+this.) This provides modularity and reduces bugs and surprises.</p>
 
-<p>If R can&#39;t find a variable that is used in a function based on the function arguments and variables defined locally in the function, it goes and looks elsewhere following a set of rules called <em>lexical scoping</em>. </p>
+<p>If R can&#39;t find a variable that is used in a function based on the function
+arguments and variables defined locally in the function, it goes and looks
+elsewhere following a set of rules called <em>lexical scoping</em>. (This type of
+scoping has to do with R&#39;s roots (and explains why R is very similar to other
+languages for functional programming) - we won&#39;t go into details here but
+certainly worth looking into as you start using R more.)</p>
 
-<p>Basically this means that it looks for variables relative to where the function is defined (not relative to where the function is called).</p>
+<p>Basically this means that it looks for variables relative to where the function
+is defined (not relative to where the function is called).</p>
 
-<p>This can get involved, but a couple brief examples illustrate the basic idea. </p>
+<p>This can get involved, but a couple brief examples illustrate the basic idea.</p>
 
 <pre><code class="r">x &lt;- 2
 f &lt;- function(y) {
@@ -718,7 +754,8 @@ g(1)
 <pre><code>## [1] 11
 </code></pre>
 
-<p>Note that <code>x</code> is used as a global variable here, which in general is bad practice.</p>
+<p>Note that <code>x</code> is used as a global variable here, which in general is bad
+practice.</p>
 
 <h1>When do I start programming?</h1>
 
@@ -730,7 +767,8 @@ they should be able <strong>to slide gradually into programming, when the
 language and system aspects would become more important</strong>.”</p>
 </blockquote>
 
-<p><a href="http://www.stat.bell-labs.com/S/history.html">John Chambers, “Stages in the Evolution of S”</a></p>
+<p><a href="http://www.stat.bell-labs.com/S/history.html">John Chambers, “Stages in the Evolution of
+S”</a></p>
 
 <h1>Key Principles of R</h1>
 
@@ -738,7 +776,8 @@ language and system aspects would become more important</strong>.”</p>
 <li>Everything that exists is an object.</li>
 <li><p>Everything that happens is a function call.</p>
 
-<p><a href="http://user2014.stat.ucla.edu/files/chambers.pdf">John Chambers&#39; useR!2014 talk</a></p></li>
+<p><a href="http://user2014.stat.ucla.edu/files/chambers.pdf">John Chambers&#39; useR!2014
+talk</a></p></li>
 </ul>
 
 <h3>What does the 2nd principle mean?</h3>
@@ -757,24 +796,29 @@ language and system aspects would become more important</strong>.”</p>
 <pre><code>## [1] 5
 </code></pre>
 
-<p>What about indexing?</p>
+<p>Yes!</p>
+
+<p>And what about indexing?</p>
 
 <pre><code class="r">x &lt;- matrix(runif(100), 10)
 x[ , 2]
 </code></pre>
 
-<pre><code>##  [1] 0.6435222 0.6213804 0.2518026 0.6580116 0.5136637 0.2244394 0.9599989
-##  [8] 0.5093485 0.3108695 0.2344112
+<pre><code>##  [1] 0.72363853 0.27664821 0.01226272 0.48168583 0.84437647 0.91868383
+##  [7] 0.09231074 0.49477768 0.46905110 0.71779529
 </code></pre>
 
 <pre><code class="r">&#39;[&#39;(x , , 2)
 </code></pre>
 
-<pre><code>##  [1] 0.6435222 0.6213804 0.2518026 0.6580116 0.5136637 0.2244394 0.9599989
-##  [8] 0.5093485 0.3108695 0.2344112
+<pre><code>##  [1] 0.72363853 0.27664821 0.01226272 0.48168583 0.84437647 0.91868383
+##  [7] 0.09231074 0.49477768 0.46905110 0.71779529
 </code></pre>
 
-<p>This holds more generally - one can investigate and see the same thing in terms of a for loop.</p>
+<p>Also yes!</p>
+
+<p>This holds more generally - one can investigate and see the same thing in terms
+of a <code>for</code> loop.</p>
 
 <h3>What does the 1st principle mean?</h3>
 
@@ -803,27 +847,187 @@ class(square)
 <pre><code>## [1] &quot;function&quot;
 </code></pre>
 
+<h1>Modern Functional Programming in R (Advanced)</h1>
+
+<p>Now that we&#39;ve taken an extensive look at <code>for</code> loops and programming with
+functions, we can move on from base R to look at more modern and powerful tools
+for programming provided by <a href="http://purrr.tidyverse.org/"><code>purrr</code></a>, a core
+package in the <a href="http://www.tidyverse.org/"><code>tidyverse</code></a>, a set of modern tools
+for &ldquo;doing data science&rdquo; in R. <code>purrr</code> provides facilities to manipulate data
+sets using functions in a &ldquo;tidy&rdquo; manner. Using <code>purrr</code> requires familiarity with
+several other core packages of the <code>tidyverse</code>, most notably <code>dplyr</code> and
+<code>magrittr</code>. We won&#39;t have time to cover details of how to use <code>purrr</code> here, but
+we highly recommend you look into these packages as you continuing exploring R.</p>
+
+<pre><code class="r">library(dplyr)
+library(purrr)
+</code></pre>
+
+<p>We&#39;ll leave you with a simple example of how to use <code>purrr</code> to deal with a task
+we already looked at with <code>for</code> loops. In fact, we&#39;ll return to the logistic
+regression exercise that we started with.</p>
+
+<h3>A simple example</h3>
+
+<p>Let&#39;s take a look at our <code>airSmall</code> data set again. Recall that our goal was to
+fit a logistic regression model, with the outcome being late arrival (binary)
+and the only explanatory variable being the month. To fit our models across each
+of the destination separately, we&#39;ll first need to put our data in &ldquo;tidy&rdquo;
+format. It&#39;s <em>really easy</em> with some helpful verbs from <code>dplyr</code>&hellip;</p>
+
+<pre><code class="r"># let&#39;s clean up the data set first
+airSmall_tidy &lt;- airSmall %&gt;%
+  split(.$Dest)
+</code></pre>
+
+<p>Now, we can fit our logistic regression models across each of the destinations
+using <code>purrr</code>&#39;s <code>map</code>:</p>
+
+<pre><code class="r">airSmall_glms &lt;- airSmall_tidy %&gt;%
+  map(~glm(late ~ Month, family = binomial, data = .))
+</code></pre>
+
+<pre><code>## Error in `contrasts&lt;-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]): contrasts can be applied only to factors with 2 or more levels
+</code></pre>
+
+<p>Uh oh, what happened here?</p>
+
+<p>Oh, that&#39;s right&hellip;we had to protect against situations where there wasn&#39;t
+enough variation in the outcome variable (all flights late or on time, or with
+too much missing-ness). We did this with an <code>if</code> statement.</p>
+
+<p>So, can <code>purrr</code> handle this? <em>Yes</em> - in fact, it&#39;s really easy. We can use a
+verb called <code>safely</code> to separate situations where the GLM succeeds from those
+where it doesn&#39;t. Let&#39;s try it out</p>
+
+<pre><code class="r">airSmall_glms &lt;- airSmall_tidy %&gt;%
+  map(safely(~glm(late ~ Month, family = binomial, data = .)))
+</code></pre>
+
+<p><em>Remark:</em> What we accomplish here with <code>purrr::map</code> is also easily done using
+tools from base R. In fact, using <code>lapply</code>, we can evaluate the very same <code>glm</code>
+formula with our <code>airSmall</code> dataset, albeit without the extra goodies offered by
+the pipe (aka <code>%&gt;%</code>) syntax and the <code>safely</code> convenience, afforded by <code>magrittr</code>
+and <code>purrr</code>, respectively.</p>
+
+<p>Ok. Now, we&#39;ll look at the results for one destination, just to get a feel for
+the output</p>
+
+<pre><code class="r">airSmall_glms$LAX$result
+</code></pre>
+
+<pre><code>## 
+## Call:  glm(formula = late ~ Month, family = binomial, data = .)
+## 
+## Coefficients:
+## (Intercept)       Month1       Month2       Month3       Month4  
+##    -1.53016      0.28260      0.26799      0.04350     -0.11293  
+##      Month6       Month7       Month8       Month9      Month10  
+##     0.36191      0.21491      0.08889     -0.09919      0.02030  
+##     Month11      Month12  
+##     0.05893      0.63107  
+## 
+## Degrees of Freedom: 43034 Total (i.e. Null);  43023 Residual
+##   (1230 observations deleted due to missingness)
+## Null Deviance:       43390 
+## Residual Deviance: 43080     AIC: 43100
+</code></pre>
+
+<p>As a sanity check, we&#39;ll make sure our results match those from before. (We do
+this for one destination city for convenience. When working, it never hurts to
+be too safe - best to check them all.)</p>
+
+<pre><code class="r">all.equal(coef(airSmall_glms$LAX$result), coef(out$LAX))
+</code></pre>
+
+<pre><code>## [1] TRUE
+</code></pre>
+
+<p>Looks like everything worked out just fine!</p>
+
+<p>Now that we&#39;ve seen what we can do with <code>purrr</code>, it&#39;s important to compare this
+modern approach to what is offered in base R. (It&#39;s very important to understand
+and be comfortable with using tools from base R before adopting those that are
+offered as part of the <code>tidyverse</code>.) To that end, here are some points of
+comparison:</p>
+
+<ul>
+<li>Is <code>purrr::map</code> really different from <code>lapply</code>, <code>sapply</code>, <code>vapply</code>?
+
+<ul>
+<li><code>purrr</code> is:</li>
+<li>Consistent in the type of object returned</li>
+<li>contains many useful shortcuts and convenience functions (e.g., <code>safely</code>)</li>
+<li>Syntax accommodates more complicated iteration schemes.</li>
+<li>[l/s/v]<code>apply</code>:</li>
+<li>The type of object returned is <em>not</em> always consistent</li>
+<li>Has fewer dependencies (implented in base R rather than <code>tidyverse</code>)
+
+<ul>
+<li>Syntax can be unwieldy for more complex use-cases.</li>
+</ul></li>
+</ul></li>
+</ul>
+
+<p>For a full comparison of <code>purrr</code> versus base R, consider checking out <a href="https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html">this
+quite thorough
+tutorial</a> by
+Jenny Bryan.</p>
+
+<h3>Onwards: Readings and References</h3>
+
+<ul>
+<li><p>A great reference for learning both basic and advanced concepts in using the R
+language for data analysis is the book <em>R for Data Science</em>, by Garrett
+Grolemund and Hadley Wickham. An online version is freely available and may be
+accessed <a href="http://r4ds.had.co.nz/">here</a>. In particular, <a href="http://r4ds.had.co.nz/iteration.html">chapter 21
+(&ldquo;Iteration&rdquo;)</a> is a great review of much
+of what we have covered in this module.</p></li>
+<li><p><a href="http://purrr.tidyverse.org/">Here</a> you can explore the documentation website
+for the <code>purrr</code> package. It includes details about functionality we did not
+have time to discuss and many useful examples that you can use to go further
+with <code>purrr</code>.</p></li>
+<li><p><a href="http://www.tidyverse.org/">Here</a> you can browse the <code>tidyverse</code> documentation
+website. It includes an introduction to the core packages, the philosophy of
+this ecosystem of packages, and much more.</p></li>
+</ul>
+
 <h1>Breakout</h1>
 
 <h3>Basics</h3>
 
-<p>1) Write an R function that will take an input vector and set any negative values in the vector to zero.</p>
+<p>1) Write an R function that will take an input vector and set any negative
+values in the vector to zero.</p>
 
 <h3>Using the ideas</h3>
 
-<p>2) Write an R function that will take an input vector and set any value below a threshold to be the value of threshold. Optionally, the function should instead set values above a threshold to the value of the threshold.</p>
+<p>2) Write an R function that will take an input vector and set any value below a
+threshold to be the value of threshold. Optionally, the function should instead
+set values above a threshold to the value of the threshold.</p>
 
-<p>3) Augment your function so that it checks that the input is a numeric vector and return an error if not. (See the help information for <code>stop()</code>.)</p>
+<p>3) Augment your function so that it checks that the input is a numeric vector
+and return an error if not. (See the help information for <code>stop()</code>.)</p>
 
-<p>4) Figure out what <code>invisible()</code> does and why it is useful when writing functions. Use <code>invisible()</code> in your function from just above or in the <code>colSort()</code> function.</p>
+<p>4) Figure out what <code>invisible()</code> does and why it is useful when writing
+functions. Use <code>invisible()</code> in your function from just above or in the
+<code>colSort()</code> function.</p>
 
 <h3>Advanced</h3>
 
-<p>5) Extend the <code>colSort()</code> function to handle an arbitrary number of columns on which to do the sorting. You may need to modify the functionality a bit to use full vectors for the sorting rather than column names.</p>
+<p>5) Extend the <code>colSort()</code> function to handle an arbitrary number of columns on
+which to do the sorting. You may need to modify the functionality a bit to use
+full vectors for the sorting rather than column names.</p>
 
-<p>6) Extend the <code>colSort()</code> function so that it can take either numeric indices or character strings indicating columns of the input data or take entire vectors to use in the sorting of the input data. If information specifying columns is given, make sure your function carefully checks that the input refers to legitimate columns and returns an error or warning (see <code>warning()</code>) if not.</p>
+<p>6) Extend the <code>colSort()</code> function so that it can take either numeric indices or
+character strings indicating columns of the input data or take entire vectors to
+use in the sorting of the input data. If information specifying columns is
+given, make sure your function carefully checks that the input refers to
+legitimate columns and returns an error or warning (see <code>warning()</code>) if not.</p>
 
-<p>7) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object, consistent with the idea that functions are objects in R. This is an example of what is called a <em>closure</em> in R. Basically, the function contains object(s) enclosed with and accessible to the function.</p>
+<p>7) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that <code>funGenerator()</code> returns a function as the return object,
+consistent with the idea that functions are objects in R. This is an example of
+what is called a <em>closure</em> in R. Basically, the function contains object(s)
+enclosed with and accessible to the function.</p>
 
 <pre><code class="r">funGenerator &lt;- function(x) {
    x &lt;- 10

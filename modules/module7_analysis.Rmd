@@ -32,7 +32,8 @@ We'll just see the basics of how to fit regressions here.
 - The basic glm call looks something like this:
 
 ```{r eval=FALSE}
-glm(formula = y~x1+x2+x3+..., family = familyname(link = "linkname"), data = )
+glm(formula = y~x1+x2+x3+..., family = familyname(link = "linkname"),
+            data = )
 ```
 
 - There are a bunch of families and links to use (help(family) for a full list), but some essentials are **binomial(link = "logit")**, **gaussian(link = "identity")**, and **poisson(link = "log")**
@@ -42,18 +43,23 @@ If you're using `lm`, the call looks the same but without the `family` argument.
 - Example: suppose we want to regress the life expectency on the GDP per capita and the population, as well as the continent and year.  The lm/glm call would be something like this:
 
 ```{r}
+gapminder <- read.csv(file.path("..", "data",
+          "gapminder-FiveYearData.csv"), stringsAsFactors = TRUE)
+
 reg <- lm(formula = lifeExp ~ gdpPercap + pop + continent + year, 
                 data = gapminder)
 ```
 
+# Regression output
+
 - When we store this regression in an object, we get access to several items of interest
 
 ```{r}
-# View objects contained in the regression output
-objects(reg)
+# View components contained in the regression output
+names(reg)
 # Examine regression coefficients
 reg$coefficients
-# Examine regression DoF
+# Examine regression degrees of freedom
 reg$df.residual
 # Examine regression fit (AIC)
 reg$aic
@@ -70,11 +76,11 @@ summary(reg)
 
 ```{r}
 # Store summary method results
-sum.reg <- summary(reg)
+summ_reg <- summary(reg)
 # View summary method results objects
-objects(sum.reg)
+objects(summ_reg)
 # View table of coefficients
-sum.reg$coefficients
+summ_reg$coefficients
 ```
 
 - Note that, in our results, R has broken up our variables into their different factor levels (as it will do whenever your regressors have factor levels)
@@ -82,18 +88,22 @@ sum.reg$coefficients
 - If your data aren't factorized, you can tell lm/glm to factorize a variable (i.e. create dummy variables on the fly) by writing
 
 ```{r, eval=FALSE}
-glm(formula = y~x1+x2+factor(x3), family = family(link = "link"), data = )
+glm(formula = y~x1+x2+factor(x3), family = family(link = "link"),
+            data = )
 ```
+
+# Setting up regression interactions
 
 - There are also some useful shortcuts for regressing on interaction terms:
 
-**x1:x2** interacts all terms in x1 with all terms in x2
+`x1:x2` interacts all terms in x1 with all terms in x2
 ```{r}
-summary(glm(formula = lifeExp ~ gdpPercap + pop + continent:factor(year), 
+summary(glm(formula = lifeExp ~ gdpPercap + pop +
+                    continent:factor(year), 
                 family = gaussian, data = gapminder))
 ```
 
-**x1*x2** produces the cross of x1 and x2, or x1+x2+x1:x2
+`x1*x2` produces the cross of x1 and x2, or x1+x2+x1:x2
 ```{r}
 summary(glm(formula = lifeExp ~ gdpPercap + pop + continent*factor(year), 
                 family = gaussian, data = gapminder))
@@ -128,11 +138,13 @@ thresh <- function(x, val, upper = TRUE) {
 }
 
 
-DestSubset <- c('LAX','SEA','PHX','DEN','MSP','JFK','ATL','DFW','IAH', 'ORD') 
+DestSubset <- c('LAX','SEA','PHX','DEN','MSP','JFK','ATL','DFW',
+           'IAH', 'ORD') 
 airSmall <- subset(air, Dest %in% DestSubset)
 # reduce outlier influence
 airSmall$DepDelayCens <- thresh(airSmall$DepDelay, 180)
-airSmall$SchedDepCont <- airSmall$CRSDepTime %/% 100 + (airSmall$CRSDepTime %% 100) / 60
+airSmall$SchedDepCont <- airSmall$CRSDepTime %/% 100 +
+                      (airSmall$CRSDepTime %% 100) / 60
 mod_LAX <- gam(DepDelayCens ~ s(Month, k = 8) + s(SchedDepCont, k = 25), 
          data = airSmall, subset = airSmall$Dest == "LAX")
 mod_ORD <- gam(DepDelayCens ~ s(Month, k = 8) + s(SchedDepCont, k = 25), 
@@ -150,8 +162,8 @@ If we were willing to assume that the month and time effects are the same across
 
 ```{r gamExampleFull, cache=TRUE, fig.width=10, fig.cap = ""}
 # this will take a minute or so
-mod_multiple <- gam(DepDelayCens ~ s(Month, k = 8) + s(SchedDepCont, k = 25) +
-        Dest, data = airSmall)
+mod_multiple <- gam(DepDelayCens ~ s(Month, k = 8) +
+             s(SchedDepCont, k = 25) + Dest, data = airSmall)
 summary(mod_multiple)
 par(mfrow = c(1,2))
 plot(mod_multiple)
@@ -329,6 +341,7 @@ There's lots more packages/functionality for dates/times: see *lubridate* and `?
 4) Fit two linear regression models from the gapminder data, where the outcome is `gdpPercap` and the explanatory variables are `pop`, `lifeExp`, and `year`. In one model, treat `year` as a numeric variable. In the other, factorize the `year` variable. How do you interpret each model?
 
 5) Consider the code where we used `sample()`.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:
+
 - resample with replacement a new dataset of the same size as the actual dataset
 - assign the value of the mean of the delay for the bootstrap dataset into the storage vector
 - repeat

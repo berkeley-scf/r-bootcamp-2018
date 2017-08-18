@@ -5,7 +5,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="author" content="August 2016, UC Berkeley" />
+  <meta name="author" content="August 2017, UC Berkeley" />
   <title>R bootcamp, Module 6: Programming</title>
   <style type="text/css">code{white-space: pre;}</style>
   <style type="text/css">
@@ -52,9 +52,9 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="slide titlepage">
   <h1 class="title">R bootcamp, Module 6: Programming</h1>
   <p class="author">
-August 2016, UC Berkeley
+August 2017, UC Berkeley
   </p>
-  <p class="date">Chris Paciorek</p>
+  <p class="date">Chris Paciorek, with contributions from <a href="http://nimahejazi.org">Nima Hejazi</a></p>
 </div>
 <div id="loops" class="slide section level1">
 <h1>Loops</h1>
@@ -62,21 +62,26 @@ August 2016, UC Berkeley
 <p>But there are lots of times when using a loop does make sense.</p>
 <p>Most of you are probably familiar at least with the basic idea of iterating through a series of steps. A for loop iterates through a pre-determined number of iterations, while a while loop iterates until some condition is met. For loops are more common in R, but while loops can be handy particularly for things like optimization.</p>
 <p>Let's take our use of <code>aggregate()</code> from Module 4 and use a for loop instead.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DestSubset &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'LAX'</span>,<span class="st">'SEA'</span>,<span class="st">'PHX'</span>,<span class="st">'DEN'</span>,<span class="st">'MSP'</span>,<span class="st">'OAK'</span>,<span class="st">'JFK'</span>,<span class="st">'ATL'</span>,<span class="st">'DFW'</span>,<span class="st">'IAH'</span>, <span class="st">'ORD'</span>) 
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">DestSubset &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'LAX'</span>,<span class="st">'SEA'</span>,<span class="st">'PHX'</span>,<span class="st">'DEN'</span>,<span class="st">'MSP'</span>,<span class="st">'OAK'</span>,<span class="st">'JFK'</span>,<span class="st">'ATL'</span>,<span class="st">'DFW'</span>,<span class="st">'IAH'</span>,
+                <span class="st">'ORD'</span>)
 airSmall &lt;-<span class="st"> </span><span class="kw">subset</span>(air, Dest %in%<span class="st"> </span>DestSubset)
 airSmall$late &lt;-<span class="st"> </span>airSmall$DepDelay &gt;=<span class="st"> </span><span class="dv">15</span>
 airSmall$Month &lt;-<span class="st"> </span><span class="kw">as.factor</span>(airSmall$Month)
 airSmall$Month &lt;-<span class="st"> </span><span class="kw">relevel</span>(airSmall$Month, <span class="st">&quot;5&quot;</span>)
 airSmall$Dest &lt;-<span class="st"> </span><span class="kw">as.character</span>(airSmall$Dest)
 
-out &lt;-<span class="st"> </span><span class="kw">list</span>(); <span class="kw">length</span>(out) &lt;-<span class="st"> </span><span class="kw">length</span>(DestSubset); <span class="kw">names</span>(out) &lt;-<span class="st"> </span>DestSubset
+out &lt;-<span class="st"> </span><span class="kw">list</span>()
+<span class="kw">length</span>(out) &lt;-<span class="st"> </span><span class="kw">length</span>(DestSubset)
+<span class="kw">names</span>(out) &lt;-<span class="st"> </span>DestSubset
 
-for( i in <span class="kw">seq_along</span>(DestSubset) ) { 
+for (i in <span class="kw">seq_along</span>(DestSubset)) {
      <span class="co"># equivalently: for(i in 1:length(DestSubset))</span>
+     <span class="co"># n.b., seq_along(x) is better than 1:length(x), since it handles the case</span>
+     <span class="co"># where the length of an object is 0 or NULL more robustly.</span>
      sub &lt;-<span class="st"> </span><span class="kw">subset</span>(airSmall, airSmall$Dest ==<span class="st"> </span>DestSubset[i])
-     if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) { 
+     if (<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) {
      <span class="co"># fit logistic regression</span>
-       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub) 
+       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub)
      } else {
        out[[i]] &lt;-<span class="st"> </span><span class="ot">NA</span>
      }
@@ -152,7 +157,7 @@ out[[<span class="st">'OAK'</span>]]</code></pre></div>
 ## 
 ## Number of Fisher Scoring iterations: 4</code></pre>
 <p>The iterations do not have to explicitly be over sequential numbers.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for( dest in DestSubset ) {
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">for (dest in DestSubset) {
      <span class="kw">cat</span>(dest, <span class="st">'</span><span class="ch">\n</span><span class="st">'</span>)
 }</code></pre></div>
 <pre><code>## LAX 
@@ -169,15 +174,15 @@ out[[<span class="st">'OAK'</span>]]</code></pre></div>
 </div>
 <div id="while-loop" class="slide section level1">
 <h1>While loop</h1>
-<p>It's not a particularly interesting example, but we can see the while loop syntax in the same example.</p>
+<p>It's not a particularly interesting example, but we can see the <code>while</code> loop syntax in the same example.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span><span class="kw">list</span>(); <span class="kw">length</span>(out) &lt;-<span class="st"> </span><span class="kw">length</span>(DestSubset); <span class="kw">names</span>(out) &lt;-<span class="st"> </span>DestSubset
 
 i &lt;-<span class="st"> </span><span class="dv">1</span>
-while( i &lt;=<span class="st"> </span><span class="kw">length</span>(DestSubset) ) { 
+while (i &lt;=<span class="st"> </span><span class="kw">length</span>(DestSubset)) {
      sub &lt;-<span class="st"> </span><span class="kw">subset</span>(airSmall, airSmall$Dest ==<span class="st"> </span>DestSubset[i])
-     if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) { 
+     if (<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) {
      <span class="co"># fit logistic regression</span>
-       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub) 
+       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub)
      } else {
        out[[i]] &lt;-<span class="st"> </span><span class="ot">NA</span>
      }
@@ -224,7 +229,7 @@ while( i &lt;=<span class="st"> </span><span class="kw">length</span>(DestSubset
 <p>Here's a simple example to illustrate the syntax. Note that the <em>then</em> is implicit.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] 0.02307395</code></pre>
+<pre><code>## [1] 0.3396235</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (val &lt;<span class="st"> </span><span class="dv">0</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>)
 } else {
@@ -234,7 +239,7 @@ val</code></pre></div>
 <p>We can chain together <code>if</code> statements as follows.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">val &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>)
 val</code></pre></div>
-<pre><code>## [1] 0.6960593</code></pre>
+<pre><code>## [1] -1.456028</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (val &lt;<span class="st"> </span>-<span class="dv">1</span>) {
   <span class="kw">print</span>(<span class="st">&quot;val is more than one standard deviation below the mean.&quot;</span>)
 } else if (<span class="kw">abs</span>(val) &lt;=<span class="st"> </span><span class="dv">1</span>) {
@@ -242,18 +247,18 @@ val</code></pre></div>
 } else {
   <span class="kw">print</span>(<span class="st">&quot;val is more than one standard deviation above the mean.&quot;</span>)
 }</code></pre></div>
-<pre><code>## [1] &quot;val is within one standard deviation of the mean.&quot;</code></pre>
-<p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions, but R will complain when an <code>else</code> starts a line of code, so generally using the <code>{</code> is good practice. That said, this looks fine:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if( val &lt;<span class="st"> </span><span class="dv">0</span>) <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>) else <span class="kw">print</span>(<span class="st">&quot;val is positive&quot;</span>)</code></pre></div>
-<pre><code>## [1] &quot;val is positive&quot;</code></pre>
+<pre><code>## [1] &quot;val is more than one standard deviation below the mean.&quot;</code></pre>
+<p>In general, the <code>{</code> brackets are only needed if you have multiple R expressions, but R will complain when an <code>else</code> starts a line of code, so generally using the <code>{</code> is good practice. That said, this <em>works just fine</em>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">if (val &lt;<span class="st"> </span><span class="dv">0</span>) <span class="kw">print</span>(<span class="st">&quot;val is negative&quot;</span>) else <span class="kw">print</span>(<span class="st">&quot;val is positive&quot;</span>)</code></pre></div>
+<pre><code>## [1] &quot;val is negative&quot;</code></pre>
 </div>
 <div id="the-condition-in-an-if-statement" class="slide section level1">
 <h1>The condition in an if statement</h1>
 <p>The condition in the if statement cannot be NA or R will give an error. This is a very common bug.</p>
 <p>Suppose we were (inefficiently) setting up a new field using an if statement.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">air$late &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="kw">nrow</span>(air))
-for(i in <span class="dv">1</span>:<span class="dv">20</span>) {
-      if(air$DepDelay[i] &gt;<span class="st"> </span><span class="dv">15</span>) 
+for (i in <span class="dv">1</span>:<span class="dv">20</span>) {
+      if(air$DepDelay[i] &gt;<span class="st"> </span><span class="dv">15</span>)
           air$late[i] &lt;-<span class="st"> </span><span class="dv">1</span> else air$late[i] &lt;-<span class="st"> </span><span class="dv">0</span>
 }</code></pre></div>
 <pre><code>## Error in if (air$DepDelay[i] &gt; 15) air$late[i] &lt;- 1 else air$late[i] &lt;- 0: missing value where TRUE/FALSE needed</code></pre>
@@ -265,7 +270,7 @@ for(i in <span class="dv">1</span>:<span class="dv">20</span>) {
 <pre><code>## [1] NA</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">air$DepDelay[<span class="dv">4</span>]</code></pre></div>
 <pre><code>## [1] NA</code></pre>
-<p>An NA/NaN is the main reason an if statement may fail, because R will generally convert other values to logical values.</p>
+<p>An <code>NA</code>/<code>NaN</code> is the main reason an if statement may fail, because R will generally convert other values to logical values.</p>
 <p>Zero evaluates to <code>FALSE</code>, all other numbers evaluate to <code>TRUE</code>. In general strings are not converted to booleans.</p>
 </div>
 <div id="flow-control-next-and-break-statements" class="slide section level1">
@@ -273,12 +278,12 @@ for(i in <span class="dv">1</span>:<span class="dv">20</span>) {
 <p><code>next</code> skips the current evaluation of the loop statements:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span><span class="kw">list</span>(); <span class="kw">length</span>(out) &lt;-<span class="st"> </span><span class="kw">length</span>(DestSubset); <span class="kw">names</span>(out) &lt;-<span class="st"> </span>DestSubset
 
-for( i in <span class="kw">seq_along</span>(DestSubset) ) { 
+for (i in <span class="kw">seq_along</span>(DestSubset)) {
      <span class="co"># equivalently: for(i in 1:length(DestSubset))</span>
      sub &lt;-<span class="st"> </span><span class="kw">subset</span>(airSmall, airSmall$Dest ==<span class="st"> </span>DestSubset[i])
-     if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) { 
+     if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) {
      <span class="co"># fit logistic regression</span>
-       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub) 
+       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub)
      } else {
        next
      }
@@ -290,18 +295,19 @@ for( i in <span class="kw">seq_along</span>(DestSubset) ) {
 <p><code>break</code> immediately ends loop evaluation:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">out &lt;-<span class="st"> </span><span class="kw">list</span>(); <span class="kw">length</span>(out) &lt;-<span class="st"> </span><span class="kw">length</span>(DestSubset); <span class="kw">names</span>(out) &lt;-<span class="st"> </span>DestSubset
 
-for( i in <span class="kw">seq_along</span>(DestSubset) ) { 
+for (i in <span class="kw">seq_along</span>(DestSubset)) {
      <span class="co"># equivalently: for(i in 1:length(DestSubset))</span>
      sub &lt;-<span class="st"> </span><span class="kw">subset</span>(airSmall, airSmall$Dest ==<span class="st"> </span>DestSubset[i])
-     if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) { 
+     if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(sub$late)) &amp;&amp;<span class="st"> </span><span class="kw">length</span>(sub$late) &gt;<span class="st"> </span><span class="dv">1</span>) {
      <span class="co"># fit logistic regression</span>
-       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub) 
+       out[[i]] &lt;-<span class="st"> </span><span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> sub)
      } else {
        break
      }
 }
 <span class="kw">cat</span>(<span class="st">&quot;We got to iteration &quot;</span>, i, <span class="st">&quot; of &quot;</span>, <span class="kw">length</span>(DestSubset), <span class="st">&quot; items.&quot;</span>, <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</code></pre></div>
 <pre><code>## We got to iteration 6 of 11 items.</code></pre>
+<p>Effective use of <code>next</code> and <code>break</code> can make your <code>for</code> (and other) loops both more robust and efficient (e.g., by skipping cases where computations may fail).</p>
 </div>
 <div id="functions" class="slide section level1">
 <h1>Functions</h1>
@@ -323,12 +329,12 @@ for( i in <span class="kw">seq_along</span>(DestSubset) ) {
 </div>
 <div id="writing-functions" class="slide section level1">
 <h1>Writing functions</h1>
-<p>In module 4, we sorted the airline dataframe.</p>
+<p>In module 4, we sorted the airline <code>data.frame</code>.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ord &lt;-<span class="st"> </span><span class="kw">order</span>(air$DepDelay, air$ArrDelay, <span class="dt">decreasing =</span> <span class="ot">TRUE</span>)
 ord[<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
 <pre><code>## [1] 115794 396990 337213 168750 415550</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">air_ordered &lt;-<span class="st"> </span>air[ord, ]</code></pre></div>
-<p>How would we encapsulate that functionality generically so that we can apply it to other dataframes (or matrices)?</p>
+<p>How would we encapsulate that functionality generically so that we can apply it to other <code>data.frame</code>s (or matrices)?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">colSort &lt;-<span class="st"> </span>function(data, col1, col2) {
     <span class="co"># Sorts a matrix or dataframe based on two  columns</span>
     <span class="co">#</span>
@@ -377,10 +383,10 @@ ord[<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
 sub &lt;-<span class="st"> </span>air[<span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(air), <span class="dv">10000</span>, <span class="dt">replace =</span> <span class="ot">FALSE</span>), ]
 sub$DepDelay[sub$DepDelay &gt;<span class="st"> </span><span class="dv">120</span>] &lt;-<span class="st"> </span><span class="dv">120</span>
 sub$DepDelay[sub$DepDelay &lt;<span class="st"> </span>-<span class="dv">30</span>] &lt;-<span class="st"> </span>-<span class="dv">30</span>
-<span class="kw">pplot</span>(sub$Dist, sub$DepDelay, <span class="dt">xlab =</span> <span class="st">'distance (miles)'</span>, 
-   <span class="dt">ylab =</span> <span class="st">'delay (minutes)'</span>, <span class="dt">log =</span> <span class="st">'x'</span>)</code></pre></div>
+<span class="kw">pplot</span>(sub$Dist, sub$DepDelay, <span class="dt">xlab =</span> <span class="st">'distance (miles)'</span>,
+      <span class="dt">ylab =</span> <span class="st">'delay (minutes)'</span>, <span class="dt">log =</span> <span class="st">'x'</span>)</code></pre></div>
 <div class="figure">
-<img src="data:image/png;base64,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" />
+<img src="data:image/png;base64,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" />
 
 </div>
 </div>
@@ -399,7 +405,7 @@ sub$DepDelay[sub$DepDelay &lt;<span class="st"> </span>-<span class="dv">30</spa
 <div id="variable-scope-and-global-variables" class="slide section level1">
 <h1>Variable scope and global variables</h1>
 <p>In general functions should not make use of variables from outside the function. (However, for quick-and-dirty work and in some other circumstances, one may do this.) This provides modularity and reduces bugs and surprises.</p>
-<p>If R can't find a variable that is used in a function based on the function arguments and variables defined locally in the function, it goes and looks elsewhere following a set of rules called <em>lexical scoping</em>.</p>
+<p>If R can't find a variable that is used in a function based on the function arguments and variables defined locally in the function, it goes and looks elsewhere following a set of rules called <em>lexical scoping</em>. (This type of scoping has to do with R's roots (and explains why R is very similar to other languages for functional programming) - we won't go into details here but certainly worth looking into as you start using R more.)</p>
 <p>Basically this means that it looks for variables relative to where the function is defined (not relative to where the function is called).</p>
 <p>This can get involved, but a couple brief examples illustrate the basic idea.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="dv">2</span>
@@ -447,15 +453,17 @@ f &lt;-<span class="st"> </span>function(y) {
 <pre><code>## [1] 5</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">'+'</span>(<span class="dv">3</span>,<span class="dv">2</span>)</code></pre></div>
 <pre><code>## [1] 5</code></pre>
-<p>What about indexing?</p>
+<p>Yes!</p>
+<p>And what about indexing?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">runif</span>(<span class="dv">100</span>), <span class="dv">10</span>)
 x[ , <span class="dv">2</span>]</code></pre></div>
-<pre><code>##  [1] 0.84806028 0.41496729 0.04935423 0.68247702 0.95400954 0.75194363
-##  [7] 0.94629032 0.71197367 0.86275107 0.63791081</code></pre>
+<pre><code>##  [1] 0.4512165 0.5631835 0.4519071 0.6668109 0.2337804 0.3234901 0.8479441
+##  [8] 0.6538290 0.3359390 0.9451498</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">'['</span>(x , , <span class="dv">2</span>)</code></pre></div>
-<pre><code>##  [1] 0.84806028 0.41496729 0.04935423 0.68247702 0.95400954 0.75194363
-##  [7] 0.94629032 0.71197367 0.86275107 0.63791081</code></pre>
-<p>This holds more generally - one can investigate and see the same thing in terms of a for loop.</p>
+<pre><code>##  [1] 0.4512165 0.5631835 0.4519071 0.6668109 0.2337804 0.3234901 0.8479441
+##  [8] 0.6538290 0.3359390 0.9451498</code></pre>
+<p>Also yes!</p>
+<p>This holds more generally - one can investigate and see the same thing in terms of a <code>for</code> loop.</p>
 <h3 id="what-does-the-1st-principle-mean">What does the 1st principle mean?</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">class</span>(<span class="dv">1</span>)</code></pre></div>
 <pre><code>## [1] &quot;numeric&quot;</code></pre>
@@ -466,6 +474,88 @@ x[ , <span class="dv">2</span>]</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">square &lt;-<span class="st"> </span>function(x) x^<span class="dv">2</span>
 <span class="kw">class</span>(square)</code></pre></div>
 <pre><code>## [1] &quot;function&quot;</code></pre>
+</div>
+<div id="modern-functional-programming-in-r-advanced" class="slide section level1">
+<h1>Modern Functional Programming in R (Advanced)</h1>
+<p>Now that we've taken an extensive look at <code>for</code> loops and programming with functions, we can move on from base R to look at more modern and powerful tools for programming provided by <a href="http://purrr.tidyverse.org/"><code>purrr</code></a>, a core package in the <a href="http://www.tidyverse.org/"><code>tidyverse</code></a>, a set of modern tools for &quot;doing data science&quot; in R. <code>purrr</code> provides facilities to manipulate data sets using functions in a &quot;tidy&quot; manner. Using <code>purrr</code> requires familiarity with several other core packages of the <code>tidyverse</code>, most notably <code>dplyr</code> and <code>magrittr</code>. We won't have time to cover details of how to use <code>purrr</code> here, but we highly recommend you look into these packages as you continuing exploring R.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(dplyr)</code></pre></div>
+<pre><code>## 
+## Attaching package: 'dplyr'</code></pre>
+<pre><code>## The following objects are masked from 'package:stats':
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from 'package:base':
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(purrr)</code></pre></div>
+<pre><code>## 
+## Attaching package: 'purrr'</code></pre>
+<pre><code>## The following object is masked _by_ '.GlobalEnv':
+## 
+##     pmap</code></pre>
+<pre><code>## The following objects are masked from 'package:dplyr':
+## 
+##     contains, order_by</code></pre>
+<p>We'll leave you with a simple example of how to use <code>purrr</code> to deal with a task we already looked at with <code>for</code> loops. In fact, we'll return to the logistic regression exercise that we started with.</p>
+<h3 id="a-simple-example">A simple example</h3>
+<p>Let's take a look at our <code>airSmall</code> data set again. Recall that our goal was to fit a logistic regression model, with the outcome being late arrival (binary) and the only explanatory variable being the month. To fit our models across each of the destination separately, we'll first need to put our data in &quot;tidy&quot; format. It's <em>really easy</em> with some helpful verbs from <code>dplyr</code>...</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># let's clean up the data set first</span>
+airSmall_tidy &lt;-<span class="st"> </span>airSmall %&gt;%
+<span class="st">  </span><span class="kw">split</span>(.$Dest)</code></pre></div>
+<p>Now, we can fit our logistic regression models across each of the destinations using <code>purrr</code>'s <code>map</code>:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airSmall_glms &lt;-<span class="st"> </span>airSmall_tidy %&gt;%
+<span class="st">  </span><span class="kw">map</span>(~<span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .))</code></pre></div>
+<pre><code>## Error in `contrasts&lt;-`(`*tmp*`, value = contr.funs[1 + isOF[nn]]): contrasts can be applied only to factors with 2 or more levels</code></pre>
+<p>Uh oh, what happened here?</p>
+<p>Oh, that's right...we had to protect against situations where there wasn't enough variation in the outcome variable (all flights late or on time, or with too much missing-ness). We did this with an <code>if</code> statement.</p>
+<p>So, can <code>purrr</code> handle this? <em>Yes</em> - in fact, it's really easy. We can use a verb called <code>safely</code> to separate situations where the GLM succeeds from those where it doesn't. Let's try it out</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airSmall_glms &lt;-<span class="st"> </span>airSmall_tidy %&gt;%
+<span class="st">  </span><span class="kw">map</span>(<span class="kw">safely</span>(~<span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> .)))</code></pre></div>
+<p><em>Remark:</em> What we accomplish here with <code>purrr::map</code> is also easily done using tools from base R. In fact, using <code>lapply</code>, we can evaluate the very same <code>glm</code> formula with our <code>airSmall</code> dataset, albeit without the extra goodies offered by the pipe (aka <code>%&gt;%</code>) syntax and the <code>safely</code> convenience, afforded by <code>magrittr</code> and <code>purrr</code>, respectively.</p>
+<p>Ok. Now, we'll look at the results for one destination, just to get a feel for the output</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">airSmall_glms$LAX$result</code></pre></div>
+<pre><code>## 
+## Call:  glm(formula = late ~ Month, family = binomial, data = .)
+## 
+## Coefficients:
+## (Intercept)       Month1       Month2       Month3       Month4  
+##    -1.53016      0.28260      0.26799      0.04350     -0.11293  
+##      Month6       Month7       Month8       Month9      Month10  
+##     0.36191      0.21491      0.08889     -0.09919      0.02030  
+##     Month11      Month12  
+##     0.05893      0.63107  
+## 
+## Degrees of Freedom: 43034 Total (i.e. Null);  43023 Residual
+##   (1230 observations deleted due to missingness)
+## Null Deviance:       43390 
+## Residual Deviance: 43080     AIC: 43100</code></pre>
+<p>As a sanity check, we'll make sure our results match those from before. (We do this for one destination city for convenience. When working, it never hurts to be too safe - best to check them all.)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">all.equal</span>(<span class="kw">coef</span>(airSmall_glms$LAX$result), <span class="kw">coef</span>(out$LAX))</code></pre></div>
+<pre><code>## [1] TRUE</code></pre>
+<p>Looks like everything worked out just fine!</p>
+<p>Now that we've seen what we can do with <code>purrr</code>, it's important to compare this modern approach to what is offered in base R. (It's very important to understand and be comfortable with using tools from base R before adopting those that are offered as part of the <code>tidyverse</code>.) To that end, here are some points of comparison:</p>
+<ul>
+<li>Is <code>purrr::map</code> really different from <code>lapply</code>, <code>sapply</code>, <code>vapply</code>?</li>
+<li><code>purrr</code> is:
+<ul>
+<li>Consistent in the type of object returned</li>
+<li>contains many useful shortcuts and convenience functions (e.g., <code>safely</code>)</li>
+<li>Syntax accommodates more complicated iteration schemes.</li>
+</ul></li>
+<li>[l/s/v]<code>apply</code>:
+<ul>
+<li>The type of object returned is <em>not</em> always consistent</li>
+<li>Has fewer dependencies (implented in base R rather than <code>tidyverse</code>)</li>
+<li>Syntax can be unwieldy for more complex use-cases.</li>
+</ul></li>
+</ul>
+<p>For a full comparison of <code>purrr</code> versus base R, consider checking out <a href="https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html">this quite thorough tutorial</a> by Jenny Bryan.</p>
+<h3 id="onwards-readings-and-references">Onwards: Readings and References</h3>
+<ul>
+<li><p>A great reference for learning both basic and advanced concepts in using the R language for data analysis is the book <em>R for Data Science</em>, by Garrett Grolemund and Hadley Wickham. An online version is freely available and may be accessed <a href="http://r4ds.had.co.nz/">here</a>. In particular, <a href="http://r4ds.had.co.nz/iteration.html">chapter 21 (&quot;Iteration&quot;)</a> is a great review of much of what we have covered in this module.</p></li>
+<li><p><a href="http://purrr.tidyverse.org/">Here</a> you can explore the documentation website for the <code>purrr</code> package. It includes details about functionality we did not have time to discuss and many useful examples that you can use to go further with <code>purrr</code>.</p></li>
+<li><p><a href="http://www.tidyverse.org/">Here</a> you can browse the <code>tidyverse</code> documentation website. It includes an introduction to the core packages, the philosophy of this ecosystem of packages, and much more.</p></li>
+</ul>
 </div>
 <div id="breakout" class="slide section level1">
 <h1>Breakout</h1>

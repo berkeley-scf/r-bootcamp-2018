@@ -570,8 +570,7 @@ use in the sorting of the input data. If information specifying columns is
 given, make sure your function carefully checks that the input refers to
 legitimate columns and returns an error or warning (see `warning()`) if not.
 
-7) Explore scoping in the following code. Explain why the result is 11 and not
-3. Note that `funGenerator()` returns a function as the return object,
+7) Explore scoping in the following code. Explain why the result is 11 and not 3. Note that `funGenerator()` returns a function as the return object,
 consistent with the idea that functions are objects in R. This is an example of
 what is called a *closure* in R. Basically, the function contains object(s)
 enclosed with and accessible to the function.
