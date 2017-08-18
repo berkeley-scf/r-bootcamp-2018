@@ -1,6 +1,6 @@
 % R Bootcamp, Module 5: Data manipulation using the tidyverse
 % August 2017, UC Berkeley
-% Kellie Ottoboni. Based on materials developed by Rochelle Terman and Chris Krogslund
+% Kellie Ottoboni (based on materials developed by Rochelle Terman and Chris Krogslund)
 
 
 ```{r chunksetup, include=FALSE} 

@@ -227,12 +227,12 @@ A few key facts about generating random numbers
 To replicate any work involving random numbers, make sure to set the seed first.
 
 ```{r}
-set.seed(0)
+set.seed(1)
 vals <- sample(1:nrow(air), 10)
 vals
 vals <- sample(1:nrow(air), 10)
 vals
-set.seed(0)
+set.seed(1)
 vals <- sample(1:nrow(air), 10)
 vals
 ```

@@ -134,7 +134,8 @@ Packages are available as "Package source", namely the raw code and help files, 
 To look at the raw R code (and possibly C/C++/Fortran code included in some packages), download and unzip the package source tarball. From the command line of a Linux/Mac terminal (note this won't look right in the slides version of the HTML):
 
 ```{r source_code, engine='bash', eval=FALSE}
-curl http://www.cran.r-project.org/src/contrib/fields_6.8.tar.gz -o fields_6.8.tar.gz
+curl http://www.cran.r-project.org/src/contrib/fields_6.8.tar.gz \
+     -o fields_6.8.tar.gz
 tar -xvzf fields_6.8.tar.gz
 cd fields
 ls R

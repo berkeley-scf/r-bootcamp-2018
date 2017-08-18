@@ -516,9 +516,9 @@ A random number seed determines where in the sequence one starts when generating
 
 * The ugly: Make sure you do not use the same seed for each task
 ```{r}
-set.seed(0)
+set.seed(1)
 rnorm(5)
-set.seed(0)
+set.seed(1)
 rnorm(5)
 ```
 * The (not so) bad: Use a different seed for each task or each process. It's possible the subsequences will overlap but quite unlikely.
