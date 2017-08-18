@@ -1,12 +1,12 @@
 % R bootcamp, Module 3: Working with objects and data
-% August 2016, UC Berkeley
+% August 2017, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE} 
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
-air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
 
 # Matrices and Arrays

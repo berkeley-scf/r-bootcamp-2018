@@ -1,12 +1,13 @@
 % R bootcamp, Module 2: Managing R and R resources
-% August 2016, UC Berkeley
+% August 2017, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE} 
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
 rm(list = ls())
-air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
+air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
 
 # Managing and saving the workspace
@@ -144,7 +145,7 @@ ls data
 
 ### Creating your own R package
 
-R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone ele, it's best to have some documentation in the form of function help files. 
+R is do-it-yourself - you can write your own package. At its most basic this is just some R scripts that are packaged together in a convenient format. And if giving it to someone else, it's best to have some documentation in the form of function help files. 
 
 Why make a package?
 
@@ -163,21 +164,21 @@ To read and write from R, you need to have a firm grasp of where in the computer
 ```{r, eval=FALSE}
 getwd()  # what directory will R look in?
 # Linux/Mac specific
-setwd('~/Desktop/r-bootcamp-2016') # change the working directory
+setwd('~/Desktop/r-bootcamp-2017') # change the working directory
 setwd('/Users/paciorek/Desktop') # absolute path
 getwd()
-setwd('r-bootcamp-2016/modules') # relative path
+setwd('r-bootcamp-2017/modules') # relative path
 setwd('../tmp') # relative path, up and back down the tree
 
 # Windows - use either \\ or / to indicate directories
-# setwd('C:\\Users\\Your_username\\Desktop\\r-bootcamp-2016')
-# setwd('..\\r-bootcamp-2016')
+# setwd('C:\\Users\\Your_username\\Desktop\\r-bootcamp-2017')
+# setwd('..\\r-bootcamp-2017')
 
 # platform-agnostic
-setwd(file.path('~', 'Desktop', 'r-bootcamp-2016')) # change the working directory
-setwd(file.path('/', 'Users', 'paciorek', 'Desktop', 'tmp')) # absolute path
+setwd(file.path('~', 'Desktop', 'r-bootcamp-2017', 'modules')) # change the working directory
+setwd(file.path('/', 'Users', 'paciorek', 'Desktop', 'r-bootcamp-2017', 'modules')) # absolute path
 getwd()
-setwd(file.path('..', 'r-bootcamp-2016', 'modules')) # relative path
+setwd(file.path('..', 'data')) # relative path
 ```
 Many errors and much confusion result from you and R not being on the same page in terms of where in the directory structure you are.
 
@@ -263,7 +264,7 @@ As you're gathering by now, I've used Git and Github to manage all the content f
 
 ### Making changes to a repository
 
-We'll go through a short example of making changes to the r-bootcamp-2016 repository. In this case you don't have permission to make changes so you'll just have to follow along as I do it. However, you could start your own repository and then you'd be able to do similar things.
+We'll go through a short example of making changes to the r-bootcamp-2017 repository. In this case you don't have permission to make changes so you'll just have to follow along as I do it. However, you could start your own repository and then you'd be able to do similar things.
 
 Note that there are [graphical interfaces to Git](http://git-scm.com/downloads/guis) that you might want to check out, but here I'm just going to do it from the command line on my Mac.
 
@@ -283,7 +284,7 @@ git commit -am'added myfile and fixed bug in mycode.R'
 git push
 ```
 
-The changes are then available to anyone to *pull* from the remote repository, using `git pull`.
+The changes are then available to anyone to *pull* from the remote repository, a using `git pull` or graphical interfaces, such as using RStudio's tools to pull the changes to your machine, discussed in the Github slide in module 0.
 
 
 # Getting R help online

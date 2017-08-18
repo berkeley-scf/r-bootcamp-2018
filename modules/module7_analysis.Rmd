@@ -1,5 +1,5 @@
-% R bootcamp, Module 7: Core tools
-% August 2016, UC Berkeley
+% R bootcamp, Module 7: Analysis
+% August 2017, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE} 
@@ -8,7 +8,7 @@
 require(fields)
 require(foreign)
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
-air <- read.csv('../data/airline.csv', stringsAsFactors = FALSE)
+air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
 
 # Describing relationships

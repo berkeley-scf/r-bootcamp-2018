@@ -1,6 +1,6 @@
-.PHONY: gitInstall RandRStudioInstall windowsInstall
+.PHONY: gitInstall RandRStudioInstall windowsInstall RStudioServerLogin
 
-all: gitInstall RandRStudioInstall windowsInstall
+all: gitInstall RandRStudioInstall windowsInstall RStudioServerLogin
 
 clean:
 	rm -rf *.md *.html 
@@ -8,8 +8,3 @@ clean:
 %.html: %.Rmd
 	echo $(<)
 	Rscript -e "library(knitr); knit2html('$(<)')"
-
-
-
-
-

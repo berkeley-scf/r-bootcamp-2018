@@ -167,9 +167,9 @@ hr {
 
 <h2>Where to find stuff</h2>
 
-<p>The Piazza site (<a href="https://piazza.com/berkeley/summer2016/rbootcamp2016/home">https://piazza.com/berkeley/summer2016/rbootcamp2016/home</a>) is the main site for the bootcamp. It has information on logistics, software installation, and the Q&amp;A area for online questions.  </p>
+<p>The Piazza site (<a href="https://piazza.com/berkeley/summer2017/rbootcamp2017/home">https://piazza.com/berkeley/summer2017/rbootcamp2017/home</a>) is the main site for the bootcamp. It has information on logistics, software installation, and the Q&amp;A area for online questions.  </p>
 
-<p>The Github site (<a href="https://github.com/berkeley-scf/r-bootcamp-2016">https://github.com/berkeley-scf/r-bootcamp-2016</a>) is updated more frequently (sometimes in real time) and is the master repository for materials for the modules; you can also get the individual files from Github. Instructions for accessing the materials on Github are on the Piazza site.</p>
+<p>The Github site (<a href="https://github.com/berkeley-scf/r-bootcamp-2017">https://github.com/berkeley-scf/r-bootcamp-2017</a>) is the master repository for materials for the modules; you can also get the individual files from Github. Instructions for accessing the materials on Github are on the Piazza site.</p>
 
 <p>If you have an administrative question, email <a href="mailto:r-bootcamp@lists.berkeley.edu">r-bootcamp@lists.berkeley.edu</a>.</p>
 
@@ -188,9 +188,9 @@ hr {
 <p>Many of the modules will use a common dataset as an example on which to carry out various operations. We&#39;ll focus on a dataset of on-time information for US airline flights, 1987-2008 provided by the US government&#39;s Bureau of Transportation Statistics. This dataset is available in its entirety <a href="http://stat-computing.org/dataexpo/2009/the-data.html">here</a>. However, it&#39;s about 3.5 Gb compressed, so we&#39;ll work with a subset of just flights departing from SFO for 2005-2008, available in the Github repository as <em>airline.csv</em>. (Note that this is the full population of such flights &ndash; I&#39;ll fit some statistical models but the interpretation is tricky as we are not working with a sample from a well-defined population.)
 There&#39;s also a smaller subsample of the SFO flights in <em>airlineSubsample.csv</em> - you can use that in place of <em>airline.csv</em> if <em>airline.csv</em> is taking a while to load into R on your machine.</p>
 
-<p>Counselors will be available to help answer any questions you have (just wave to one of them), or feel free to just ask the presenter during the presentation. The counselors will also be monitoring the <a href="https://piazza.com/berkeley/summer2016/rbootcamp2016/home">Piazza Q&amp;A area</a>, so feel free to type in a question there and one of the counselors will answer the question. Or if you know the answer, help us out by answering it yourself or adding your thoughts. </p>
+<p>Counselors will be available to help answer any questions you have (just wave to one of them), or feel free to just ask the presenter during the presentation. The counselors will also be monitoring the <a href="https://piazza.com/berkeley/summer2017/rbootcamp2017/home">Piazza Q&amp;A area</a>, so feel free to type in a question there and one of the counselors will answer the question. Or if you know the answer, help us out by answering it yourself or adding your thoughts. </p>
 
-<p>Your counseloRs are: Kellie Ottoboni (Statistics/BIDS), Rochelle Terman (Political Science/D-Lab), Chris Kennedy (Political Science/D-Lab), Evan Muzzall (Biology/D-Lab), Alex Padron (Biology), and Lauren Ponisio (ESPM/BIDS).</p>
+<p>Your counseloRs are: Kellie Ottoboni (Statistics/BIDS), Nima Hejazi (Biostatistics), Kalyan Katuri (LBL), Evan Muzzall (D-Lab), and Sara Stoudt (Statistics).</p>
 
 <h1>Suggestions on how to get the most out of the bootcamp</h1>
 
@@ -217,7 +217,7 @@ There&#39;s also a smaller subsample of the SFO flights in <em>airlineSubsample.
 
 <h1>RStudio and R Markdown</h1>
 
-<p>We&#39;ll present most of the material from within RStudio, using R Markdown documents with embedded R code. R Markdown is an extension to the Markdown markup language that makes it easy to write HTML in a simple plain text format.  This allows us to both run the R code directly as well as compile on-the-fly to an HTML file that can be used for presentation. All files will be available on <a href="https://github.com/berkeley-scf/r-bootcamp-2016">Github</a>.  </p>
+<p>We&#39;ll present most of the material from within RStudio, using R Markdown documents with embedded R code. R Markdown is an extension to the Markdown markup language that makes it easy to write HTML in a simple plain text format.  This allows us to both run the R code directly as well as compile on-the-fly to an HTML file that can be used for presentation. All files will be available on <a href="https://github.com/berkeley-scf/r-bootcamp-2017">Github</a>.  </p>
 
 <p>Note: The files named <em>moduleX_blah_slides.html</em> have individual slides, while the files named <em>moduleX_blah.html</em> have the same content but all on one page.</p>
 
@@ -232,8 +232,8 @@ There&#39;s also a smaller subsample of the SFO flights in <em>airlineSubsample.
 <p>Within RStudio go to File-&gt;New Project-&gt;Version Control-&gt;Git and enter:</p>
 
 <ul>
-<li>&ldquo;Repository URL&rdquo;: <a href="https://github.com/berkeley-scf/r-bootcamp-2016">https://github.com/berkeley-scf/r-bootcamp-2016</a></li>
-<li>&ldquo;Project Directory Name&rdquo;: r-bootcamp-2016 (or something else of your choosing)</li>
+<li>&ldquo;Repository URL&rdquo;: <a href="https://github.com/berkeley-scf/r-bootcamp-2017">https://github.com/berkeley-scf/r-bootcamp-2017</a></li>
+<li>&ldquo;Project Directory Name&rdquo;: r-bootcamp-2017 (or something else of your choosing)</li>
 <li>&ldquo;Directory&rdquo;: ~/Desktop (or somewhere of your choosing)</li>
 </ul>
 
@@ -250,15 +250,19 @@ Tools-&gt;Version Control-&gt;Pull Branches</p>
 
 <ul>
 <li><code>cd /directory/where/you/want/repository/located</code></li>
-<li><code>git clone https://github.com/berkeley-scf/r-bootcamp-2016</code></li>
+<li><code>git clone https://github.com/berkeley-scf/r-bootcamp-2017</code></li>
 </ul>
 
 <p>Then to update from the repository to get any changes we&#39;ve made:</p>
 
 <ul>
-<li><code>cd /directory/where/you/put/the/repository/r-bootcamp-2016</code></li>
+<li><code>cd /directory/where/you/put/the/repository/r-bootcamp-2017</code></li>
 <li><code>git pull</code></li>
 </ul>
+
+<h2>As a zip file</h2>
+
+<p>If you don&#39;t want to bother using Git or have problems, simply download a zip file with all the material from <a href="https://github.com/berkeley-scf/r-bootcamp-2017/archive/master.zip">https://github.com/berkeley-scf/r-bootcamp-2017/archive/master.zip</a>.</p>
 
 <h1>What is R?</h1>
 
@@ -267,7 +271,7 @@ Tools-&gt;Version Control-&gt;Pull Branches</p>
 <li>It is a full-featured programming language, in particular a scripting language (with similarities to Matlab and Python)</li>
 <li>It can be run interactively or as a batch/background job</li>
 <li>R is being actively developed with ongoing updates/new releases</li>
-<li>R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see <a href="http://www.cran.r-project.org">CRAN</a> for the thousands of add-on packages</li>
+<li>R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see <a href="https://www.cran.r-project.org/web/packages/index.html">CRAN</a> for the thousands of add-on packages</li>
 <li>It is freely-available and modifiable </li>
 <li>Available for Windows, Mac OS X, and <a href="http://dilbert.com/strips/comic/1995-06-24/">Linux</a></li>
 </ul>
@@ -348,7 +352,7 @@ Tools-&gt;Version Control-&gt;Pull Branches</p>
 
 <ul>
 <li>Some of this material was drawn from <a href="http://jaredknowles.com/r-bootcamp/url">Jared Knowles R bootcamp</a>.</li>
-<li>Contributions from Kellie Ottoboni, Rochelle Terman, Chris Krogslund, and Jarrod Millman. Thank you!!!</li>
+<li>Contributions from Kellie Ottoboni, Nima Hejazi, Rochelle Terman, Chris Krogslund, and Jarrod Millman. Thank you!!!</li>
 <li>You are free to use, modify and redistribute any of this material with or without attribution, but if you use chunks of material, I&#39;d appreciate a call-out.</li>
 </ul>
 

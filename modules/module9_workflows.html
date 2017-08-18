@@ -289,7 +289,7 @@ dim(mat); print(mat)
 <pre><code class="r">colSums(mat)
 </code></pre>
 
-<pre><code>## Error in base::colSums(x, na.rm = na.rm, dims = dims, ...): &#39;x&#39; must be an array of at least two dimensions
+<pre><code>## Error in colSums(mat): &#39;x&#39; must be an array of at least two dimensions
 </code></pre>
 
 <pre><code class="r">mat &lt;- matrix(1:4, 2, 2)[1, , drop = FALSE]
@@ -330,7 +330,7 @@ buggyFun(air)
 ## [28] &quot;SecurityDelay&quot;     &quot;LateAircraftDelay&quot;
 </code></pre>
 
-<pre><code>## Error in base::rowSums(x, na.rm = na.rm, dims = dims, ...): &#39;x&#39; must be numeric
+<pre><code>## Error in rowSums(myDF): &#39;x&#39; must be numeric
 </code></pre>
 
 <pre><code class="r">if(FALSE) {
@@ -385,7 +385,7 @@ execution, and reporting.  For more information, see Bioconductor&#39;s <a href=
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.795   0.025   0.819
+##   0.776   0.004   0.780
 </code></pre>
 
 <pre><code class="r">library(rbenchmark)
@@ -396,8 +396,8 @@ benchmark(ifelse(x &lt; 0, x, 0),
 </code></pre>
 
 <pre><code>##   replications elapsed
-## 1            5   8.174
-## 2            5   0.828
+## 1            5   3.846
+## 2            5   0.161
 </code></pre>
 
 <h1>Profiling your code</h1>
@@ -473,18 +473,18 @@ object.size(x)
 gc()
 </code></pre>
 
-<pre><code>##             used  (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells   1350882  72.2    2164898  115.7   1995819  106.6
-## Vcells 111230069 848.7  168052612 1282.2 139673706 1065.7
+<pre><code>##             used  (Mb) gc trigger   (Mb)  max used  (Mb)
+## Ncells    436560  23.4    1442291   77.1   1442291  77.1
+## Vcells 110249005 841.2  166674851 1271.7 129765980 990.1
 </code></pre>
 
 <pre><code class="r">rm(x)
 gc()
 </code></pre>
 
-<pre><code>##            used (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells  1350891 72.2    2164898  115.7   1995819  106.6
-## Vcells 11230096 85.7  134442089 1025.8 139673706 1065.7
+<pre><code>##            used (Mb) gc trigger   (Mb)  max used  (Mb)
+## Ncells   436548 23.4    1442291   77.1   1442291  77.1
+## Vcells 10248997 78.2  133339880 1017.4 129765980 990.1
 </code></pre>
 
 <h1>Scripting</h1>
@@ -598,7 +598,7 @@ c(3,5)
 c
 </code></pre>
 
-<pre><code>## function (..., recursive = FALSE)  .Primitive(&quot;c&quot;)
+<pre><code>## function (...)  .Primitive(&quot;c&quot;)
 </code></pre>
 
 <ul>
@@ -645,9 +645,8 @@ complete set of instructions which generated the figures.</p>
 
 <h1>Breakout</h1>
 
-<p>Please fill out the feedback survey.</p>
-
-<p><a href="http://bit.ly/rbootcamp2016">http://bit.ly/rbootcamp2016</a></p>
+<p>Please fill out the feedback survey.
+<a href="http://bit.ly/RBootcamp2017">http://bit.ly/RBootcamp2017</a></p>
 
 </body>
 
