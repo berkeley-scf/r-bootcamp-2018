@@ -121,9 +121,14 @@ vals[c(rep(TRUE, 3), rep(FALSE, 2), TRUE)]
 ## IMPORTANT: read in the airline dataset from disk;
 ## first make sure your working directory is the 'modules' directory
 getwd()
-setwd('/Users/paciorek/Desktop/r-bootcamp-2017/modules')
+## if the result is not the 'modules' subdirectory of the bootcamp
+## directory, set the working directly along the lines of this:
+##
+## setwd('/Users/paciorek/Desktop/r-bootcamp-2017/modules')
+##
 ## replace '~/Desktop' with whatever directory you put the bootcamp
 ## materials in; e.g./ 'C:\\Users\\sarah\\r-bootcamp-2017\\modules'
+##
 air <- read.csv(file.path('..', 'data', 'airline.csv'),
     stringsAsFactors = FALSE)
 #######################################################################
@@ -175,9 +180,9 @@ vec1 != vec2
 vec1 = vec2
 identical(vec1, vec2)
 
-delayChange <- air$DepDelay - air$ArrDelay
+delayChange <- air$DepDelay - air$ArrDelay ## make up time in flight?
 tmp <- delayChange[1:100]
-tmp >= 24*60 # full day
+tmp >= 15 
 ```
 
 An important related concept is that of recycling
@@ -369,7 +374,7 @@ We'll see a little bit of *base* graphics here and then *lattice* and *ggplot2* 
 ```{r basic_plots, fig.cap =""}
 hist(air$DepDelay)
 ## make a random subset for quicker plotting:
-set.seed(0)  # make the subset reproducible
+set.seed(1)  # make the subset reproducible
 subset <- air[sample(1:nrow(air), 10000, replace = FALSE), ]
 ## censor the outliers to limit plotting range
 subset$DepDelay[subset$DepDelay > 60*3] <- 60*3

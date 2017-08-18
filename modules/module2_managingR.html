@@ -401,7 +401,7 @@ lm(y ~ x)
 </code></pre>
 
 <pre><code>## y ~ x
-## &lt;environment: 0x471de48&gt;
+## &lt;environment: 0x402f988&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(y ~ x)
@@ -427,7 +427,8 @@ lm(y ~ x)
 
 <p>To look at the raw R code (and possibly C/C++/Fortran code included in some packages), download and unzip the package source tarball. From the command line of a Linux/Mac terminal (note this won&#39;t look right in the slides version of the HTML):</p>
 
-<pre><code class="bash">curl http://www.cran.r-project.org/src/contrib/fields_6.8.tar.gz -o fields_6.8.tar.gz
+<pre><code class="bash">curl http://www.cran.r-project.org/src/contrib/fields_6.8.tar.gz \
+     -o fields_6.8.tar.gz
 tar -xvzf fields_6.8.tar.gz
 cd fields
 ls R
@@ -560,7 +561,7 @@ print(xtable(table(air$UniqueCarrier, air$Cancelled)), type = &quot;html&quot;)
 </code></pre>
 
 <pre><code>## &lt;!-- html table generated in R 3.4.1 by xtable 1.8-2 package --&gt;
-## &lt;!-- Sat Aug 12 14:45:31 2017 --&gt;
+## &lt;!-- Fri Aug 18 11:12:11 2017 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; 0 &lt;/th&gt; &lt;th&gt; 1 &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; AA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 49222 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1033 &lt;/td&gt; &lt;/tr&gt;
