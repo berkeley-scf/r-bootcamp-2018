@@ -29,7 +29,7 @@ or from the Environment/History/Git window, click on the Git tab and then on the
 
 6) To restart RStudio (e.g., if you're having a problem with R), click on the orange power button in the upper right, close the browser page/tab (don't use the 'Start New Session' option) and go back to your original Jupyter browser page/tab. Then follow Step 5 above.
 
-7) To end your session entirely, click on the Jupyter browser page/tab and click on the Logout button in the upper right. Then choose 'Stop My Server'. Note that simply stopping RStudio will not terminate your overall session on the remote computer server. 
+7) To end your session entirely, click on the Jupyter browser page/tab and click on the Control Panel button in the upper right. Then choose 'Stop My Server'. Note that simply stopping RStudio will not terminate your overall session on the remote computer server. Finally press the Logout button in the upper right. 
 
 ### AirBears2 Access
 
