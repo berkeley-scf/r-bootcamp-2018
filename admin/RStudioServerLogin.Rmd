@@ -2,11 +2,11 @@ If you're not able to install R and RStudio on your laptop, you can access RStud
 
 You'll be using RStudio through a front-end interface called Jupyter that will manage starting RStudio.
 
-0) You need to be logged into AirBears2 or EduRoam wireless. You cannot use CalVisitor. To use AirBears2 based on your CalNet ID, see the instructions at the bottom. 
+0) You need to be logged into AirBears2 or EduRoam wireless. You cannot use CalVisitor. To use AirBears2 based on your CalNet ID, see the instructions at the bottom before proceeding to the next step.
 
 1) Go to https://jupyter.stat.berkeley.edu:8443
 
-2) Enter the 'Account login name' as the Username and 'Account password' as the Password at the Jupyter Sign in page.
+2) Using the information on the account form given to you by an instructor, enter the 'Account login name' as the Username and 'Account password' as the Password at the Jupyter Sign in page.
 
 3) Click on 'Start My Server'
 
@@ -31,7 +31,9 @@ or from the Environment/History/Git window, click on the Git tab and then on the
 
 7) To end your session entirely, click on the Jupyter browser page/tab and click on the Logout button in the upper right. Then choose 'Stop My Server'. Note that simply stopping RStudio will not terminate your overall session on the remote computer server. 
 
-## AirBears2 Access
+### AirBears2 Access
+
+Please follow these instructions if you are trying to access AirBears2 if you have never accessed AirBears2 before.
 
 1) Go to [https://idc.berkeley.edu/mmk](https://idc.berkeley.edu/mmk) and click on "Login via CalNet".
 
