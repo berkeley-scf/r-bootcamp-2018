@@ -321,7 +321,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x46354d0&gt;
+## &lt;bytecode: 0x3aba440&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -705,7 +705,7 @@ for(i in 1:nVals) {
 results
 </code></pre>
 
-<pre><code>## [1] -0.07287026  0.71096228  0.46691160
+<pre><code>## [1] 0.1351357 0.8783309 0.4669116
 </code></pre>
 
 <pre><code class="r">varName
@@ -1189,18 +1189,18 @@ out2 &lt;- mclapply(unique(air$Dest), fitFun, mc.cores = nCores)
 <li>The ugly: Make sure you do not use the same seed for each task</li>
 </ul>
 
-<pre><code class="r">set.seed(0)
+<pre><code class="r">set.seed(1)
 rnorm(5)
 </code></pre>
 
-<pre><code>## [1]  1.2629543 -0.3262334  1.3297993  1.2724293  0.4146414
+<pre><code>## [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
 </code></pre>
 
-<pre><code class="r">set.seed(0)
+<pre><code class="r">set.seed(1)
 rnorm(5)
 </code></pre>
 
-<pre><code>## [1]  1.2629543 -0.3262334  1.3297993  1.2724293  0.4146414
+<pre><code>## [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
 </code></pre>
 
 <ul>

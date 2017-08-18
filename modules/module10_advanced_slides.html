@@ -132,7 +132,7 @@ mod2$residuals[<span class="dv">1</span>:<span class="dv">20</span>] <span class
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predict</code></pre></div>
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x46354d0&gt;
+## &lt;bytecode: 0x3aba440&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># predict.glm</span></code></pre></div>
 <p>When <code>predict()</code> is called on a GLM object, it first calls the generic <code>predict()</code>, which then recognizes that the first argument is of the class <em>glm</em> and immediately calls the right class-specific method, <code>predict.glm()</code> in this case.</p>
@@ -375,14 +375,13 @@ for(i in <span class="dv">1</span>:nVals) {
    results[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp)
 }
 results</code></pre></div>
-<pre><code>## [1] 0.2725725 1.2777292 0.5409364</code></pre>
+<pre><code>## [1] -0.2974480  0.7225642  0.5238209</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">varName</code></pre></div>
 <pre><code>## [1] &quot;x3&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp</code></pre></div>
-<pre><code>##  [1] 0.24562550 0.98939391 0.33153525 0.55799408 0.57100152 0.05461962
-##  [7] 0.54299417 0.91120819 0.73909697 0.39317305 0.19788948 0.76016706
-## [13] 0.58035629 0.75792338 0.76741067 0.37714901 0.16862111 0.45120161
-## [19] 0.52998107 0.89138507</code></pre>
+<pre><code>##  [1] 0.1716610 0.9314033 0.4529284 0.5895020 0.8411046 0.8829855 0.5682851
+##  [8] 0.5288337 0.3063758 0.6383110 0.5143865 0.9166659 0.6493968 0.8211758
+## [15] 0.2952884 0.3559114 0.2858739 0.2002959 0.1697658 0.3562668</code></pre>
 <p>Or suppose you needed to create &quot;x1&quot;, &quot;x2&quot;, &quot;x3&quot;, automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nVals &lt;-<span class="st"> </span><span class="dv">3</span>
 results &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, nVals)
@@ -391,8 +390,8 @@ for(i in <span class="dv">1</span>:nVals) {
    <span class="kw">assign</span>(varName, <span class="kw">rnorm</span>(<span class="dv">10</span>))
 }
 x2</code></pre></div>
-<pre><code>##  [1]  2.3579338  0.8241247  0.4725991  1.0872137  0.6778093 -1.5360992
-##  [7]  0.1778032  0.5156980 -1.0353496  0.3360777</code></pre>
+<pre><code>##  [1] -0.08285137  0.07198431 -0.27117853  0.74085100  2.10580105
+##  [6] -0.31103571 -0.80644297  0.25040656 -1.14283064  1.34853756</code></pre>
 <p>Can you think of any uses of this ability for R to self-generate?</p>
 </div>
 <div id="file-encodings" class="slide section level1">
@@ -735,12 +734,12 @@ out2 &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class=
 <ul>
 <li>The ugly: Make sure you do not use the same seed for each task</li>
 </ul>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">0</span>)
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 <span class="kw">rnorm</span>(<span class="dv">5</span>)</code></pre></div>
-<pre><code>## [1]  1.2629543 -0.3262334  1.3297993  1.2724293  0.4146414</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">0</span>)
+<pre><code>## [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">1</span>)
 <span class="kw">rnorm</span>(<span class="dv">5</span>)</code></pre></div>
-<pre><code>## [1]  1.2629543 -0.3262334  1.3297993  1.2724293  0.4146414</code></pre>
+<pre><code>## [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078</code></pre>
 <ul>
 <li><p>The (not so) bad: Use a different seed for each task or each process. It's possible the subsequences will overlap but quite unlikely.</p></li>
 <li>The good: Use the L'Ecuyer algorithm (<code>library(lecuyer)</code>) to ensure distinct subsequences
