@@ -460,6 +460,7 @@ airSmall_glms <- airSmall_tidy %>%
   map(~glm(late ~ Month, family = binomial, data = .))
 ```
 
+
 Uh oh, what happened here?
 
 Oh, that's right...we had to protect against situations where there wasn't
@@ -475,7 +476,14 @@ airSmall_glms <- airSmall_tidy %>%
   map(safely(~glm(late ~ Month, family = binomial, data = .)))
 ```
 
-We'll look at the results for one destination, just to get a feel for the output
+_Remark:_ What we accomplish here with `purrr::map` is also easily done using
+tools from base R. In fact, using `lapply`, we can evaluate the very same `glm`
+formula with our `airSmall` dataset, albeit without the extra goodies offered by
+the pipe (aka `%>%`) syntax and the `safely` convenience, afforded by `magrittr`
+and `purrr`, respectively.
+
+Ok. Now, we'll look at the results for one destination, just to get a feel for
+the output
 
 ```{r glms-purrr-eg}
 airSmall_glms$LAX$result
@@ -490,6 +498,27 @@ all.equal(coef(airSmall_glms$LAX$result), coef(out$LAX))
 ```
 
 Looks like everything worked out just fine!
+
+Now that we've seen what we can do with `purrr`, it's important to compare this
+modern approach to what is offered in base R. (It's very important to understand
+and be comfortable with using tools from base R before adopting those that are
+offered as part of the `tidyverse`.) To that end, here are some points of
+comparison:
+
+* Is `purrr::map` really different from `lapply`, `sapply`, `vapply`?
+  * `purrr` is:
+    * Consistent in the type of object returned
+    * contains many useful shortcuts and convenience functions (e.g., `safely`)
+    * Syntax accommodates more complicated iteration schemes.
+  * [l/s/v]`apply`:
+    * The type of object returned is _not_ always consistent
+    * Has fewer dependencies (implented in base R rather than `tidyverse`)
+     * Syntax can be unwieldy for more complex use-cases.
+
+For a full comparison of `purrr` versus base R, consider checking out [this
+quite thorough
+tutorial](https://jennybc.github.io/purrr-tutorial/bk01_base-functions.html) by
+Jenny Bryan.
 
 ### Onwards: Readings and References
 
