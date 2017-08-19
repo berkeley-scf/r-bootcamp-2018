@@ -132,7 +132,7 @@ mod2$residuals[<span class="dv">1</span>:<span class="dv">20</span>] <span class
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predict</code></pre></div>
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x3aba440&gt;
+## &lt;bytecode: 0x39c54d0&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># predict.glm</span></code></pre></div>
 <p>When <code>predict()</code> is called on a GLM object, it first calls the generic <code>predict()</code>, which then recognizes that the first argument is of the class <em>glm</em> and immediately calls the right class-specific method, <code>predict.glm()</code> in this case.</p>
@@ -258,7 +258,7 @@ fm1 &lt;-<span class="st"> </span><span class="kw">lmer</span>(Reaction ~<span c
 </div>
 <div id="why-we-need-to-try" class="slide section level1">
 <h1>Why we need to <code>try()</code></h1>
-<p>Suppose we tried to do a stratified analysis of delay on year and month within destinations. I'm going to do this as a for loop for pedagogical reasons, but again, it would be better to do this with apply/by/plyr type tools.</p>
+<p>Suppose we tried to do a stratified analysis of delay on year and month within destinations. I'm going to do this as a for loop for pedagogical reasons, but again, it would be better to do this with dplyr/lapply/by type tools.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mod &lt;-<span class="st"> </span><span class="kw">list</span>()
 Dests &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">'LAX'</span>, <span class="st">'OAK'</span>, <span class="st">'DRO'</span>, <span class="st">'ORD'</span>)
 sub &lt;-<span class="st"> </span>air[air$Dest %in%<span class="st"> </span>Dests, ]
@@ -375,13 +375,14 @@ for(i in <span class="dv">1</span>:nVals) {
    results[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp)
 }
 results</code></pre></div>
-<pre><code>## [1] -0.2974480  0.7225642  0.5238209</code></pre>
+<pre><code>## [1] 0.02857471 1.83577758 0.46375042</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">varName</code></pre></div>
 <pre><code>## [1] &quot;x3&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp</code></pre></div>
-<pre><code>##  [1] 0.1716610 0.9314033 0.4529284 0.5895020 0.8411046 0.8829855 0.5682851
-##  [8] 0.5288337 0.3063758 0.6383110 0.5143865 0.9166659 0.6493968 0.8211758
-## [15] 0.2952884 0.3559114 0.2858739 0.2002959 0.1697658 0.3562668</code></pre>
+<pre><code>##  [1] 0.14369417 0.07607767 0.38837137 0.25845350 0.84720603 0.74466934
+##  [7] 0.96227584 0.02992639 0.94673066 0.12923841 0.51674860 0.47503431
+## [13] 0.03274191 0.56620104 0.44493073 0.58624515 0.85604732 0.34918240
+## [19] 0.02872391 0.89250956</code></pre>
 <p>Or suppose you needed to create &quot;x1&quot;, &quot;x2&quot;, &quot;x3&quot;, automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nVals &lt;-<span class="st"> </span><span class="dv">3</span>
 results &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, nVals)
@@ -390,8 +391,8 @@ for(i in <span class="dv">1</span>:nVals) {
    <span class="kw">assign</span>(varName, <span class="kw">rnorm</span>(<span class="dv">10</span>))
 }
 x2</code></pre></div>
-<pre><code>##  [1] -0.08285137  0.07198431 -0.27117853  0.74085100  2.10580105
-##  [6] -0.31103571 -0.80644297  0.25040656 -1.14283064  1.34853756</code></pre>
+<pre><code>##  [1]  0.1498130  1.5227959  0.7120477 -0.6113204  0.8562148 -0.3554073
+##  [7] -0.9699273  0.6098548  0.8850072  0.3091419</code></pre>
 <p>Can you think of any uses of this ability for R to self-generate?</p>
 </div>
 <div id="file-encodings" class="slide section level1">
@@ -440,26 +441,26 @@ x</code></pre></div>
 </div>
 <div id="database-example" class="slide section level1">
 <h1>Database example</h1>
-<p>You can get an example database of information about Stack Overflow questions and answers from <a href="http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db" class="uri">http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db</a>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</p>
+<p>You can get an example database of information about Stack Overflow questions and answers from <a href="http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db" class="uri">http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db</a>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(RSQLite)  <span class="co"># DBI is a dependency</span>
 db &lt;-<span class="st"> </span><span class="kw">dbConnect</span>(<span class="kw">SQLite</span>(), <span class="dt">dbname =</span> <span class="st">&quot;../data/stackoverflow-2016.db&quot;</span>) 
 ## stackoverflow-2016.db is an SQLite database
 
 ## metadata
 <span class="kw">dbListTables</span>(db)</code></pre></div>
-<pre><code>## character(0)</code></pre>
+<pre><code>## [1] &quot;answers&quot;          &quot;maxRepByQuestion&quot; &quot;questions&quot;       
+## [4] &quot;questionsAugment&quot; &quot;questions_tags&quot;   &quot;users&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">dbListFields</span>(db, <span class="st">&quot;questions&quot;</span>)</code></pre></div>
-<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions</code></pre>
+<pre><code>## [1] &quot;questionid&quot;   &quot;creationdate&quot; &quot;score&quot;        &quot;viewcount&quot;   
+## [5] &quot;title&quot;        &quot;ownerid&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## simple filter operation
 popular &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from questions </span>
-<span class="st">   where viewcount &gt; 10000&quot;</span>)</code></pre></div>
-<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## a join followed by a filter operation
+<span class="st">   where viewcount &gt; 10000&quot;</span>)
+## a join followed by a filter operation
 popularR &lt;-<span class="st"> </span><span class="kw">dbGetQuery</span>(db, <span class="st">&quot;select * from questions join questions_tags</span>
 <span class="st">   on questions.questionid = questions_tags.questionid</span>
 <span class="st">   where viewcount &gt; 10000 and</span>
 <span class="st">   tag = 'r'&quot;</span>)</code></pre></div>
-<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions</code></pre>
 </div>
 <div id="computer-architecture" class="slide section level1">
 <h1>Computer architecture</h1>

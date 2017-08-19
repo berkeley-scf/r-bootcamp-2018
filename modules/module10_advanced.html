@@ -321,7 +321,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x3aba440&gt;
+## &lt;bytecode: 0x39c54d0&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -528,7 +528,7 @@ mysqrt(c(1, 2, 3))
 
 <h1>Why we need to <code>try()</code></h1>
 
-<p>Suppose we tried to do a stratified analysis of delay on year and month within destinations. I&#39;m going to do this as a for loop for pedagogical reasons, but again, it would be better to do this with apply/by/plyr type tools.</p>
+<p>Suppose we tried to do a stratified analysis of delay on year and month within destinations. I&#39;m going to do this as a for loop for pedagogical reasons, but again, it would be better to do this with dplyr/lapply/by type tools.</p>
 
 <pre><code class="r">mod &lt;- list()
 Dests &lt;- c(&#39;LAX&#39;, &#39;OAK&#39;, &#39;DRO&#39;, &#39;ORD&#39;)
@@ -814,7 +814,7 @@ There is a UNIX utility call <em>mac2unix</em> that can convert such text files.
 
 <h1>Database example</h1>
 
-<p>You can get an example database of information about Stack Overflow questions and answers from <a href="http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db">http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db</a>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</p>
+<p>You can get an example database of information about Stack Overflow questions and answers from <a href="http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db">http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db</a>. Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.</p>
 
 <pre><code class="r">library(RSQLite)  # DBI is a dependency
 db &lt;- dbConnect(SQLite(), dbname = &quot;../data/stackoverflow-2016.db&quot;) 
@@ -824,31 +824,25 @@ db &lt;- dbConnect(SQLite(), dbname = &quot;../data/stackoverflow-2016.db&quot;)
 dbListTables(db)
 </code></pre>
 
-<pre><code>## character(0)
+<pre><code>## [1] &quot;answers&quot;          &quot;maxRepByQuestion&quot; &quot;questions&quot;       
+## [4] &quot;questionsAugment&quot; &quot;questions_tags&quot;   &quot;users&quot;
 </code></pre>
 
 <pre><code class="r">dbListFields(db, &quot;questions&quot;)
 </code></pre>
 
-<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions
+<pre><code>## [1] &quot;questionid&quot;   &quot;creationdate&quot; &quot;score&quot;        &quot;viewcount&quot;   
+## [5] &quot;title&quot;        &quot;ownerid&quot;
 </code></pre>
 
 <pre><code class="r">## simple filter operation
 popular &lt;- dbGetQuery(db, &quot;select * from questions 
    where viewcount &gt; 10000&quot;)
-</code></pre>
-
-<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions
-</code></pre>
-
-<pre><code class="r">## a join followed by a filter operation
+## a join followed by a filter operation
 popularR &lt;- dbGetQuery(db, &quot;select * from questions join questions_tags
    on questions.questionid = questions_tags.questionid
    where viewcount &gt; 10000 and
    tag = &#39;r&#39;&quot;)
-</code></pre>
-
-<pre><code>## Error in rsqlite_send_query(conn@ptr, statement): no such table: questions
 </code></pre>
 
 <h1>Computer architecture</h1>

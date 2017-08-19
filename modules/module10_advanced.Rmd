@@ -163,7 +163,7 @@ The `try()` function is a powerful tool here.
 
 # Why we need to `try()`
 
-Suppose we tried to do a stratified analysis of delay on year and month within destinations. I'm going to do this as a for loop for pedagogical reasons, but again, it would be better to do this with apply/by/plyr type tools.
+Suppose we tried to do a stratified analysis of delay on year and month within destinations. I'm going to do this as a for loop for pedagogical reasons, but again, it would be better to do this with dplyr/lapply/by type tools.
 
 
 ```{r}
@@ -335,7 +335,7 @@ Basically, you tell the package what DBMS is being used on the back-end, link to
 
 # Database example
 
-You can get an example database of information about Stack Overflow questions and answers from [http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db](http://http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
+You can get an example database of information about Stack Overflow questions and answers from [http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db](http://www.stat.berkeley.edu/share/paciorek/stackoverflow-2016.db). Stack Overflow is a website where programmers and software users can pose questions and get answers to technical problems.
 
 
 ```{r}
@@ -434,7 +434,7 @@ Examples in statistics include
 
 Can you think of others in your work?
 
-Some things that are not EP:
+Some things that are not EP (at least not in a basic formulation):
 
 1. Markov chain Monte Carlo for fitting Bayesian models
 2. optimization
