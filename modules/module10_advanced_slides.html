@@ -132,7 +132,7 @@ mod2$residuals[<span class="dv">1</span>:<span class="dv">20</span>] <span class
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">predict</code></pre></div>
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x39c54d0&gt;
+## &lt;bytecode: 0x427e9d8&gt;
 ## &lt;environment: namespace:stats&gt;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># predict.glm</span></code></pre></div>
 <p>When <code>predict()</code> is called on a GLM object, it first calls the generic <code>predict()</code>, which then recognizes that the first argument is of the class <em>glm</em> and immediately calls the right class-specific method, <code>predict.glm()</code> in this case.</p>
@@ -375,14 +375,14 @@ for(i in <span class="dv">1</span>:nVals) {
    results[i] &lt;-<span class="st"> </span><span class="kw">mean</span>(tmp)
 }
 results</code></pre></div>
-<pre><code>## [1] 0.02857471 1.83577758 0.46375042</code></pre>
+<pre><code>## [1] 0.1085621 0.9209458 0.4788959</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">varName</code></pre></div>
 <pre><code>## [1] &quot;x3&quot;</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tmp</code></pre></div>
-<pre><code>##  [1] 0.14369417 0.07607767 0.38837137 0.25845350 0.84720603 0.74466934
-##  [7] 0.96227584 0.02992639 0.94673066 0.12923841 0.51674860 0.47503431
-## [13] 0.03274191 0.56620104 0.44493073 0.58624515 0.85604732 0.34918240
-## [19] 0.02872391 0.89250956</code></pre>
+<pre><code>##  [1] 0.25663543 0.53917810 0.84586092 0.69170797 0.46745309 0.16184343
+##  [7] 0.72074246 0.64554006 0.53385061 0.91551335 0.42839552 0.26333432
+## [13] 0.58395196 0.13694065 0.10134395 0.95017765 0.11992408 0.65559765
+## [19] 0.01994657 0.53998022</code></pre>
 <p>Or suppose you needed to create &quot;x1&quot;, &quot;x2&quot;, &quot;x3&quot;, automatically.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">nVals &lt;-<span class="st"> </span><span class="dv">3</span>
 results &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, nVals)
@@ -391,8 +391,8 @@ for(i in <span class="dv">1</span>:nVals) {
    <span class="kw">assign</span>(varName, <span class="kw">rnorm</span>(<span class="dv">10</span>))
 }
 x2</code></pre></div>
-<pre><code>##  [1]  0.1498130  1.5227959  0.7120477 -0.6113204  0.8562148 -0.3554073
-##  [7] -0.9699273  0.6098548  0.8850072  0.3091419</code></pre>
+<pre><code>##  [1] -0.09108594 -0.39942060  0.62452376  0.57088041  0.29661235
+##  [6]  0.83174382  0.67158345  1.73967908  0.06367277  0.42387782</code></pre>
 <p>Can you think of any uses of this ability for R to self-generate?</p>
 </div>
 <div id="file-encodings" class="slide section level1">
@@ -533,7 +533,7 @@ U &lt;-<span class="st"> </span><span class="kw">chol</span>(<span class="kw">cr
 <li>random forests models</li>
 </ol>
 <p>Can you think of others in your work?</p>
-<p>Some things that are not EP:</p>
+<p>Some things that are not EP (at least not in a basic formulation):</p>
 <ol style="list-style-type: decimal">
 <li>Markov chain Monte Carlo for fitting Bayesian models</li>
 <li>optimization</li>
@@ -545,13 +545,10 @@ U &lt;-<span class="st"> </span><span class="kw">chol</span>(<span class="kw">cr
 <p>The <em>foreach</em> package provides a way to do a for loop using multiple cores. It can use a variety of 'back-ends' that handle the nitty-gritty of the parallelization.</p>
 <p>To use multiple cores on a single machine, use the <em>parallel</em> back-end from the <em>doParallel</em> package (or <em>multicore</em> from <em>doMC</em>)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># note to CJP: don't run in RStudio</span>
-<span class="kw">require</span>(parallel)</code></pre></div>
-<pre><code>## Loading required package: parallel</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(doParallel)</code></pre></div>
-<pre><code>## Loading required package: doParallel</code></pre>
-<pre><code>## Loading required package: foreach</code></pre>
-<pre><code>## Loading required package: iterators</code></pre>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(foreach)
+<span class="kw">require</span>(parallel)
+<span class="kw">require</span>(doParallel)
+<span class="kw">require</span>(foreach)
+
 nCores &lt;-<span class="st"> </span><span class="dv">4</span>  <span class="co"># actually only 2 on my laptop, but appears hyperthreaded</span>
 <span class="kw">registerDoParallel</span>(nCores)
 
@@ -640,7 +637,9 @@ out[<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
 </div>
 <div id="using-multiple-cores-for-ep-problems-parallel-apply-variants" class="slide section level1">
 <h1>Using multiple cores for EP problems: parallel <em>apply</em> variants</h1>
+<p>Note there may be errors in the HTML output from the code below, but the code should work when running it directly.</p>
 <p><code>help(clusterApply)</code> shows the wide variety of parallel versions of the <em>apply</em> family of functions.</p>
+<p>Here's <code>parLapply</code>:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(parallel)
 nCores &lt;-<span class="st"> </span><span class="dv">4</span>
 cluster &lt;-<span class="st"> </span><span class="kw">makeCluster</span>(nCores)
@@ -718,7 +717,7 @@ out[<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
 ## 8.00 5.68  total = 21.69 
 ## 
 ## GCV score: 1367.66</code></pre>
-<p>Note there may be an error in the HTML output from the above code, but it should work when running it directly.</p>
+<p>And here is <code>mclapply</code>, which is similar:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">require</span>(parallel)
 nCores &lt;-<span class="st"> </span><span class="dv">4</span>
 out2 &lt;-<span class="st"> </span><span class="kw">mclapply</span>(<span class="kw">unique</span>(air$Dest), fitFun, <span class="dt">mc.cores =</span> nCores)</code></pre></div>

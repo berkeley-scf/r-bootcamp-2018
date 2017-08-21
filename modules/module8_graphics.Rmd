@@ -364,7 +364,7 @@ ggplot(data = northern_hem, aes(x = Year, y = Gold)) + geom_point() +
 xyplot(Gold~Year|NOC, data = northern_hem) # lattice
 ```
 
-# lattice v. ggplot2: countour plots
+# lattice v. ggplot2: contour plots
 ```{r, fig.cap=" ", warning=FALSE, fig.show = "hold"}
 data(volcano) # Load volcano contour data
 volcano[1:10, 1:10] # Examine volcano dataset (first 10 rows and columns)
@@ -583,7 +583,7 @@ Two basic image types:
 Every pixel of a plot contains its own separate coding; not so great if you want to resize the image
 
 ```{r, eval=FALSE}
-jpeg(filename = "example.png", width=, height=)
+jpeg(filename = "example.jpg", width=, height=)
 plot(x,y)
 dev.off()
 ```

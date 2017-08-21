@@ -452,6 +452,7 @@ To use multiple cores on a single machine, use the *parallel* back-end from the 
 require(parallel)
 require(doParallel)
 require(foreach)
+
 nCores <- 4  # actually only 2 on my laptop, but appears hyperthreaded
 registerDoParallel(nCores)
 
@@ -476,9 +477,14 @@ out[1:5]
 
 **Question**: What do you think are the advantages and disadvantages of having many small tasks vs. a few large tasks?
 
-# Using multiple cores for EP problems: parallel *apply* variants 
+# Using multiple cores for EP problems: parallel *apply* variants
+
+Note there may be  errors in the HTML output from the code below, but the code should work when running it directly.
 
 `help(clusterApply)` shows the wide variety of parallel versions of the *apply* family of functions.
+
+Here's `parLapply`:
+
 
 ```{r cache=TRUE}
 require(parallel)
@@ -495,7 +501,7 @@ out <- parLapply(cluster, unique(air$Dest), fitFun)
 out[1:5]
 ```
 
-Note there may be an error in the HTML output from the above code, but it should work when running it directly.
+And here is `mclapply`, which is similar:
 
 ```{r cache=TRUE}
 require(parallel)

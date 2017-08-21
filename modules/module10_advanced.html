@@ -321,7 +321,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x39c54d0&gt;
+## &lt;bytecode: 0x427e9d8&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -935,7 +935,7 @@ U &lt;- chol(crossprod(x))
 
 <p>Can you think of others in your work?</p>
 
-<p>Some things that are not EP:</p>
+<p>Some things that are not EP (at least not in a basic formulation):</p>
 
 <ol>
 <li>Markov chain Monte Carlo for fitting Bayesian models</li>
@@ -952,24 +952,9 @@ U &lt;- chol(crossprod(x))
 
 <pre><code class="r"># note to CJP: don&#39;t run in RStudio
 require(parallel)
-</code></pre>
+require(doParallel)
+require(foreach)
 
-<pre><code>## Loading required package: parallel
-</code></pre>
-
-<pre><code class="r">require(doParallel)
-</code></pre>
-
-<pre><code>## Loading required package: doParallel
-</code></pre>
-
-<pre><code>## Loading required package: foreach
-</code></pre>
-
-<pre><code>## Loading required package: iterators
-</code></pre>
-
-<pre><code class="r">require(foreach)
 nCores &lt;- 4  # actually only 2 on my laptop, but appears hyperthreaded
 registerDoParallel(nCores)
 
@@ -1062,7 +1047,11 @@ out[1:5]
 
 <h1>Using multiple cores for EP problems: parallel <em>apply</em> variants</h1>
 
+<p>Note there may be  errors in the HTML output from the code below, but the code should work when running it directly.</p>
+
 <p><code>help(clusterApply)</code> shows the wide variety of parallel versions of the <em>apply</em> family of functions.</p>
+
+<p>Here&#39;s <code>parLapply</code>:</p>
 
 <pre><code class="r">require(parallel)
 nCores &lt;- 4
@@ -1153,7 +1142,7 @@ out[1:5]
 ## GCV score: 1367.66
 </code></pre>
 
-<p>Note there may be an error in the HTML output from the above code, but it should work when running it directly.</p>
+<p>And here is <code>mclapply</code>, which is similar:</p>
 
 <pre><code class="r">require(parallel)
 nCores &lt;- 4
