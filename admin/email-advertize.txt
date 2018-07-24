@@ -1,18 +1,21 @@
+R bootcamp, August 18-19
+
 The Statistics Department and D-Lab are offering an introductory short
 course on the statistical/data science software R on Saturday-Sunday,
-August 19-20. The short course will be a thorough introduction to
+August 18-19. The short course will be a thorough introduction to
 working with data, statistical analysis, and programming in R,
 with no prior knowledge assumed. Please see
-http://dlab.berkeley.edu/training/r-bootcamp-2017 for more details.
-Attendance is free of charge.
+http://dlab.berkeley.edu/training/r-bootcamp-2018 for more details.
+The short course will have two tracks, allowing participants to
+choose the pace that is best for them. Attendance is free of charge.
 
-If you are interested in attending, please register at https://goo.gl/Kpsisf.
+If you are interested in attending, please register at
+https://goo.gl/forms/SOtdfP7zS2h48uFJ3
 
 If you have questions about the bootcamp, please email
 r-bootcamp@lists.berkeley.edu.
 
 Also note that if that time does not work for you or you're interested in
-other R training options (including an introduction at a more relaxed pace),
-D-Lab offers very regular workshops on R at basic and intermediate levels.
-See dlab.berkeley.edu/training (but note workshops for the fall are not
-yet posted).
+other R training options, D-Lab offers very regular workshops on R at
+basic and intermediate levels. See dlab.berkeley.edu/training
+(but note workshops for the fall are not yet posted).

@@ -336,49 +336,19 @@ status open
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+
+\series bold
+TRACK 2 splits from TRACK 1
+\end_layout
+
 \begin_layout Itemize
-Module 4: Calculations (Sean)
-\begin_inset Separator latexpar
-\end_inset
-
-
+Track 2: Session 1 (Evan)
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-vectorized calculations and efficiency
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
- (pre-allocate, look-up tables by indexing, linear algebra/BLAS)
-\end_layout
-
-\end_inset
-
-
-\end_layout
-
-\begin_layout Itemize
-apply, lapply
-\end_layout
-
-\begin_layout Itemize
-tabulation, stratified analyses, aggregation, merging data
-\end_layout
-
-\begin_layout Itemize
-breakout problems 
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
-[work on a data aggregation problem]
-\end_layout
-
-\end_inset
-
-
+Revisit variables, data types, data structures
 \end_layout
 
 \end_deeper
@@ -387,38 +357,12 @@ Break (15 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 5: Programming in R (Chris)
-\begin_inset Separator latexpar
-\end_inset
-
-
+Track 2: Session 2 (Evan)
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-loops, if-else
-\end_layout
-
-\begin_layout Itemize
-writing your own functions, function arguments, functions as objects
-\end_layout
-
-\begin_layout Itemize
-basic scoping and environments
-\end_layout
-
-\begin_layout Itemize
-breakout problems
-\begin_inset Note Note
-status open
-
-\begin_layout Plain Layout
- [write a function with arguments - perhaps a sort function using order()]
-\end_layout
-
-\end_inset
-
-
+Revisit data frames, subsetting, and data summarization
 \end_layout
 
 \end_deeper
@@ -428,6 +372,12 @@ Day 2 morning (9-12:45) (programming and data analysis)
 \end_layout
 
 \begin_deeper
+\begin_layout Standard
+
+\series bold
+TRACK 2 rejoins TRACK 1
+\end_layout
+
 \begin_layout Itemize
 Module 6: Data manipulation using the tidyverse (Nima)
 \begin_inset Separator latexpar
@@ -451,6 +401,10 @@ breakout problems/homework
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+Break (15 minutes)
+\end_layout
+
 \begin_layout Itemize
 Module 7: Data analysis (Chris P.) 
 \begin_inset Separator latexpar
@@ -566,81 +520,46 @@ Day 2 afternoon (2:00-4:30) (more advanced topics)
 \end_layout
 
 \begin_deeper
-\begin_layout Itemize
-Module 9: Workflows, coding practices, and project management
-\begin_inset Note Note
-status open
+\begin_layout Standard
 
-\begin_layout Plain Layout
-http://feedproxy.google.com/~r/RBloggers/~3/H67TlLIYTbQ/?utm_source=feedburner&utm
-_medium=email
+\series bold
+TRACK 2 splits from TRACK 1
 \end_layout
 
-\end_inset
-
- (Chris P.) (60 minutes)
-\begin_inset Separator latexpar
-\end_inset
-
-
+\begin_layout Itemize
+Track 2: Session 3 (Evan)
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-debugging, timing, memory use
-\end_layout
-
-\begin_layout Itemize
-scripting, source(), batch jobs
-\end_layout
-
-\begin_layout Itemize
-good coding practices
-\end_layout
-
-\begin_layout Itemize
-reproducible research
+Revisit base graphics and ggplot, data analysis
 \end_layout
 
 \end_deeper
 \begin_layout Itemize
-Break (fill out feedback forms) (20 minutes)
+Break (15 minutes)
 \end_layout
 
 \begin_layout Itemize
-Module 10: Advanced topics morsels (Chris P.) (60 minutes)
-\begin_inset Separator latexpar
-\end_inset
-
-
+Track 2: Session 4 (Evan)
 \end_layout
 
 \begin_deeper
 \begin_layout Itemize
-object-oriented programming (S3, S4, ReferenceClasses)
+Programming: for loops, if-then-else conditionals, functions
 \end_layout
 
 \begin_layout Itemize
-computing on the language (using R to write and evaluate R code)
-\end_layout
-
-\begin_layout Itemize
-errors and try-catch
-\end_layout
-
-\begin_layout Itemize
-encodings
-\end_layout
-
-\begin_layout Itemize
-working with databases
-\end_layout
-
-\begin_layout Itemize
-parallel processing: foreach, parApply, RNG issues
+Automation example: Monte Carlo simulation and the birthday problem
 \end_layout
 
 \end_deeper
+\begin_layout Standard
+
+\series bold
+TRACK 2 rejoins TRACK 1
+\end_layout
+
 \begin_layout Itemize
 Module 11: Wrapping up (Chris P.) (15 minutes)
 \begin_inset Separator latexpar

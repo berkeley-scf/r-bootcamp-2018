@@ -1,43 +1,29 @@
-All,
+Hi all,
 
 You are officially registered for the R bootcamp at UC Berkeley August
-19-20. I'll be passing along more information as the time gets closer.
+18-19. I'll be passing along more information as the time gets closer.
 
 In the meantime, if you realize you cannot make it, it's VERY important
 that you cancel your registration using the link below so we can
 accommodate as many people as possible. We've had overwhelming demand
-this year, so anyone who doesn't show up will prevent someone
-else from attending. So if you find out you can't make it, please cancel
-your registration at goo.gl/8iXTWr
+this year (215 people have already filled out the registration form),
+so anyone who doesn't show up will prevent someone
+else from attending. So if you find out you can't make it, at any point,
+please cancel your registration at https://goo.gl/forms/ctbQXuvzytmnyAc62.
+
+I'll provide more information later about how we'll have dual tracks during
+the bootcamp, with a second track splitting off in the afternoons for those
+wanting more intensive practice with some of the more introductory concepts.
 
 Related to the above, I'll also note that the bootcamp does not assume
 any prior knowledge of R, but it is fast-paced as part of an effort to
 cover a fairly wide range of what is possible with R. So
 for those of you who have neither done any programming (e.g., Python, C, Java,
 Fortran, R, MATLAB) nor done any script-based data analysis (e.g., R,
-Python, MATLAB, Stata, SAS) before, you may want to instead consider
-the R trainings offered by the D-Lab throughout the fall and spring
-semesters, in particular this training the week before the bootcamp:
- http://dlab.berkeley.edu/training/r-fundamentals-part-1-5
- http://dlab.berkeley.edu/training/r-fundamentals-part-2-5
- http://dlab.berkeley.edu/training/r-fundamentals-part-3-5
- http://dlab.berkeley.edu/training/r-fundamentals-part-4-5.
-These go at a slower pace so may be a good option for those
-looking for a more relaxed introduction.
-
-Thanks,
-Chris Paciorek
-
-----------------------------------------------------------------------------------------------
-Chris Paciorek
-
-Statistical Computing Consultant
-Statistical Computing Facility, Econometrics Laboratory, Berkeley
-Research Computing
-
-Office: 495 Evans Hall                         Email: paciorek@stat.berkeley.edu
-Mailing Address:                                  Voice: 510-642-9056
-Department of Statistics                       Fax:   510-642-7892
-367 Evans Hall                                     Skype: cjpaciorek
-University of California, Berkeley          WWW: www.stat.berkeley.edu/~paciorek
-Berkeley, CA 94720 USA
+Python, MATLAB, Stata, SAS) before, the second track may be appropriate
+(you can decide during the bootcamp, no need to decide now).
+In addition, if you are interested in a slower paced training, you may want
+to consider  the R trainings offered by the D-Lab throughout the fall and spring
+semesters, in particular the R training the week before the bootcamp,
+which is not yet advertized at  http://dlab.berkeley.edu/training but should
+be posted in coming weeks. 

@@ -1,8 +1,8 @@
-All, you're on the waitlist for the R bootcamp Aug 19-20 at Berkeley.
+All, you're on the waitlist for the R bootcamp Aug 18-19 at Berkeley.
 I hope to be able to let you attend, but we give first preference to
 Berkeley graduate students and postdocs, and given high demand
-this year it's somewhat unlikely we'll be able to offer you a seat. 
-We should be able to let you know more firmly in early-mid August. 
+this year it's unlikely we'll be able to offer you a seat, and I likely
+won't know for sure until mid-August. 
 
 Note that for those receiving this who are undergraduates, taking Statistics 133 is
 a good way to learn R and about computing with data more generally.
@@ -13,7 +13,7 @@ those are good options too.
 In the meantime, if you realize you cannot make it, it's important
 that you cancel your waitlisted registration using the link below so we can
 accommodate as many people as possible.
-goo.gl/8iXTWr
+https://goo.gl/forms/ctbQXuvzytmnyAc62
 
 Thanks,
 Chris Paciorek
