@@ -44,7 +44,7 @@ To download the course materials, you have two options (if you're familiar with 
 
   2) Alternatively, simply download a zip file containing all the content at https://github.com/berkeley-scf/r-bootcamp-2018/archive/master.zip.
 
-For the https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/schedule/schedule.pdf for the main track. This year we will also offer a second track that allows those first encountering R or programming to have time for more intensive practice with the initial material. See https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/schedule/schedule_track2.pdf for the second track. After lunch on the first day you'll have the opportunity to decide whether you want to stay with the main track or attend the second track. You do NOT need to decide in advance.
+For the https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/schedule/schedule.pdf for the main track. This year we will also offer a second track that allows those first encountering R or programming to have time for more intensive practice with the initial material. See https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/schedule/schedule-track2.pdf for the second track. After lunch on the first day you'll have the opportunity to decide whether you want to stay with the main track or attend the second track. You do NOT need to decide in advance.
 
 We recommend that you take a look at the syllabus and the background module (module0_induction.html) in advance to get a sense for what we'll cover. And for those of you with absolutely no experience with R, it will help with your learning curve if you try to play around with R using the material in module1_basics.html beforehand.
 
@@ -57,11 +57,12 @@ Please come with a fully-charged laptop (Mac, Windows, or Linux are all ok) with
 
 To install the software, please follow option #1 here, with option #2 as a fallback. More
 
-   1 Install the following directly on your laptop (see detailed instructions in the `resources` directory in the materials discussed above).
+  1) Install the following directly on your laptop (see detailed instructions in the `resources` directory in the materials discussed above).
+  
       - R
       - RStudio (optional but highly recommended)
       - Git (optional but recommended for obtaining course content)
-   2 If you are having trouble getting that to work, we will provide access to RStudio just through a web browser, for which you don't need any software installed. HOWEVER, we can only accommodate a limited number of people under this option, so it is restricted to those who are unable to get R installed directly on their own machine. You'll need to get a paper account form from us and then follow the instructions at https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/install/RStudioServerLogin.html.
+  2) If you are having trouble getting that to work, we will provide access to RStudio just through a web browser, for which you don't need any software installed. HOWEVER, we can only accommodate a limited number of people under this option, so it is restricted to those who are unable to get R installed directly on their own machine. You'll need to get a paper account form from us and then follow the instructions at https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/install/RStudioServerLogin.html.
 
 Note that our ability to troubleshoot R or RStudio installed directly on your machine is limited (particularly in Windows). We'll try to help but if we run into roadblocks, we'll direct you to the browser option.
 

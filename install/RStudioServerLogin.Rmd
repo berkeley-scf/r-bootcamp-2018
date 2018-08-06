@@ -18,8 +18,8 @@ You'll be using RStudio through a front-end interface called Jupyter that will m
 
 Within RStudio go to File->New Project->Version Control->Git and enter:
 
-- "Repository URL": https://github.com/berkeley-scf/r-bootcamp-2017
-- "Project Directory Name": r-bootcamp-2017 (or something else of your choosing)
+- "Repository URL": https://github.com/berkeley-scf/r-bootcamp-2018
+- "Project Directory Name": r-bootcamp-2018 (or something else of your choosing)
 - "Directory": ~/Desktop (or somewhere of your choosing)
 
 Then to update from the repository to get any changes we've made, you can select (from within RStudio):
