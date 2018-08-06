@@ -46,7 +46,7 @@ To download the course materials, you have two options (if you're familiar with 
 
 For the https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/schedule/schedule.pdf for the main track. This year we will also offer a second track that allows those first encountering R or programming to have time for more intensive practice with the initial material. See https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/schedule/schedule-track2.pdf for the second track. After lunch on the first day you'll have the opportunity to decide whether you want to stay with the main track or attend the second track. You do NOT need to decide in advance.
 
-We recommend that you take a look at the syllabus and the background module (module0_induction.html) in advance to get a sense for what we'll cover. And for those of you with absolutely no experience with R, it will help with your learning curve if you try to play around with R using the material in module1_basics.html beforehand.
+We recommend that you take a look at the syllabus and the background module (https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/modules/module0_induction.html) in advance to get a sense for what we'll cover. And for those of you with absolutely no experience with R, it will help with your learning curve if you try to play around with R using the material in module1_basics.html beforehand.
 
 If you'd like a more relaxed introduction to R or simply to see the material from a different perspective, consider instead one of the D-Lab workshops on R (see dlab.berkeley.edu/training), in particular the workshop occurring starting August 14 (http://dlab.berkeley.edu/training/r-fundamentals-part-1-16).
 
@@ -55,7 +55,7 @@ For the presentation materials (including embedded demo code), see the html file
 ## Preparing for the course - software installation
 Please come with a fully-charged laptop (Mac, Windows, or Linux are all ok) with R, RStudio, and Git installed. RStudio and Git are optional but highly recommended. 
 
-To install the software, please follow option #1 here, with option #2 as a fallback. More
+To install the software, please follow option #1 here, with option #2 as a fallback. 
 
   1) Install the following directly on your laptop:
   
