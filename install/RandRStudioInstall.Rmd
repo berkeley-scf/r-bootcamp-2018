@@ -1,17 +1,17 @@
-If your version of R is older than 3.2.0, please install the latest version, though you may be fine with older versions.
+If your version of R is older than 3.3.0, please install the latest version, though you may be fine with older versions.
 
 To install R, see:
 
-  * Mac: install the R-3.4.1.pkg from http://cran.rstudio.com/bin/macosx/ if you have OS X 10.11 (El Capitan) or higher (or the R-3.3.3.pkg package if you have OS X 10.9 or 10.10)
-  * Windows: http://cran.rstudio.com/bin/windows/base/
-  * Linux: http://cran.rstudio.com/bin/linux/
+  * Mac: install the R-3.5.1.pkg from https://cran.rstudio.com/bin/macosx/ if you have OS X 10.11 (El Capitan) or higher (or the R-3.3.3.pkg package if you have OS X 10.9 or 10.10)
+  * Windows: https://cran.rstudio.com/bin/windows/base/
+  * Linux: https://cran.rstudio.com/bin/linux/
 
-Then install RStudio. To do so, see http://www.rstudio.com/ide/download/desktop.
+Then install RStudio. To do so, see https://www.rstudio.com/ide/download/desktop.
 
 Verify that you can install add-on R packages by installing the 'fields' package. In RStudio, go to 'Tools->Install Packages'. In the resulting dialog box, enter 'fields' (without quotes) in the 'Packages' field. Depending on the location specified in the 'Install to Library' field, you may need to enter your administrator password. To be able to install packages to the directory of an individual user, you may need to do the following:
 
   * In R, enter the command `Sys.getenv()['R_LIBS_USER']`.
-  * Create the directory specified in the result that R returns, e.g., on a Mac, this might be `~/Library/R/3.4/library`.
+  * Create the directory specified in the result that R returns, e.g., on a Mac, this might be `~/Library/R/3.5/library`.
 
 R has many, many add-on packages that provide additional functionality. We'll use some of them during the bootcamp, and it's best if you've already installed them (though you can install them as needed).
 

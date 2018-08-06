@@ -385,7 +385,7 @@ execution, and reporting.  For more information, see Bioconductor&#39;s <a href=
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.776   0.004   0.780
+##   0.800   0.024   0.825
 </code></pre>
 
 <pre><code class="r">library(rbenchmark)
@@ -396,55 +396,129 @@ benchmark(ifelse(x &lt; 0, x, 0),
 </code></pre>
 
 <pre><code>##   replications elapsed
-## 1            5   3.846
-## 2            5   0.161
+## 1            5   3.246
+## 2            5   0.198
 </code></pre>
 
 <h1>Profiling your code</h1>
 
-<p>For more advanced assessment of bottlenecks in your code, consider <code>Rprof()</code>. The following two functions both remove rows from a dataset when any value in the row is missing. </p>
+<p>For more advanced assessment of bottlenecks in your code, consider <code>Rprof()</code>. Actually, the output
+from <em>Rprof</em> can be hard to decipher, so you may want to use the <em>proftools</em> package functions,
+which make use of <em>Rprof</em> under the hood. </p>
 
-<pre><code>fun1 &lt;- function(x) {
-  res &lt;- NULL
-  n &lt;- nrow(x)
-  for (i in 1:n) if (!any(is.na(x[i,])))
-    res &lt;- rbind(res,x[i,])
-  res
-}
+<p>Here&#39;s a function that does the linear algebra to implement a linear regression, assuming <code>x</code>
+is the matrix of predictors, including a column for the intercept.</p>
 
-fun2 &lt;- function(x) {
-  n &lt;- nrow(x)
-  res &lt;- matrix(0,n,ncol(x))
-  k &lt;- 1
-  for (i in 1:n)
-    if (!any(is.na(x[i,]))) {
-      res[k,] &lt;- x[i,]
-      k &lt;- k+1
-    }
-  res[1:(k-1),]
-}
+<pre><code class="r">lr_slow &lt;- function(y, x) {
+  xtx &lt;- t(x) %*% x
+  xty &lt;- t(x) %*% y
+  inv &lt;- solve(xtx)   ## explicit matrix inverse is slow and generally a bad idea numerically
+  return(inv %*% xty)
+}                   
+
+lr_medium &lt;- function(y, x) {
+  xtx &lt;- crossprod(x)
+  xty &lt;- crossprod(x, y)
+  inv &lt;- solve(xtx)   ## explicit matrix inverse is slow and generally a bad idea numerically
+  return(inv %*% xty)
+}                   
+
+lr_fast &lt;- function(y, x) {
+  xtx &lt;- crossprod(x)
+  xty &lt;- crossprod(x, y)
+  U &lt;- chol(xtx)
+  tmp &lt;- backsolve(U, xty, transpose = TRUE)
+  return(backsolve(U, tmp))
+}                   
 </code></pre>
 
 <p>Now let&#39;s try these two functions with profiling turned on.</p>
 
-<pre><code>x &lt;- matrix(rnorm(10000*30), 10000)
-x[5, 3] &lt;- NA
-x[1000, 7] &lt;- NA
-Rprof(&quot;profile1.out&quot;, line.profiling=TRUE)
-out1 &lt;- fun1(x)
-Rprof(NULL)
-summaryRprof(&quot;profile1.out&quot;)
-Rprof(&quot;profile2.out&quot;, line.profiling=TRUE)
-out2 &lt;- fun2(x)
-Rprof(NULL)
-summaryRprof(&quot;profile2.out&quot;)
+<pre><code class="r">## generate random observations and random matrix of predictors
+y &lt;- rnorm(5000)
+x &lt;- matrix(rnorm(5000*1000), nrow = 5000)
+
+library(proftools)
+
+pd1 &lt;- profileExpr(lr_slow(y, x))
+hotPaths(pd1)
 </code></pre>
+
+<pre><code>##  path               total.pct self.pct
+##  lr_slow            100.00     0.00   
+##  . %*% (&lt;text&gt;:2)    58.82    58.82   
+##  . solve (&lt;text&gt;:4)  20.59     0.00   
+##  . . solve.default   20.59    20.59   
+##  . t (&lt;text&gt;:3)      11.76     0.00   
+##  . . t.default       11.76    11.76   
+##  . t (&lt;text&gt;:2)       8.82     0.00   
+##  . . t.default        8.82     8.82
+</code></pre>
+
+<pre><code class="r">hotPaths(pd1, value = &#39;time&#39;)
+</code></pre>
+
+<pre><code>##  path               total.time self.time
+##  lr_slow            0.68       0.00     
+##  . %*% (&lt;text&gt;:2)   0.40       0.40     
+##  . solve (&lt;text&gt;:4) 0.14       0.00     
+##  . . solve.default  0.14       0.14     
+##  . t (&lt;text&gt;:3)     0.08       0.00     
+##  . . t.default      0.08       0.08     
+##  . t (&lt;text&gt;:2)     0.06       0.00     
+##  . . t.default      0.06       0.06
+</code></pre>
+
+<pre><code class="r">pd1 &lt;- profileExpr(lr_medium(y, x))
+hotPaths(pd1)
+</code></pre>
+
+<pre><code>##  path                   total.pct self.pct
+##  lr_medium              100.00     0.00   
+##  . crossprod (&lt;text&gt;:9)  58.82    58.82   
+##  . solve (&lt;text&gt;:11)     41.18     0.00   
+##  . . solve.default       41.18    41.18
+</code></pre>
+
+<pre><code class="r">hotPaths(pd1, value = &#39;time&#39;)
+</code></pre>
+
+<pre><code>##  path                   total.time self.time
+##  lr_medium              0.34       0.00     
+##  . crossprod (&lt;text&gt;:9) 0.20       0.20     
+##  . solve (&lt;text&gt;:11)    0.14       0.00     
+##  . . solve.default      0.14       0.14
+</code></pre>
+
+<pre><code class="r">pd3 &lt;- profileExpr(lr_fast(y, x))
+hotPaths(pd3)
+</code></pre>
+
+<pre><code>##  path                    total.pct self.pct
+##  lr_fast                 100.00     0.00   
+##  . crossprod (&lt;text&gt;:16)  90.91    90.91   
+##  . chol (&lt;text&gt;:18)        9.09     0.00   
+##  . . chol.default          9.09     9.09
+</code></pre>
+
+<pre><code class="r">hotPaths(pd3, value = &#39;time&#39;)
+</code></pre>
+
+<pre><code>##  path                    total.time self.time
+##  lr_fast                 0.22       0.00     
+##  . crossprod (&lt;text&gt;:16) 0.20       0.20     
+##  . chol (&lt;text&gt;:18)      0.02       0.00     
+##  . . chol.default        0.02       0.02
+</code></pre>
+
+<p>You might also check out <em>profvis</em> for an alternative to displaying profiling information
+generated by <em>Rprof</em>.</p>
 
 <h1>Memory use</h1>
 
 <p>You should know how much memory (RAM) the computer you are using has and keep in mind how big your objects are and how much memory you code might use. All objects in R are stored in RAM unlike, e.g., SAS or a database.</p>
 
-<p>If in total, the jobs on a machine approach the physical RAM, the machine will start to use the hard disk as &#39;virtual memory&#39;. This is called paging or swapping, and once this happens you&#39;re often toast.</p>
+<p>If in total, the jobs on a machine approach the physical RAM, the machine will start to use the hard disk as &#39;virtual memory&#39;. This is called paging or swapping, and once this happens you&#39;re often toast (i.e., your code may take essentially forever to finish).</p>
 
 <p>You can assess memory use with <code>top</code> or <code>ps</code> in Linux/Mac or the Task Manager in Windows.</p>
 
@@ -474,8 +548,8 @@ gc()
 </code></pre>
 
 <pre><code>##             used  (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells    436560  23.4    1442291   77.1   1442291  77.1
-## Vcells 110249005 841.2  166674851 1271.7 129765980 990.1
+## Ncells    455449  24.4    1442291   77.1   1442291  77.1
+## Vcells 110283233 841.4  166735838 1272.1 129724169 989.8
 </code></pre>
 
 <pre><code class="r">rm(x)
@@ -483,8 +557,8 @@ gc()
 </code></pre>
 
 <pre><code>##            used (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells   436548 23.4    1442291   77.1   1442291  77.1
-## Vcells 10248997 78.2  133339880 1017.4 129765980 990.1
+## Ncells   455455 24.4    1442291   77.1   1442291  77.1
+## Vcells 10283255 78.5  133388670 1017.7 129724169 989.8
 </code></pre>
 
 <h1>Scripting</h1>

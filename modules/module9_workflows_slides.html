@@ -162,55 +162,101 @@ f &lt;-<span class="st"> </span>function() {y &lt;-<span class="st"> </span><spa
 <p>There are a few tools in R for timing your code.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(<span class="kw">mean</span>(<span class="kw">rnorm</span>(<span class="fl">1e7</span>)))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.776   0.004   0.780</code></pre>
+##   0.800   0.024   0.825</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(rbenchmark)
 x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e7</span>)
 <span class="kw">benchmark</span>(<span class="kw">ifelse</span>(x &lt;<span class="st"> </span><span class="dv">0</span>, x, <span class="dv">0</span>),
                    x[x &lt;<span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span>, <span class="dt">replications =</span> <span class="dv">5</span>,
                    <span class="dt">columns =</span> <span class="kw">c</span>(<span class="st">'replications'</span>, <span class="st">'elapsed'</span>))</code></pre></div>
 <pre><code>##   replications elapsed
-## 1            5   3.846
-## 2            5   0.161</code></pre>
+## 1            5   3.246
+## 2            5   0.198</code></pre>
 </div>
 <div id="profiling-your-code" class="slide section level1">
 <h1>Profiling your code</h1>
-<p>For more advanced assessment of bottlenecks in your code, consider <code>Rprof()</code>. The following two functions both remove rows from a dataset when any value in the row is missing.</p>
-<pre><code>fun1 &lt;- function(x) {
-  res &lt;- NULL
-  n &lt;- nrow(x)
-  for (i in 1:n) if (!any(is.na(x[i,])))
-    res &lt;- rbind(res,x[i,])
-  res
-}
+<p>For more advanced assessment of bottlenecks in your code, consider <code>Rprof()</code>. Actually, the output from <em>Rprof</em> can be hard to decipher, so you may want to use the <em>proftools</em> package functions, which make use of <em>Rprof</em> under the hood.</p>
+<p>Here's a function that does the linear algebra to implement a linear regression, assuming <code>x</code> is the matrix of predictors, including a column for the intercept.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">lr_slow &lt;-<span class="st"> </span>function(y, x) {
+  xtx &lt;-<span class="st"> </span><span class="kw">t</span>(x) %*%<span class="st"> </span>x
+  xty &lt;-<span class="st"> </span><span class="kw">t</span>(x) %*%<span class="st"> </span>y
+  inv &lt;-<span class="st"> </span><span class="kw">solve</span>(xtx)   ## explicit matrix inverse is slow and generally a bad idea numerically
+  <span class="kw">return</span>(inv %*%<span class="st"> </span>xty)
+}                   
 
-fun2 &lt;- function(x) {
-  n &lt;- nrow(x)
-  res &lt;- matrix(0,n,ncol(x))
-  k &lt;- 1
-  for (i in 1:n)
-    if (!any(is.na(x[i,]))) {
-      res[k,] &lt;- x[i,]
-      k &lt;- k+1
-    }
-  res[1:(k-1),]
-}</code></pre>
+lr_medium &lt;-<span class="st"> </span>function(y, x) {
+  xtx &lt;-<span class="st"> </span><span class="kw">crossprod</span>(x)
+  xty &lt;-<span class="st"> </span><span class="kw">crossprod</span>(x, y)
+  inv &lt;-<span class="st"> </span><span class="kw">solve</span>(xtx)   ## explicit matrix inverse is slow and generally a bad idea numerically
+  <span class="kw">return</span>(inv %*%<span class="st"> </span>xty)
+}                   
+
+lr_fast &lt;-<span class="st"> </span>function(y, x) {
+  xtx &lt;-<span class="st"> </span><span class="kw">crossprod</span>(x)
+  xty &lt;-<span class="st"> </span><span class="kw">crossprod</span>(x, y)
+  U &lt;-<span class="st"> </span><span class="kw">chol</span>(xtx)
+  tmp &lt;-<span class="st"> </span><span class="kw">backsolve</span>(U, xty, <span class="dt">transpose =</span> <span class="ot">TRUE</span>)
+  <span class="kw">return</span>(<span class="kw">backsolve</span>(U, tmp))
+}                   </code></pre></div>
 <p>Now let's try these two functions with profiling turned on.</p>
-<pre><code>x &lt;- matrix(rnorm(10000*30), 10000)
-x[5, 3] &lt;- NA
-x[1000, 7] &lt;- NA
-Rprof(&quot;profile1.out&quot;, line.profiling=TRUE)
-out1 &lt;- fun1(x)
-Rprof(NULL)
-summaryRprof(&quot;profile1.out&quot;)
-Rprof(&quot;profile2.out&quot;, line.profiling=TRUE)
-out2 &lt;- fun2(x)
-Rprof(NULL)
-summaryRprof(&quot;profile2.out&quot;)</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">## generate random observations and random matrix of predictors
+y &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">5000</span>)
+x &lt;-<span class="st"> </span><span class="kw">matrix</span>(<span class="kw">rnorm</span>(<span class="dv">5000</span>*<span class="dv">1000</span>), <span class="dt">nrow =</span> <span class="dv">5000</span>)
+
+<span class="kw">library</span>(proftools)
+
+pd1 &lt;-<span class="st"> </span><span class="kw">profileExpr</span>(<span class="kw">lr_slow</span>(y, x))
+<span class="kw">hotPaths</span>(pd1)</code></pre></div>
+<pre><code>##  path               total.pct self.pct
+##  lr_slow            100.00     0.00   
+##  . %*% (&lt;text&gt;:2)    58.82    58.82   
+##  . solve (&lt;text&gt;:4)  20.59     0.00   
+##  . . solve.default   20.59    20.59   
+##  . t (&lt;text&gt;:3)      11.76     0.00   
+##  . . t.default       11.76    11.76   
+##  . t (&lt;text&gt;:2)       8.82     0.00   
+##  . . t.default        8.82     8.82</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hotPaths</span>(pd1, <span class="dt">value =</span> <span class="st">'time'</span>)</code></pre></div>
+<pre><code>##  path               total.time self.time
+##  lr_slow            0.68       0.00     
+##  . %*% (&lt;text&gt;:2)   0.40       0.40     
+##  . solve (&lt;text&gt;:4) 0.14       0.00     
+##  . . solve.default  0.14       0.14     
+##  . t (&lt;text&gt;:3)     0.08       0.00     
+##  . . t.default      0.08       0.08     
+##  . t (&lt;text&gt;:2)     0.06       0.00     
+##  . . t.default      0.06       0.06</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pd1 &lt;-<span class="st"> </span><span class="kw">profileExpr</span>(<span class="kw">lr_medium</span>(y, x))
+<span class="kw">hotPaths</span>(pd1)</code></pre></div>
+<pre><code>##  path                   total.pct self.pct
+##  lr_medium              100.00     0.00   
+##  . crossprod (&lt;text&gt;:9)  58.82    58.82   
+##  . solve (&lt;text&gt;:11)     41.18     0.00   
+##  . . solve.default       41.18    41.18</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hotPaths</span>(pd1, <span class="dt">value =</span> <span class="st">'time'</span>)</code></pre></div>
+<pre><code>##  path                   total.time self.time
+##  lr_medium              0.34       0.00     
+##  . crossprod (&lt;text&gt;:9) 0.20       0.20     
+##  . solve (&lt;text&gt;:11)    0.14       0.00     
+##  . . solve.default      0.14       0.14</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">pd3 &lt;-<span class="st"> </span><span class="kw">profileExpr</span>(<span class="kw">lr_fast</span>(y, x))
+<span class="kw">hotPaths</span>(pd3)</code></pre></div>
+<pre><code>##  path                    total.pct self.pct
+##  lr_fast                 100.00     0.00   
+##  . crossprod (&lt;text&gt;:16)  90.91    90.91   
+##  . chol (&lt;text&gt;:18)        9.09     0.00   
+##  . . chol.default          9.09     9.09</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">hotPaths</span>(pd3, <span class="dt">value =</span> <span class="st">'time'</span>)</code></pre></div>
+<pre><code>##  path                    total.time self.time
+##  lr_fast                 0.22       0.00     
+##  . crossprod (&lt;text&gt;:16) 0.20       0.20     
+##  . chol (&lt;text&gt;:18)      0.02       0.00     
+##  . . chol.default        0.02       0.02</code></pre>
+<p>You might also check out <em>profvis</em> for an alternative to displaying profiling information generated by <em>Rprof</em>.</p>
 </div>
 <div id="memory-use" class="slide section level1">
 <h1>Memory use</h1>
 <p>You should know how much memory (RAM) the computer you are using has and keep in mind how big your objects are and how much memory you code might use. All objects in R are stored in RAM unlike, e.g., SAS or a database.</p>
-<p>If in total, the jobs on a machine approach the physical RAM, the machine will start to use the hard disk as 'virtual memory'. This is called paging or swapping, and once this happens you're often toast.</p>
+<p>If in total, the jobs on a machine approach the physical RAM, the machine will start to use the hard disk as 'virtual memory'. This is called paging or swapping, and once this happens you're often toast (i.e., your code may take essentially forever to finish).</p>
 <p>You can assess memory use with <code>top</code> or <code>ps</code> in Linux/Mac or the Task Manager in Windows.</p>
 <p>Often it's a good idea to roughly estimate how much memory an object will take up even before creating it in R. You can do this with some simple arithmetic. Every real number takes 8 bytes (integers and logicals take less; character strings are complicated), so an object with, say, 1 million rows and 10 columns, all numbers, would take roughly 8 * 1000000 * 10 bytes or 800 Mb.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e7</span>)
@@ -223,13 +269,13 @@ summaryRprof(&quot;profile2.out&quot;)</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e8</span>)
 <span class="kw">gc</span>()</code></pre></div>
 <pre><code>##             used  (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells    432369  23.1    1442291   77.1   1057733  56.5
-## Vcells 110232032 841.1  173536304 1324.0 120243538 917.4</code></pre>
+## Ncells    452019  24.2    1442291   77.1   1442291  77.1
+## Vcells 110276139 841.4  173599832 1324.5 120287657 917.8</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">rm</span>(x)
 <span class="kw">gc</span>()</code></pre></div>
 <pre><code>##            used (Mb) gc trigger   (Mb)  max used  (Mb)
-## Ncells   432391 23.1    1442291   77.1   1057733  56.5
-## Vcells 10232075 78.1  138829043 1059.2 120243538 917.4</code></pre>
+## Ncells   452038 24.2    1442291   77.1   1442291  77.1
+## Vcells 10276180 78.5  138879865 1059.6 120287657 917.8</code></pre>
 </div>
 <div id="scripting" class="slide section level1">
 <h1>Scripting</h1>

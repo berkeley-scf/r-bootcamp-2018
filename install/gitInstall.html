@@ -163,40 +163,20 @@ hr {
 </head>
 
 <body>
-<p>To install R:</p>
+<p>Here are some instructions for installing Git on your computer. Git is version control software. We&#39;ll primarily use it in the bootcamp for distributing the course material to you, but our secret goal is to get you started using version control software.</p>
+
+<p>First make sure you&#39;ve installed Git by downloading and installing the correct binary from <a href="http://git-scm.com/downloads">here</a>.</p>
+
+<p>The easiest way for you to use Git is probably through RStudio (so install R and RStudio first). 
+Here are some helpful <a href="https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN">instructions from RStudio</a>. </p>
+
+<p>You may need to tell RStudio where the Git executable is located as follows.</p>
 
 <ul>
-<li>   Go to <a href="http://cran.r-project.org">http://cran.r-project.org</a></li>
-<li>   Click “Download R for Windows”</li>
-<li>   Click “base” OR “install R for the first time”</li>
-<li>   Select “Download R 3.4.1 for Windows”</li>
-<li>   Open the downloaded file (R-3.4.1-win.exe)</li>
-<li>   Select “Run” if prompted</li>
-<li>   Follow the set-up instructions (if unsure of something, leave the default settings)</li>
+<li>On Windows, the git executable should be installed somewhere like: <code>&quot;C:/Program Files (x86)/Git/bin/git.exe&quot;</code></li>
+<li>On MacOS X, you can locate the executable by executing the following in a Terminal session (see <code>Applications -&gt; Utilities -&gt; Terminal</code> to start a Terminal session): <code>which git</code></li>
+<li>Once you locate the executable, you may then need to confirm that RStudio is looking in the right place. Go to &ldquo;Tools -&gt; Options -&gt; Git/SVN -&gt; Git executable&rdquo; and confirm it has the correct information about the location of the git executable.</li>
 </ul>
-
-<p>To install RStudio:</p>
-
-<ul>
-<li>   Go to <a href="http://www.rstudio.com/products/rstudio/#Desktop">http://www.rstudio.com/products/rstudio/#Desktop</a></li>
-<li>   Click “Download RStudio Desktop”</li>
-<li>   Scrolld down and select “RStudio 1.0.153 - Windows Vista/7/8/10”</li>
-<li>   Open the downloaded file (RStudio-1.0.153)</li>
-<li>   Select “Run” if prompted</li>
-<li>   Follow the set-up instructions (if unsure of something, leave the default settings)</li>
-<li>   Open RStudio (R will run automatically in the background)</li>
-<li>   You may have to allow RStudio to run if prompted (depends on security settings and anti-virus software)</li>
-</ul>
-
-<p>To install R packages:</p>
-
-<ul>
-<li>   Open RStudio</li>
-<li>   Select “Packages” (or “Tools”)</li>
-<li>   Click “Install packages” (or use &#39;install.packages()&#39; from the command line)</li>
-</ul>
-
-<p>You may have to allow RStudio to make changes to computer if prompted (depends on security settings and anti-virus software) </p>
 
 </body>
 

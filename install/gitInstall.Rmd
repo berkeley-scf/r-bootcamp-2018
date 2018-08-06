@@ -2,9 +2,8 @@ Here are some instructions for installing Git on your computer. Git is version c
 
 First make sure you've installed Git by downloading and installing the correct binary from [here](http://git-scm.com/downloads).
   
-
-The easiest way for you to use Git is probably through RStudio. 
-Here are some [instructions](http://www.molecularecologist.com/2013/11/using-github-with-r-and-rstudio/). Here are some helpful [guidelines from RStudio](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN). 
+The easiest way for you to use Git is probably through RStudio (so install R and RStudio first). 
+Here are some helpful [instructions from RStudio](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN). 
   
 You may need to tell RStudio where the Git executable is located as follows.
  
