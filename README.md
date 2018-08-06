@@ -23,8 +23,8 @@ Course logistics
 Location: Genetics & Plant Biology (GPB) 100, UC Berkeley campus
 
 Time: 
-  - Saturday, Aug. 19, 8:15 am - 5 pm
-  - Sunday, Aug. 20, 9 am - 4:30 pm
+  - Saturday, Aug. 18, 8:15 am - 5 pm
+  - Sunday, Aug. 19, 9 am - 4:30 pm
 
 We'll start formally on Saturday morning at 8:30 am, but please plan to get here by 8:15 so you can sign in and get settled. And if you need help with any software installation please come at 8 am.
 
