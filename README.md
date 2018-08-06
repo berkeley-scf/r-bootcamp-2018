@@ -38,9 +38,11 @@ Note that street parking in Berkeley near campus on Saturdays is generally subje
 
 Course content is available through Github at https://github.com/berkeley-scf/r-bootcamp-2018. Please download a copy before arriving at the bootcamp.
 
-To download the course materials, open RStudio. Go to “File→New Project” and select “Version Control” and “Git”. Enter https://github.com/berkeley-scf/r-bootcamp-2018 as the “Repository URL” and click “Create Project” (you can choose the directory in which to place the project with the “Create project as subdirectory of” option). It should create a “r-bootcamp-2018” directory with all of the materials within whichever directory you chose.
+To download the course materials, you have two options (if you're familiar with Git you'll already know what to do):
 
-Alternatively, simply download a zip file containing all the content at https://github.com/berkeley-scf/r-bootcamp-2017/archive/master.zip.
+  1) open RStudio. Go to “File→New Project” and select “Version Control” and “Git”. Enter https://github.com/berkeley-scf/r-bootcamp-2018 as the “Repository URL” and click “Create Project” (you can choose the directory in which to place the project with the “Create project as subdirectory of” option). It should create a “r-bootcamp-2018” directory with all of the materials within whichever directory you chose.
+
+  2) Alternatively, simply download a zip file containing all the content at https://github.com/berkeley-scf/r-bootcamp-2017/archive/master.zip.
 
 For the schedule/syllabus, see *schedule/schedule.pdf* for the main track. This year we will also offer a second track that allows those first encountering R or programming to have time for more intensive practice with the initial material. See *schedule/schedule_track2.pdf* for the second track. After lunch on the first day you'll have the opportunity to decide whether you want to stay with the main track or attend the second track. You do NOT need to decide in advance.
 
