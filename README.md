@@ -59,7 +59,7 @@ To install the software, please follow option #1 here, with option #2 as a fallb
 
   1) Install the following directly on your laptop (see detailed instructions in the `resources` directory in the materials discussed above).
   
-      - R
+      - R [https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/install/RandRStudioInstall.html](details here)
       - RStudio (optional but highly recommended)
       - Git (optional but recommended for obtaining course content)
   2) If you are having trouble getting that to work, we will provide access to RStudio just through a web browser, for which you don't need any software installed. HOWEVER, we can only accommodate a limited number of people under this option, so it is restricted to those who are unable to get R installed directly on their own machine. You'll need to get a paper account form from us and then follow the instructions at https://rawgit.com/berkeley-scf/r-bootcamp-2018/master/install/RStudioServerLogin.html.
