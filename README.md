@@ -68,4 +68,6 @@ Note that our ability to troubleshoot R or RStudio installed directly on your ma
 
 ## Course Discussion and Questions
 
-In general, please use the Google group discussion board [UNDER CONSTRUCTION] for questions during the bootcamp or if you have software installation problems. If you need to contact us directly with an administrative question you can email r-bootcamp@lists.berkeley.edu.
+In general, please use the Google group discussion board for questions during the bootcamp or if you have software installation problems or logistical questions before the bootcamp. The discussion board can be accessed [through your browser](https://groups.google.com/a/lists.berkeley.edu/d/forum/r-bootcamp-2018) or by email to r-bootcamp-2018@lists.berkeley.edu.
+
+If you need to contact us directly with an administrative question you can email r-bootcamp@lists.berkeley.edu.
