@@ -281,25 +281,7 @@ ls()
 ls()
 </code></pre>
 
-<pre><code>##  [1] &quot;a&quot;                &quot;D2R&quot;              &quot;deepExtract&quot;     
-##  [4] &quot;denslines&quot;        &quot;densplot&quot;         &quot;dim2&quot;            
-##  [7] &quot;ellipse.default&quot;  &quot;f.angdist&quot;        &quot;f.ciplot&quot;        
-## [10] &quot;f.dplot&quot;          &quot;f.ess&quot;            &quot;f.ess.old&quot;       
-## [13] &quot;f.flushplot&quot;      &quot;f.gm&quot;             &quot;f.grstat&quot;        
-## [16] &quot;f.identity&quot;       &quot;f.invlogit&quot;       &quot;f.logit&quot;         
-## [19] &quot;f.logmatern.euc&quot;  &quot;f.lonlat2eucl&quot;    &quot;f.matern.ang&quot;    
-## [22] &quot;f.matern.ang.cov&quot; &quot;f.matern.euc&quot;     &quot;f.merge&quot;         
-## [25] &quot;format_bytes&quot;     &quot;f.rdist.earth&quot;    &quot;f.sort&quot;          
-## [28] &quot;f.sort2&quot;          &quot;f.squexp&quot;         &quot;f.trimat&quot;        
-## [31] &quot;f.vecrep&quot;         &quot;getNcdf&quot;          &quot;im&quot;              
-## [34] &quot;indices&quot;          &quot;ls_sizes&quot;         &quot;machineName&quot;     
-## [37] &quot;makePoly&quot;         &quot;module&quot;           &quot;plot.ell&quot;        
-## [40] &quot;pmap&quot;             &quot;pmap2&quot;            &quot;pointsInPoly&quot;    
-## [43] &quot;pplot&quot;            &quot;pretty_size&quot;      &quot;print.closeR&quot;    
-## [46] &quot;q&quot;                &quot;R2&quot;               &quot;R2D&quot;             
-## [49] &quot;rcsv&quot;             &quot;rotate&quot;           &quot;sizes&quot;           
-## [52] &quot;source&quot;           &quot;temp.colors&quot;      &quot;thresh&quot;          
-## [55] &quot;tplot&quot;            &quot;tsplot&quot;           &quot;wcsv&quot;
+<pre><code>## [1] &quot;bioc&quot;   &quot;module&quot; &quot;source&quot;
 </code></pre>
 
 <p><strong>Challenge</strong>: how would I find all of my objects that have &#39;x&#39; in their names?</p>
@@ -378,13 +360,13 @@ ls()
 <pre><code class="r">ls(&#39;package:stats&#39;)[1:20]
 </code></pre>
 
-<pre><code>##  [1] &quot;acf&quot;                  &quot;acf2AR&quot;               &quot;add1&quot;                
-##  [4] &quot;addmargins&quot;           &quot;add.scope&quot;            &quot;aggregate&quot;           
+<pre><code>##  [1] &quot;acf&quot;                  &quot;acf2AR&quot;               &quot;add.scope&quot;           
+##  [4] &quot;add1&quot;                 &quot;addmargins&quot;           &quot;aggregate&quot;           
 ##  [7] &quot;aggregate.data.frame&quot; &quot;aggregate.ts&quot;         &quot;AIC&quot;                 
 ## [10] &quot;alias&quot;                &quot;anova&quot;                &quot;ansari.test&quot;         
 ## [13] &quot;aov&quot;                  &quot;approx&quot;               &quot;approxfun&quot;           
-## [16] &quot;ar&quot;                   &quot;ar.burg&quot;              &quot;arima&quot;               
-## [19] &quot;arima0&quot;               &quot;arima0.diag&quot;
+## [16] &quot;ar&quot;                   &quot;ar.burg&quot;              &quot;ar.mle&quot;              
+## [19] &quot;ar.ols&quot;               &quot;ar.yw&quot;
 </code></pre>
 
 <pre><code class="r">lm &lt;- function(i) {
@@ -401,7 +383,7 @@ lm(y ~ x)
 </code></pre>
 
 <pre><code>## y ~ x
-## &lt;environment: 0x402f988&gt;
+## &lt;environment: 0x559ad3238858&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(y ~ x)
@@ -413,7 +395,7 @@ lm(y ~ x)
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      0.6183      -1.4017
+##    -0.01006     -0.61070
 </code></pre>
 
 <pre><code class="r">rm(lm)
@@ -514,14 +496,13 @@ head(vote)
 ## 3     2      1 female black 30-39    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 30-39
 ## 4     2      1 female black 30-39    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 30-39
 ## 5     2      1 female white 40-44    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 40-49
-## 6     2      1 female white 30-39    &lt;NA&gt;   &lt;NA&gt;    &lt;NA&gt; 30-44 30-39
 ##   geocode sizeplac brnagain attend year region y
 ## 1       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
 ## 2       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 1
 ## 3       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
 ## 4       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
 ## 5       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
-## 6       3    rural     &lt;NA&gt;   &lt;NA&gt; 2004      4 0
+##  [ reached getOption(&quot;max.print&quot;) -- omitted 1 row ]
 </code></pre>
 
 <p>There are a number of other formats that we can handle for either reading or writing. Let&#39;s see <code>library(help = foreign)</code>.</p>
@@ -560,8 +541,8 @@ dev.off()
 print(xtable(table(air$UniqueCarrier, air$Cancelled)), type = &quot;html&quot;)
 </code></pre>
 
-<pre><code>## &lt;!-- html table generated in R 3.4.1 by xtable 1.8-2 package --&gt;
-## &lt;!-- Fri Aug 18 11:12:11 2017 --&gt;
+<pre><code>## &lt;!-- html table generated in R 3.5.1 by xtable 1.8-2 package --&gt;
+## &lt;!-- Wed Aug  8 21:22:29 2018 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; 0 &lt;/th&gt; &lt;th&gt; 1 &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; AA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 49222 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1033 &lt;/td&gt; &lt;/tr&gt;
