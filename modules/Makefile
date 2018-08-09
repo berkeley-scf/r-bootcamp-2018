@@ -1,5 +1,5 @@
 .PHONY: module0_induction module1_basics module2_managingR module3_data \
-        module4_calc module5_tidyverse module6_programming \
+        module4_calc module5_programming module6_tidyverse \
 	module7_analysis module8_graphics module9_workflows \
         module10_advanced module11_next
 
@@ -21,8 +21,8 @@ clean:
 2: module2_managingR.md
 3: module3_data.md
 4: module4_calc.md
-5: module5_tidyverse.md
-6: module6_programming.md
+5: module5_programming.md
+6: module6_tidyverse.md
 7: module7_analysis.md
 8: module8_graphics.md
 9: module9_workflows.md
