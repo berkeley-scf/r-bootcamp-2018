@@ -295,24 +295,26 @@ mod2$residuals[1:20] # access field with list-like syntax
 </code></pre>
 
 <pre><code>##  [1] predict.ar*                predict.Arima*            
-##  [3] predict.arima0*            predict.bs*               
-##  [5] predict.bSpline*           predict.glm               
-##  [7] predict.glmmPQL*           predict.gls*              
-##  [9] predict.gnls*              predict.HoltWinters*      
-## [11] predict.lda*               predict.lm                
-## [13] predict.lme*               predict.lmList*           
-## [15] predict.lmList4*           predict.loess*            
-## [17] predict.lqs*               predict.mca*              
-## [19] predict.merMod*            predict.mlm*              
-## [21] predict.nbSpline*          predict.nlme*             
-## [23] predict.nls*               predict.npolySpline*      
-## [25] predict.ns*                predict.pbSpline*         
-## [27] predict.polr*              predict.poly*             
-## [29] predict.polySpline*        predict.ppolySpline*      
-## [31] predict.ppr*               predict.prcomp*           
-## [33] predict.princomp*          predict.qda*              
-## [35] predict.rlm*               predict.smooth.spline*    
-## [37] predict.smooth.spline.fit* predict.StructTS*         
+##  [3] predict.arima0*            predict.bam               
+##  [5] predict.bs*                predict.bSpline*          
+##  [7] predict.gam                predict.glm               
+##  [9] predict.glmmPQL*           predict.gls*              
+## [11] predict.gnls*              predict.HoltWinters*      
+## [13] predict.jam*               predict.lda*              
+## [15] predict.lm                 predict.lme*              
+## [17] predict.lmList*            predict.lmList4*          
+## [19] predict.loess*             predict.lqs*              
+## [21] predict.mca*               predict.merMod*           
+## [23] predict.mlm*               predict.nbSpline*         
+## [25] predict.nlme*              predict.nls*              
+## [27] predict.npolySpline*       predict.ns*               
+## [29] predict.pbSpline*          predict.polr*             
+## [31] predict.poly*              predict.polySpline*       
+## [33] predict.ppolySpline*       predict.ppr*              
+## [35] predict.prcomp*            predict.princomp*         
+## [37] predict.qda*               predict.rlm*              
+## [39] predict.smooth.spline*     predict.smooth.spline.fit*
+## [41] predict.StructTS*         
 ## see &#39;?methods&#39; for accessing help and source code
 </code></pre>
 
@@ -321,7 +323,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x3cfd3f0&gt;
+## &lt;bytecode: 0x561e26128298&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -824,25 +826,31 @@ db &lt;- dbConnect(SQLite(), dbname = &quot;../data/stackoverflow-2016.db&quot;)
 dbListTables(db)
 </code></pre>
 
-<pre><code>## [1] &quot;answers&quot;          &quot;maxRepByQuestion&quot; &quot;questions&quot;       
-## [4] &quot;questionsAugment&quot; &quot;questions_tags&quot;   &quot;users&quot;
+<pre><code>## character(0)
 </code></pre>
 
 <pre><code class="r">dbListFields(db, &quot;questions&quot;)
 </code></pre>
 
-<pre><code>## [1] &quot;questionid&quot;   &quot;creationdate&quot; &quot;score&quot;        &quot;viewcount&quot;   
-## [5] &quot;title&quot;        &quot;ownerid&quot;
+<pre><code>## Error in result_create(conn@ptr, statement): no such table: questions
 </code></pre>
 
 <pre><code class="r">## simple filter operation
 popular &lt;- dbGetQuery(db, &quot;select * from questions 
    where viewcount &gt; 10000&quot;)
-## a join followed by a filter operation
+</code></pre>
+
+<pre><code>## Error in result_create(conn@ptr, statement): no such table: questions
+</code></pre>
+
+<pre><code class="r">## a join followed by a filter operation
 popularR &lt;- dbGetQuery(db, &quot;select * from questions join questions_tags
    on questions.questionid = questions_tags.questionid
    where viewcount &gt; 10000 and
    tag = &#39;r&#39;&quot;)
+</code></pre>
+
+<pre><code>## Error in result_create(conn@ptr, statement): no such table: questions
 </code></pre>
 
 <h1>Computer architecture</h1>
@@ -990,15 +998,73 @@ out &lt;- foreach(dest = unique(air$Dest)) %dopar% {
     cat(&quot;Finishing job for &quot;, dest, &quot;.\n&quot;, sep = &quot;&quot;)
     outSub # this will become part of the out objec
 }
+out[1:5]
 </code></pre>
 
-<pre><code>## Error in mcfork(): unable to fork, possible reason: Cannot allocate memory
-</code></pre>
-
-<pre><code class="r">out[1:5]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;out&#39; not found
+<pre><code>## [[1]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.51 7.49  total = 23 
+## 
+## GCV score: 1051.858     
+## 
+## [[2]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.46 8.64  total = 24.1 
+## 
+## GCV score: 1325.755     
+## 
+## [[3]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 5.93 8.70  total = 22.63 
+## 
+## GCV score: 639.5956     
+## 
+## [[4]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.84 8.51  total = 24.35 
+## 
+## GCV score: 880.4363     
+## 
+## [[5]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 8.00 5.68  total = 21.69 
+## 
+## GCV score: 1367.66
 </code></pre>
 
 <p><strong>Question</strong>: What do you think are the advantages and disadvantages of having many small tasks vs. a few large tasks?</p>
@@ -1105,15 +1171,73 @@ out[1:5]
 <pre><code class="r">require(parallel)
 nCores &lt;- 4
 out2 &lt;- mclapply(unique(air$Dest), fitFun, mc.cores = nCores)
+out2[1:5]
 </code></pre>
 
-<pre><code>## Error in mcfork(): unable to fork, possible reason: Cannot allocate memory
-</code></pre>
-
-<pre><code class="r">out2[1:5]
-</code></pre>
-
-<pre><code>## Error in eval(expr, envir, enclos): object &#39;out2&#39; not found
+<pre><code>## [[1]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.51 7.49  total = 23 
+## 
+## GCV score: 1051.858     
+## 
+## [[2]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.46 8.64  total = 24.1 
+## 
+## GCV score: 1325.755     
+## 
+## [[3]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 5.93 8.70  total = 22.63 
+## 
+## GCV score: 639.5956     
+## 
+## [[4]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 7.84 8.51  total = 24.35 
+## 
+## GCV score: 880.4363     
+## 
+## [[5]]
+## 
+## Family: gaussian 
+## Link function: identity 
+## 
+## Formula:
+## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
+## 
+## Estimated degrees of freedom:
+## 8.00 5.68  total = 21.69 
+## 
+## GCV score: 1367.66
 </code></pre>
 
 <p>One thing to keep in mind is whether the different tasks all take about the same amount of time or widely different times. In the latter case, one wants to sequentially dispatch tasks as earlier tasks finish, rather than dispatching a block of tasks to each core. Some of these parallel <em>apply</em> variants allow you to control this. </p>
