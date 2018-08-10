@@ -482,7 +482,7 @@ There are some other useful packages in the [tidyverse](http://www.tidyverse.org
 * `stringr`, `lubridate`, `forcats` for manipulating strings, dates, and factors, respectively
 * many more!
 
-# Breakout and overnight homework
+# Breakout
 
 ### `dplyr`
 

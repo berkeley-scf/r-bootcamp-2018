@@ -218,30 +218,30 @@ hr {
 mat
 </code></pre>
 
-<pre><code>##             [,1]         [,2]       [,3]       [,4]
-## [1,]  0.16948170  1.096887672 -0.3555411 -0.8743144
-## [2,] -0.07039246 -0.006625566  1.3512491  1.4038786
-## [3,] -0.18620038 -1.210567314 -0.1553964  0.5576612
+<pre><code>##            [,1]       [,2]       [,3]       [,4]
+## [1,] -1.7228439 -0.7207214 -0.2877622  0.5133103
+## [2,]  0.2321758  0.8871828  1.2808443 -0.5546136
+## [3,]  1.5920781  2.5924839 -1.6912609  0.0142042
 </code></pre>
 
 <pre><code class="r"># vectorized calcs work with matrices too
 mat*4
 </code></pre>
 
-<pre><code>##            [,1]        [,2]       [,3]      [,4]
-## [1,]  0.6779268  4.38755069 -1.4221642 -3.497258
-## [2,] -0.2815698 -0.02650226  5.4049965  5.615514
-## [3,] -0.7448015 -4.84226926 -0.6215855  2.230645
+<pre><code>##           [,1]      [,2]      [,3]       [,4]
+## [1,] -6.891376 -2.882886 -1.151049  2.0532412
+## [2,]  0.928703  3.548731  5.123377 -2.2184545
+## [3,]  6.368312 10.369936 -6.765044  0.0568168
 </code></pre>
 
 <pre><code class="r">mat &lt;- cbind(mat, 1:3)
 mat
 </code></pre>
 
-<pre><code>##             [,1]         [,2]       [,3]       [,4] [,5]
-## [1,]  0.16948170  1.096887672 -0.3555411 -0.8743144    1
-## [2,] -0.07039246 -0.006625566  1.3512491  1.4038786    2
-## [3,] -0.18620038 -1.210567314 -0.1553964  0.5576612    3
+<pre><code>##            [,1]       [,2]       [,3]       [,4] [,5]
+## [1,] -1.7228439 -0.7207214 -0.2877622  0.5133103    1
+## [2,]  0.2321758  0.8871828  1.2808443 -0.5546136    2
+## [3,]  1.5920781  2.5924839 -1.6912609  0.0142042    3
 </code></pre>
 
 <p>Arrays are like matrices but can have more or fewer than two dimensions.</p>
@@ -252,27 +252,27 @@ arr
 
 <pre><code>## , , 1
 ## 
-##           [,1]       [,2]       [,3]
-## [1,]  1.577152 -0.9767243 -0.7769179
-## [2,] -2.084372 -0.2225279  1.7817800
+##            [,1]       [,2]        [,3]
+## [1,] -0.9071718 -0.9638432 -0.04292199
+## [2,]  0.3912341  1.4366121 -0.49244939
 ## 
 ## , , 2
 ## 
-##             [,1]      [,2]       [,3]
-## [1,] -0.03765717 -1.295946 -1.6248505
-## [2,]  0.54551682  1.283226  0.2194269
+##            [,1]        [,2]        [,3]
+## [1,] -0.8790961 -0.09792996 -0.03015456
+## [2,] -0.1004457  1.13332547 -0.54939557
 ## 
 ## , , 3
 ## 
-##           [,1]       [,2]       [,3]
-## [1,]  1.577152 -0.9767243 -0.7769179
-## [2,] -2.084372 -0.2225279  1.7817800
+##            [,1]       [,2]        [,3]
+## [1,] -0.9071718 -0.9638432 -0.04292199
+## [2,]  0.3912341  1.4366121 -0.49244939
 ## 
 ## , , 4
 ## 
-##             [,1]      [,2]       [,3]
-## [1,] -0.03765717 -1.295946 -1.6248505
-## [2,]  0.54551682  1.283226  0.2194269
+##            [,1]        [,2]        [,3]
+## [1,] -0.8790961 -0.09792996 -0.03015456
+## [2,] -0.1004457  1.13332547 -0.54939557
 </code></pre>
 
 <h1>Attributes</h1>
@@ -290,10 +290,10 @@ arr
 mat
 </code></pre>
 
-<pre><code>##               [,1]         [,2]       [,3]       [,4] [,5]
-## first   0.16948170  1.096887672 -0.3555411 -0.8743144    1
-## middle -0.07039246 -0.006625566  1.3512491  1.4038786    2
-## last   -0.18620038 -1.210567314 -0.1553964  0.5576612    3
+<pre><code>##              [,1]       [,2]       [,3]       [,4] [,5]
+## first  -1.7228439 -0.7207214 -0.2877622  0.5133103    1
+## middle  0.2321758  0.8871828  1.2808443 -0.5546136    2
+## last    1.5920781  2.5924839 -1.6912609  0.0142042    3
 </code></pre>
 
 <pre><code class="r">attributes(mat)
@@ -342,16 +342,16 @@ mat
 <pre><code class="r">mat[4]
 </code></pre>
 
-<pre><code>## [1] 1.096888
+<pre><code>## [1] -0.7207214
 </code></pre>
 
 <pre><code class="r">attributes(mat) &lt;- NULL
 mat
 </code></pre>
 
-<pre><code>##  [1]  0.169481700 -0.070392458 -0.186200383  1.096887672 -0.006625566
-##  [6] -1.210567314 -0.355541060  1.351249120 -0.155396379 -0.874314388
-## [11]  1.403878607  0.557661202  1.000000000  2.000000000  3.000000000
+<pre><code>##  [1] -1.7228439  0.2321758  1.5920781 -0.7207214  0.8871828  2.5924839
+##  [7] -0.2877622  1.2808443 -1.6912609  0.5133103 -0.5546136  0.0142042
+## [13]  1.0000000  2.0000000  3.0000000
 </code></pre>
 
 <pre><code class="r">is.matrix(mat)
@@ -413,9 +413,8 @@ vec[c(3, 5)] &lt;- NA
 vec
 </code></pre>
 
-<pre><code>##  [1]  0.02297773  0.75935385          NA  0.40790175          NA
-##  [6]  0.30357006  0.27942261 -0.40157252  1.46973582 -0.37691225
-## [11] -0.13375929  0.26860626
+<pre><code>##  [1]  2.3025243 -0.2552535         NA -0.6053567         NA  0.9591721
+##  [7]  1.2998584  0.7039802  0.7709010 -0.1919022 -0.3071393  0.9991563
 </code></pre>
 
 <pre><code class="r">length(vec)
@@ -433,13 +432,13 @@ vec
 <pre><code class="r">sum(vec, na.rm = TRUE)
 </code></pre>
 
-<pre><code>## [1] 2.599324
+<pre><code>## [1] 5.67594
 </code></pre>
 
 <pre><code class="r">hist(vec)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt=""/></p>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfgAAAH4CAMAAACR9g9NAAAC6FBMVEUAAAABAQECAgIDAwMEBAQFBQUGBgYHBwcICAgJCQkKCgoLCwsMDAwNDQ0ODg4PDw8QEBARERESEhITExMUFBQVFRUWFhYXFxcYGBgZGRkaGhobGxscHBwdHR0eHh4fHx8gICAhISEiIiIjIyMkJCQlJSUmJiYnJycoKCgpKSkqKiorKyssLCwtLS0uLi4vLy8wMDAxMTEyMjIzMzM0NDQ1NTU3Nzc4ODg5OTk6Ojo7Ozs8PDw9PT0+Pj4/Pz9AQEBBQUFCQkJDQ0NERERFRUVGRkZHR0dISEhJSUlLS0tMTExNTU1OTk5PT09QUFBRUVFSUlJTU1NUVFRVVVVWVlZXV1dYWFhZWVlaWlpbW1tcXFxdXV1eXl5fX19gYGBhYWFiYmJjY2NkZGRlZWVmZmZnZ2doaGhpaWlqampra2tsbGxtbW1vb29wcHBxcXFycnJzc3N0dHR1dXV2dnZ3d3d4eHh5eXl6enp7e3t8fHx9fX1+fn5/f3+AgICCgoKDg4OEhISFhYWGhoaHh4eIiIiJiYmKioqLi4uMjIyNjY2Ojo6Pj4+QkJCRkZGSkpKVlZWWlpaXl5eYmJiZmZmampqbm5ucnJydnZ2enp6fn5+goKChoaGioqKlpaWmpqanp6eoqKipqamqqqqrq6usrKytra2urq6vr6+wsLCxsbGysrKzs7O0tLS1tbW2tra3t7e4uLi5ubm6urq7u7u8vLy9vb2+vr6/v7/AwMDBwcHCwsLDw8PExMTFxcXGxsbHx8fIyMjJycnKysrLy8vMzMzNzc3Ozs7Pz8/Q0NDR0dHS0tLT09PU1NTV1dXW1tbX19fY2NjZ2dna2trb29vc3Nzd3d3e3t7f39/g4ODh4eHi4uLj4+Pk5OTl5eXm5ubn5+fo6Ojp6enq6urr6+vs7Ozt7e3u7u7v7+/w8PDx8fHy8vLz8/P09PT19fX29vb39/f4+Pj5+fn6+vr7+/v8/Pz9/f3+/v7////1iF9wAAAACXBIWXMAAAsSAAALEgHS3X78AAARGklEQVR4nO3de3iU1Z3A8YPYRRJCuG4KEexyKShqRBTRCOjGdesV60q1FUF3Y+u1Ldq17WKxFi3aolYpq3XbirIK62Xd3SCXikSbuLW1a2qBZfESlEuoCOUSkvPvTiaTmUMmvHPOmUmG35zv93lMfN68vznvyyd5Z8aZoNIUZCrfB0D5CfhAAz7QgA804AMN+EADPtCADzTgAw34QAM+0IAPNOADDfhAAz7QgA804AMN+EADPtCADzTgAw34QAM+0AoNvlmpDbFPF6kFWqnmXN3qm2OPeShXt3WUFAj8JFWbza1eqyrXZntkR1kFDP/pp63JzVnCX6SezfbAjrYKF36f6q31unNLhlz8dsxdqaf07tvGFFUsiX037Jw5cOK/qkl6qxq8ftIyXXNWvwHn1+sNatSPykcuqp1YPG1T+411DLSNf6dtwyz1A63nqm/oTZcMHn7tNq23XXd8/6r/zuP5eleA8OMrKipK2uG39+912VQ1fO9Ln1N3b26drkZc1Fc9oFvPVhNn9InDF49Qy97r23v6mWpE6wal/mJc7J/RxWpG/LaSAy9VqNt+07blJXWu1hWqdndZ74sr1cnNLaerk89RQz7O6yn7VYDw7cXhX1FjP9K3f3FD/FK/Wo3Yrdeq0pY1avwB/b04vFqwY/+aC+frA8epbTH4Bj1VXd26So2O31ZyIHYBWR7fcmBg76aPY98ji9T127efoZb/hxrfrGeqf87nGXtWgPDGpX7HINVr8ve2tt/HP6xuin2lXG15SN2u9f/E4Y9riW16997LRyq1dYMq1/rLaknsmn9C/LaSA0l4fYN6+hexK/3ft39zff/H6vrYkvsO5ulks6mw4fWu+acp1f+PBvxItel+dVsH/ODYlvWfKfryo/3a4E9og/9ZJ/jYQAr+v9Ts2er12KP8uTWx3l0Y+yYQWmHDP3vdz/X/na0eisGv06vUyN36VdW/ZYUavUffkYSfq+7Ub6ou4JMDKfjmoWXlI1v1D9QtWr/61Mbn1SkH9dfHLcvb6fpX2PCvqONmXFmk1sTuuq/4fetUNfLiIvWgPjBKjYg9UO+AX6hKL/nLXuqDNPjkQApef1Wpb8YezJcec82Xeg9obJ6gTqpUQ3lwl/86XeqXntm/6NSfaf1cWezp3Ce3jiqqeDz2dG7TBSUn/TQJv+eKohN/OV0tToNPDaTgV6vYlV7rty8oHXjp77VuvHpY/wt/l59Tza5Cg7dpR+1vta5VF+b7OPJaiPB/PLbXvB+NVY/n+zjyWojwumZqafFpS1oz71jABQlPwAcb8IEGfKABH2jABxrwgQZ8oAEfaMAHGvCBBnygAR9owAca8IEGfKABH2jABxrwgQZ8oAEfaMAHGvCBBnygAR9owAca8IEGfKABH2jABxrwgWYLX7u/Ww+Dejpb+MHvd+thUE+XGb64d1vqmN49cDTUY2WGf2fK323avn3gb7cnt9RUx7vql915YN3Tm9Ve3bQt3wee8ywu9Yd+PO6lwy71TfXxFizqvsPqrh67t96nr9Tl+8BzntV9/MbpXylJv49/+pGcH02395jfVWpuoPC6ZfHMHWkbgZdcFs/jgZcc8DYBbwa85IC3CXgz4CUHvE3AmwEvOeBtAt4MeMkBbxPwZsBLDnibgDcDXnLA2wS8GfCSA94m4M2AlxzwNgFvBrzkgLcJeDPgJQe8TcCbAS854G0C3gx4yQFvE/BmwEsOeJuANwNecsDbBLwZ8JID3ibgzYCXHPA2AW8GvOSAtwl4M+AlB7xNwJsBLzngbQLeDHjJAW8T8GbASw54m4A3A15ywNsEvBnwkgPeJuDNgJcc8DYBbwa85IC3CXgz4CUHvE3AmwEvOeBtAt4MeMkBbxPwZsBLDnibgDcDXnLA2wS8GfCSA94m4M2AlxzwNgFvBrzkgLcJeDPgJQe8TcCbAS854G0C3gx4yQFvE/BmwEsOeJuANwNecsDbBLwZ8JKzhd+fvgl4yWWG33ZT5R0fVagzNnT+AvCSywx/adXS2cPua/rm33b+AvCSywxfvEU3qJ36w5LklprqeFV35eIA9txc7dWvvFYDvqPM8CPrdMtSrRs+m9zSVB9vwaJcHMCWi+p9enS+12rAd5QZ/onjKg9p/cjw73b+Qm4u9VtmeY2tBD67LB7Vb/iXFq2XLG/tvB14yeX9eTzw+Ql4m4A3A15ywNsEvBnwkgPeJuDNgJcc8DYBbwa85IC3CXgz4CUHvE3AmwEvOeBtAt4MeMkBbxPwZsBLDnibgDcDXnLA2wS8GfCSA94m4M2AlxzwNgFvBrzkgLcJeDPgJQe8TcCbAS854G0C3gx4yQFvE/BmwEsOeJuANwNecsDbBLwZ8JID3ibgzYCXHPA2AW8GvOSAtwl4M+AlB7xNwJsBLzngbQLeDHjJAW8T8GbASw54m4A3A15ywNsEvBnwkgPepsKFv3XtIedR4CWXgJ93atnXXml2GwVecslL/aYHzy37h/886DAKvOSS8LuemT1wwpThz9mPAi+5BPwPpxX/zcP/q/Xqz0bvbga85BLwc57dHf+8h5/4ripc+AOP1OjlC/c7jQIvuQT8rNPr9FuVc5xGgZdcAr7fptiHLaVOo8BLLgE/+vXYh9pRTqPASy4B/9TgWx+4fciTTqPAS67jefwf5t847y23UeAlx4s0NhUu/Mop49pyGgVecgn4kd96uyGW0yjwkkvAD/uz+yjwkkvAL1zg+JqsBl52Cfhziks+z338EStc+Ib2nEaBl1zy6dyhxlbHUeAll4BvrOrbb/PkTU6jwEsuAX/1V/eWtcw732kUeMkl4Aft0mW6qchpFHjJJeBPfSEGv2qC0yjwkkvArxl8Zd/ZQ192GgVech2P6nc8ec+SxiPs09T2eP/Q9s6bgZdc5lfn3pnQa9QLWm9O2xN4ySU4J7fX1R5T/+nA2vI64AusBGdtbe36Z6Y909UefXdrvWLSIQO+pjpe1V25OADg85P5c7yzoqs9Pv+i1q2Xf9uAb6qPt2BRLg4A+Pxkwr9V0tUey/tVfqy3TzyNS31BZdzHTzr29i532bo8drHfv/TOztuBl1zqPr62tsHtZRrgJcebLW0qXPjyAaWJ7EeBl1wC/rHp6xprqxbt2rXLfhR4ySXgj/8g9uGj451GgZdcAn7Er2IfXhvuNAq85BLwiwf945K7Bt3vNAq85Doe1b/xjZm31PB07ggVMDxvtoyqcOF5s2VkhQvPmy0jK1x43mwZWeHC82bLyAoXnjdbRla48JFvtjxCwEsuAX/K79xHgZdcAv6erx1wHgVecgn4aaUlY/j9+CNWuPD8fnxkhQpfvEvrX3zqOgq85OLwKgZfutl1FHjJAW8T8GbAS64dflVdXfG/1dW5nR7wkovDD+7IaRR4yfG+epuANwNecsDbBLwZ8JID3ibgzYCXHPA2AW8GvOSAtwl4M+AlB7xNwJsBLzngbQLeDHjJAW8T8GbASw54m4A3A15ywNsEvBnwkgPeJuDNgJcc8DYBbwa85IC3CXgz4CUHvE3AmwEvOeBtAt4MeMkBbxPwZsBLDnibgDcDXnLA2wS8GfCSA94m4M2AlxzwNgFvBrzkgLcJeDPgJQe8TcCbAS854G0C3gx4yQFvE/BmwEsOeJuANwNecsDbBLwZ8JID3ibgzYCXHPA2AW8GvOQywzc0HOH/MQ685DLDT1ZF5fGSW2qq41XddfiOd1T7dM00r+PuWfgvzvA6t9uavVZ7wGux6p84LZIZvnXOzZ22NNXHW7Do8M1n1Pv0xGin4+2oZ+HPnO91btP+5LVapddi9W4/QRb38SsXdr2986V+utPCHa0XAf9zr7HL/OD9/iAdx3L44A74zgEfEfBpAR8R8FmOAW8T8GbAZwr4iIBPC/iIgM9yDHibgDcDPlPARwR8WsBHBHyWY8DbBLwZ8JkCPiLg0wI+IuCzHAPeJuDNgM8U8BEBnxbwEQGf5RjwNgFvBnymgI8I+LSAjwj4LMeAtwl4M+AzBXxEwKcFfETAZzkGvE3AmwGfKeAjAj4t4CMCPssx4G0C3gz4TAEfEfBpAR8R8FmOAW8T8GbAZwr4iIBPC/iIgM9yDHibgDcDPlPARwR8WsBHBHyWY8DbBLwZ8JkCPiLg0wI+IuCzHAPeJuDNgM8U8BEBnxbwEQGf5RjwNgFvBnymgI8I+LSAjwj4LMeAtwl4M+AzBXxEwKcFfETAZzkGvE3AmwGfKeAjAj4t4CMCPssx4G0C3gz4TAEfEfBpAR8R8FmOAW8T8GbAZwr4iIBPC/iIgM9yDHibgDcDPlPARwR8WsBHBHyWY8DbBLwZ8JkCPiLg0wI+IuCzHAPeplDhWz5p6WIr8JmSDb9v3thjVe8xd+/v/AXgMyUb/toL1uw4uPO1Gdd3/gLwmZINX9oY/7R3SHJLTXW8qu8cvuMJ1T5d3t9r7K/P9BqbOsVrbOh5XmND5niNlXtNVU/NMXzFE/FPz01Mbmmqj7d+5+E7NtR7tdZr6o1XvcbWrfcaW/trr7E1XlP1q/3G3s8xfN2wk6664apThtc73S4d5Vk8qm+uWXzf4prm7j8W6sGyeB5PkgM+0IAPNOADDfhAAz7QgA804AMN+EADPtByCH9ilU/TxniNnTXBa+y0SV5j48/xGht1vtfYCV5TVefkC97vZeQts7zGevb1+Ll1XmOX7/IaO0pej++mhTsCPi3gIwI+yzHgbQI+dwt3BHxawEcEfJZjOYSv8pp6f7bX2Op7vcaWPO01duebXmNXfOI15vcH6TiWQ/jdPTnWstdrbP9Br7FPW73GevRPxHGM/3IXaMAHGvCBBnygAR9owAca8IEGfKDlCL51ckP7v9RPHHBd2l+hcKRSO1/Qp0+fi12HXNbyWkr7nlhqzGm1FeOKpr/jvlpqzGG13MCvnKPaT7R5+OMfVs2znDJ2HrmqoeE9xyGXtbyW0r4nlhpzWm1ryYuffPdk59VSYy6r5QZ+4c1F7Se68kSt14y1nErtfLCP9S/jpoZc1vJaSvueWGrMabXllVof6NXkulpqzGW1XN3Hl7ef6OKrtN5xbFd/VVIXpXbeOOCSUV+y+8X+1JDLWl5LxfM5sdSY02q7P9Z67V+1uq6WGnNZLcfw990Q+75Tli9KpXZeN/7FhllTHIdc1vJaKp7PiaXGHFdrXVH+vMdqHWMuq2UN/3Bp6eP6sB+Mnb0tvlXbxg7fec8x22zWSw1Zr5W2r+VS8VxP7PAxt9V2zJhU57FacsxltRz/xNecovVrtn+PVWrn11fHvsM/Y/W2hdSQy1peS8XzObHUmNNq+0//9iHtvlpqzGW1nMIv+6B5+Io/X3G35UzHzss+WD3g1T996zzHIZe1vJaK53NiqTGn1ZZWbI51yHW11JjLajmFL35B//rUwbOtn4Amdo6NPTis5LIPXYdc1vJaqi2vE0uNuax2p2pru+tqxpjDavyXu0ADPtCADzTgAw34QAM+0IAPNOADDfhAAz7QgA804AMN+EADPtCADzTgAw34QAM+0IAPNOADDfhAAz7QgL9wsdY/nKnXVgy6plHrpWNKZvv9XXjCAv7RS7U+e/mOwc833Vil/zCkduPEn+T7kHoi4Bv77ds6YN+TV2q9t2/LPbdqXVeT70PqiYDXZ728+Dp9T9+ysrJ+jTc+kO+j6amA1/ff8oWX9ZLZWrdsbp33da3fWp7vI+qJgNfvlg8/qD8cunrX3ZP1b4a88V7lwnwfUU8EvNYn3Rj78O8n9j1vo9ZPfK6/y+9Gyg34QAM+0IAPNOADDfhAAz7QgA804AMN+EADPtCADzTgAw34QAM+0IAPNOADDfhAAz7QgA+0/wdfqmWda0z5OQAAAABJRU5ErkJggg==" alt=""/></p>
 
 <pre><code class="r">is.na(vec)
 </code></pre>
@@ -500,9 +499,8 @@ big
 vec
 </code></pre>
 
-<pre><code>##  [1]  0.02297773  0.75935385          NA  0.40790175          NA
-##  [6]  0.30357006  0.27942261 -0.40157252  1.46973582 -0.37691225
-## [11] -0.13375929  0.26860626
+<pre><code>##  [1]  2.3025243 -0.2552535         NA -0.6053567         NA  0.9591721
+##  [7]  1.2998584  0.7039802  0.7709010 -0.1919022 -0.3071393  0.9991563
 </code></pre>
 
 <pre><code class="r">length(vec)
@@ -620,23 +618,37 @@ class(air)
 ## 1 2005     1          1         6    1211       1216    1451       1502
 ## 2 2005     1          2         7    1209       1216    1447       1502
 ## 3 2005     1          3         1    1213       1216    1454       1502
+## 4 2005     1          4         2      NA       1216      NA       1502
+## 5 2005     1          5         3    1211       1216    1504       1502
+## 6 2005     1          6         4    1214       1215    1506       1505
 ##   UniqueCarrier FlightNum TailNum ActualElapsedTime CRSElapsedTime AirTime
 ## 1            UA       548  N341UA               100            106      81
 ## 2            UA       548  N398UA                98            106      79
 ## 3            UA       548  N303UA               101            106      83
+## 4            UA       548  000000                NA            106      NA
+## 5            UA       548  N917UA               113            106      85
+## 6            UA       548  N924UA               112            110      95
 ##   ArrDelay DepDelay Origin Dest Distance TaxiIn TaxiOut Cancelled
 ## 1      -11       -5    SFO  SLC      599      2      17         0
 ## 2      -15       -7    SFO  SLC      599      2      17         0
 ## 3       -8       -3    SFO  SLC      599      3      15         0
+## 4       NA       NA    SFO  SLC      599      0       0         1
+## 5        2       -5    SFO  SLC      599      6      22         0
+## 6        1       -1    SFO  SLC      599      6      11         0
 ##   CancellationCode Diverted CarrierDelay WeatherDelay NASDelay
 ## 1                         0            0            0        0
 ## 2                         0            0            0        0
 ## 3                         0            0            0        0
+## 4                A        0            0            0        0
+## 5                         0            0            0        0
+## 6                         0            0            0        0
 ##   SecurityDelay LateAircraftDelay
 ## 1             0                 0
 ## 2             0                 0
 ## 3             0                 0
-##  [ reached getOption(&quot;max.print&quot;) -- omitted 3 rows ]
+## 4             0                 0
+## 5             0                 0
+## 6             0                 0
 </code></pre>
 
 <pre><code class="r">str(air)
@@ -651,21 +663,21 @@ class(air)
 ##  $ CRSDepTime       : int  1216 1216 1216 1216 1216 1215 1215 1215 1215 1215 ...
 ##  $ ArrTime          : int  1451 1447 1454 NA 1504 1506 1620 1448 1443 1610 ...
 ##  $ CRSArrTime       : int  1502 1502 1502 1502 1502 1505 1505 1505 1505 1505 ...
-##  $ UniqueCarrier    : chr  &quot;UA&quot; &quot;UA&quot; &quot;UA&quot; &quot;UA&quot; ...
+##  $ UniqueCarrier    : Factor w/ 21 levels &quot;AA&quot;,&quot;AS&quot;,&quot;B6&quot;,..: 17 17 17 17 17 17 17 17 17 17 ...
 ##  $ FlightNum        : int  548 548 548 548 548 548 548 548 548 548 ...
-##  $ TailNum          : chr  &quot;N341UA&quot; &quot;N398UA&quot; &quot;N303UA&quot; &quot;000000&quot; ...
+##  $ TailNum          : Factor w/ 3983 levels &quot;&quot;,&quot;0&quot;,&quot;000000&quot;,..: 1033 1387 756 3 3777 3812 3840 1065 1387 3834 ...
 ##  $ ActualElapsedTime: int  100 98 101 NA 113 112 110 95 97 92 ...
 ##  $ CRSElapsedTime   : int  106 106 106 106 106 110 110 110 110 110 ...
 ##  $ AirTime          : int  81 79 83 NA 85 95 85 72 77 78 ...
 ##  $ ArrDelay         : int  -11 -15 -8 NA 2 1 75 -17 -22 65 ...
 ##  $ DepDelay         : int  -5 -7 -3 NA -5 -1 75 -2 -9 83 ...
-##  $ Origin           : chr  &quot;SFO&quot; &quot;SFO&quot; &quot;SFO&quot; &quot;SFO&quot; ...
-##  $ Dest             : chr  &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot; ...
+##  $ Origin           : Factor w/ 1 level &quot;SFO&quot;: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ Dest             : Factor w/ 82 levels &quot;ABQ&quot;,&quot;ACV&quot;,&quot;ANC&quot;,..: 76 76 76 76 76 76 76 76 76 76 ...
 ##  $ Distance         : int  599 599 599 599 599 599 599 599 599 599 ...
 ##  $ TaxiIn           : int  2 2 3 0 6 6 6 3 3 3 ...
 ##  $ TaxiOut          : int  17 17 15 0 22 11 19 20 17 11 ...
 ##  $ Cancelled        : int  0 0 0 1 0 0 0 0 0 0 ...
-##  $ CancellationCode : chr  &quot;&quot; &quot;&quot; &quot;&quot; &quot;A&quot; ...
+##  $ CancellationCode : Factor w/ 5 levels &quot;&quot;,&quot;A&quot;,&quot;B&quot;,&quot;C&quot;,..: 1 1 1 2 1 1 1 1 1 1 ...
 ##  $ Diverted         : int  0 0 0 0 0 0 0 0 0 0 ...
 ##  $ CarrierDelay     : int  0 0 0 0 0 0 0 0 0 0 ...
 ##  $ WeatherDelay     : int  0 0 0 0 0 0 0 0 0 0 ...
@@ -722,13 +734,13 @@ class(air)
 ## [1] &quot;integer&quot;
 ## 
 ## $UniqueCarrier
-## [1] &quot;character&quot;
+## [1] &quot;factor&quot;
 ## 
 ## $FlightNum
 ## [1] &quot;integer&quot;
 ## 
 ## $TailNum
-## [1] &quot;character&quot;
+## [1] &quot;factor&quot;
 ## 
 ## $ActualElapsedTime
 ## [1] &quot;integer&quot;
@@ -746,10 +758,10 @@ class(air)
 ## [1] &quot;integer&quot;
 ## 
 ## $Origin
-## [1] &quot;character&quot;
+## [1] &quot;factor&quot;
 ## 
 ## $Dest
-## [1] &quot;character&quot;
+## [1] &quot;factor&quot;
 ## 
 ## $Distance
 ## [1] &quot;integer&quot;
@@ -764,7 +776,7 @@ class(air)
 ## [1] &quot;integer&quot;
 ## 
 ## $CancellationCode
-## [1] &quot;character&quot;
+## [1] &quot;factor&quot;
 ## 
 ## $Diverted
 ## [1] &quot;integer&quot;
@@ -825,26 +837,46 @@ head(someFields)
 <pre><code class="r">class(air$Dest)
 </code></pre>
 
-<pre><code>## [1] &quot;character&quot;
+<pre><code>## [1] &quot;factor&quot;
 </code></pre>
 
 <pre><code class="r">head(air$Dest) # What order are the factors in?
 </code></pre>
 
-<pre><code>## [1] &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot; &quot;SLC&quot;
+<pre><code>## [1] SLC SLC SLC SLC SLC SLC
+## 82 Levels: ABQ ACV ANC ASE ATL AUS BFL BIL BOI BOS BUR BWI BZN CEC ... TWF
 </code></pre>
 
 <pre><code class="r">levels(air[[&quot;Dest&quot;]])  # note alternate way to get the variable
 </code></pre>
 
-<pre><code>## NULL
+<pre><code>##  [1] &quot;ABQ&quot; &quot;ACV&quot; &quot;ANC&quot; &quot;ASE&quot; &quot;ATL&quot; &quot;AUS&quot; &quot;BFL&quot; &quot;BIL&quot; &quot;BOI&quot; &quot;BOS&quot; &quot;BUR&quot;
+## [12] &quot;BWI&quot; &quot;BZN&quot; &quot;CEC&quot; &quot;CIC&quot; &quot;CLE&quot; &quot;CLT&quot; &quot;COS&quot; &quot;CVG&quot; &quot;DEN&quot; &quot;DFW&quot; &quot;DRO&quot;
+## [23] &quot;DTW&quot; &quot;EGE&quot; &quot;ELP&quot; &quot;EUG&quot; &quot;EWR&quot; &quot;FAT&quot; &quot;FCA&quot; &quot;GJT&quot; &quot;HNL&quot; &quot;IAD&quot; &quot;IAH&quot;
+## [34] &quot;IDA&quot; &quot;IND&quot; &quot;JFK&quot; &quot;KOA&quot; &quot;LAS&quot; &quot;LAX&quot; &quot;LGB&quot; &quot;LIH&quot; &quot;LMT&quot; &quot;MCO&quot; &quot;MDW&quot;
+## [45] &quot;MEM&quot; &quot;MFR&quot; &quot;MIA&quot; &quot;MKE&quot; &quot;MOD&quot; &quot;MRY&quot; &quot;MSO&quot; &quot;MSP&quot; &quot;MSY&quot; &quot;OAK&quot; &quot;OGG&quot;
+## [56] &quot;ONT&quot; &quot;ORD&quot; &quot;OTH&quot; &quot;PDX&quot; &quot;PHL&quot; &quot;PHX&quot; &quot;PIH&quot; &quot;PIT&quot; &quot;PMD&quot; &quot;PSC&quot; &quot;PSP&quot;
+## [67] &quot;RDD&quot; &quot;RDM&quot; &quot;RNO&quot; &quot;SAN&quot; &quot;SAT&quot; &quot;SBA&quot; &quot;SBP&quot; &quot;SEA&quot; &quot;SJC&quot; &quot;SLC&quot; &quot;SMF&quot;
+## [78] &quot;SMX&quot; &quot;SNA&quot; &quot;STL&quot; &quot;TUS&quot; &quot;TWF&quot;
 </code></pre>
 
 <pre><code class="r">summary(air$Dest)
 </code></pre>
 
-<pre><code>##    Length     Class      Mode 
-##    539895 character character
+<pre><code>##   ABQ   ACV   ANC   ASE   ATL   AUS   BFL   BIL   BOI   BOS   BUR   BWI 
+##  2467 10402   613   166 13374  1705  3824    13  8338 10191  9052  1890 
+##   BZN   CEC   CIC   CLE   CLT   COS   CVG   DEN   DFW   DRO   DTW   EGE 
+##    43  2192  5102  1930  5313  1859  3957 20545 15694     2  4554    16 
+##   ELP   EUG   EWR   FAT   FCA   GJT   HNL   IAD   IAH   IDA   IND   JFK 
+##     1  8928 11741 10587    12     3 11644 11778 10582     2   752 24047 
+##   KOA   LAS   LAX   LGB   LIH   LMT   MCO   MDW   MEM   MFR   MIA   MKE 
+##  2741 24210 44265   209  2460   348  1593  2490   993 10829  4381   115 
+##   MOD   MRY   MSO   MSP   MSY   OAK   OGG   ONT   ORD   OTH   PDX   PHL 
+##  6334 10011    12  7935   251     1  4610  4409 22984   354 12707  9390 
+##   PHX   PIH   PIT   PMD   PSC   PSP   RDD   RDM   RNO   SAN   SAT   SBA 
+## 16313     2  1850  1119     1  5792  7382  4111  9114 18114  1367 12651 
+##   SBP   SEA   SJC   SLC   SMF   SMX   SNA   STL   TUS   TWF 
+##  6945 22283     2 15925 10806    13 15180  2797  1164    13
 </code></pre>
 
 <ul>
@@ -890,7 +922,7 @@ head(air$DayOfWeekSun)
 boxplot(DepDelayCens ~ DayOfWeekSun, data = air)
 </code></pre>
 
-<p><img src="data:image/png;base64,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" alt=""/></p>
+<p><img src="data:image/png;base64,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" alt=""/></p>
 
 <p><strong>Challenge</strong>: Try to decipher what I just did with that complicated single line of code starting with <code>within</code>.</p>
 
@@ -964,11 +996,11 @@ rownames(mat) &lt;- letters[1:4]
 mat
 </code></pre>
 
-<pre><code>##          [,1]       [,2]       [,3]       [,4]       [,5]
-## a -0.07890798  0.4801053 0.49898859  1.0078743 -2.5804635
-## b -1.32317568  0.2437549 0.02466561  0.9344412 -0.9218429
-## c -0.93144644 -1.3914161 0.34499383 -0.7270437 -0.1744985
-## d  0.40737888  0.2417938 1.64812423 -0.5357524  0.4401284
+<pre><code>##         [,1]       [,2]        [,3]        [,4]       [,5]
+## a  0.9388063 -0.1578055 -0.63870678 -1.48048466 -0.3953748
+## b -1.2129332 -0.6416316 -1.49569066  0.02969633 -0.3237404
+## c  1.3533546 -0.5549230 -0.07178203  1.55374227  1.7648537
+## d -0.5986032  0.1630123  0.21077843  1.58435976 -0.4144714
 </code></pre>
 
 <p>1) by direct indexing</p>
@@ -976,23 +1008,23 @@ mat
 <pre><code class="r">vec[c(3, 5, 12:14)]
 </code></pre>
 
-<pre><code>## [1] -0.9314464  0.4801053  1.6481242  1.0078743  0.9344412
+<pre><code>## [1]  1.35335459 -0.15780554  0.21077843 -1.48048466  0.02969633
 </code></pre>
 
 <pre><code class="r">vec[-c(3,5)]
 </code></pre>
 
-<pre><code>##  [1] -0.07890798 -1.32317568  0.40737888  0.24375486 -1.39141612
-##  [6]  0.24179383  0.49898859  0.02466561  0.34499383  1.64812423
-## [11]  1.00787431  0.93444119 -0.72704368 -0.53575243 -2.58046354
-## [16] -0.92184295 -0.17449848  0.44012841
+<pre><code>##  [1]  0.93880627 -1.21293324 -0.59860321 -0.64163157 -0.55492299
+##  [6]  0.16301234 -0.63870678 -1.49569066 -0.07178203  0.21077843
+## [11] -1.48048466  0.02969633  1.55374227  1.58435976 -0.39537483
+## [16] -0.32374035  1.76485365 -0.41447143
 </code></pre>
 
 <pre><code class="r">mat[c(2,4), 5]
 </code></pre>
 
 <pre><code>##          b          d 
-## -0.9218429  0.4401284
+## -0.3237404 -0.4144714
 </code></pre>
 
 <pre><code class="r">rowInd &lt;- c(1, 3, 4)
@@ -1010,7 +1042,7 @@ elemInd
 <pre><code class="r">mat[elemInd]
 </code></pre>
 
-<pre><code>## [1]  0.4801053 -1.3914161  0.4073789
+<pre><code>## [1] -0.1578055 -0.5549230 -0.5986032
 </code></pre>
 
 <p>Note the last usage where we give it a 2-column matrix of indices</p>
@@ -1021,8 +1053,8 @@ elemInd
 vec[cond]
 </code></pre>
 
-<pre><code>##  [1] 0.40737888 0.48010534 0.24375486 0.24179383 0.49898859 0.02466561
-##  [7] 0.34499383 1.64812423 1.00787431 0.93444119 0.44012841
+<pre><code>## [1] 0.93880627 1.35335459 0.16301234 0.21077843 0.02969633 1.55374227
+## [7] 1.58435976 1.76485365
 </code></pre>
 
 <pre><code class="r">air[air$DepDelay &gt; 60*12 &amp; !is.na(air$DepDelay), ]
@@ -1032,27 +1064,92 @@ vec[cond]
 ## 71351  2005     7         23         6     633       1545    1212
 ## 80042  2005     8         20         6    2237       1030     122
 ## 115794 2005    11          2         3    1009        630    1526
+## 168750 2006     4         11         2    1001       1543    1505
+## 258029 2006    12         28         4    2232        845     216
+## 258288 2006    12         14         4    1118       2156    1908
+## 290635 2007     3         22         4     729       1545    1257
+## 333067 2007     7         16         1    1200       2021    1522
+## 337213 2007     7         16         1     858       1410    1805
+## 372929 2007    10         28         7    2155        835      37
+## 396990 2007    12         31         1     745       1225    1318
+## 415550 2008     2          9         6    1003       1605    1302
+## 449626 2008     5         10         6     735       1820    1005
+## 454313 2008     5         15         4    2243        850      50
 ##        CRSArrTime UniqueCarrier FlightNum TailNum ActualElapsedTime
 ## 71351        2113            NW       354  N586NW               219
 ## 80042        1301            TZ      4603  N561TZ               345
 ## 115794       1207            NW       368  N552NW               197
+## 168750       2112            NW       354  N541US               184
+## 258029       1205            HA        11  N587HA               344
+## 258288        527            NW       346  N539US               290
+## 290635       2115            NW       354  N504US               208
+## 333067       2359            UA       595  N535UA               262
+## 337213       2245            AA       194  N5EVAA               367
+## 372929       1045            HA        11  N585HA               162
+## 396990       1809            NW       360  N525US               213
+## 415550       1946            UA        77  N667UA               299
+## 449626       2041            UA        39  N669UA               330
+## 454313       1055            HA        11  N596HA               307
 ##        CRSElapsedTime AirTime ArrDelay DepDelay Origin Dest Distance
 ## 71351             208     184      899      888    SFO  MSP     1589
 ## 80042             331     323      741      727    SFO  LIH     2447
 ## 115794            217     175     1639     1659    SFO  MSP     1589
+## 168750            209     165     1073     1098    SFO  MSP     1589
+## 258029            320     189      851      827    SFO  HNL     2398
+## 258288            271     228      821      802    SFO  DTW     2079
+## 290635            210     188      942      944    SFO  MSP     1589
+## 333067            278     235      923      939    SFO  ANC     2018
+## 337213            335     323     1160     1128    SFO  BOS     2704
+## 372929            130     123      832      800    SFO  HNL     2398
+## 396990            224     191     1149     1160    SFO  MSP     1589
+## 415550            341     272     1036     1078    SFO  HNL     2398
+## 449626            321     299      804      795    SFO  OGG     2338
+## 454313            305     286      835      833    SFO  HNL     2398
 ##        TaxiIn TaxiOut Cancelled CancellationCode Diverted CarrierDelay
 ## 71351      13      22         0                         0          888
 ## 80042       5      17         0                         0          652
 ## 115794      3      19         0                         0         1639
+## 168750      5      14         0                         0         1048
+## 258029      8      27         0                         0          827
+## 258288     33      29         0                         0          802
+## 290635      4      16         0                         0          884
+## 333067      4      23         0                         0          844
+## 337213     25      19         0                         0          993
+## 372929      6      33         0                         0          800
+## 396990      9      13         0                         0         1106
+## 415550      2      25         0                         0          710
+## 449626      6      25         0                         0          795
+## 454313      7      14         0                         0          835
 ##        WeatherDelay NASDelay SecurityDelay LateAircraftDelay DepDelayCens
 ## 71351             0       11             0                 0           60
 ## 80042             0       14             0                75           60
 ## 115794            0        0             0                 0           60
+## 168750            6        0             0                19           60
+## 258029            0        0             0                24           60
+## 258288            0       19             0                 0           60
+## 290635            0        0             0                58           60
+## 333067            0        0             0                79           60
+## 337213            0       32             0               135           60
+## 372929            0        0             0                32           60
+## 396990            0        0             0                43           60
+## 415550            0        0             0               326           60
+## 449626            0        9             0                 0           60
+## 454313            0        0             0                 0           60
 ##        DayOfWeekSun
 ## 71351           Sat
 ## 80042           Sat
 ## 115794          Wed
-##  [ reached getOption(&quot;max.print&quot;) -- omitted 11 rows ]
+## 168750          Tue
+## 258029          Thu
+## 258288          Thu
+## 290635          Thu
+## 333067          Mon
+## 337213          Mon
+## 372929          Sun
+## 396990          Mon
+## 415550          Sat
+## 449626          Sat
+## 454313          Thu
 </code></pre>
 
 <p>What happened in the last subsetting operation?</p>
@@ -1062,10 +1159,10 @@ vec[cond]
 <pre><code class="r">mat[c(&#39;a&#39;, &#39;d&#39;, &#39;a&#39;), ]
 </code></pre>
 
-<pre><code>##          [,1]      [,2]      [,3]       [,4]       [,5]
-## a -0.07890798 0.4801053 0.4989886  1.0078743 -2.5804635
-## d  0.40737888 0.2417938 1.6481242 -0.5357524  0.4401284
-## a -0.07890798 0.4801053 0.4989886  1.0078743 -2.5804635
+<pre><code>##         [,1]       [,2]       [,3]      [,4]       [,5]
+## a  0.9388063 -0.1578055 -0.6387068 -1.480485 -0.3953748
+## d -0.5986032  0.1630123  0.2107784  1.584360 -0.4144714
+## a  0.9388063 -0.1578055 -0.6387068 -1.480485 -0.3953748
 </code></pre>
 
 <p>4) using <em>subset()</em></p>
@@ -1077,27 +1174,92 @@ vec[cond]
 ## 71351  2005     7         23         6     633       1545    1212
 ## 80042  2005     8         20         6    2237       1030     122
 ## 115794 2005    11          2         3    1009        630    1526
+## 168750 2006     4         11         2    1001       1543    1505
+## 258029 2006    12         28         4    2232        845     216
+## 258288 2006    12         14         4    1118       2156    1908
+## 290635 2007     3         22         4     729       1545    1257
+## 333067 2007     7         16         1    1200       2021    1522
+## 337213 2007     7         16         1     858       1410    1805
+## 372929 2007    10         28         7    2155        835      37
+## 396990 2007    12         31         1     745       1225    1318
+## 415550 2008     2          9         6    1003       1605    1302
+## 449626 2008     5         10         6     735       1820    1005
+## 454313 2008     5         15         4    2243        850      50
 ##        CRSArrTime UniqueCarrier FlightNum TailNum ActualElapsedTime
 ## 71351        2113            NW       354  N586NW               219
 ## 80042        1301            TZ      4603  N561TZ               345
 ## 115794       1207            NW       368  N552NW               197
+## 168750       2112            NW       354  N541US               184
+## 258029       1205            HA        11  N587HA               344
+## 258288        527            NW       346  N539US               290
+## 290635       2115            NW       354  N504US               208
+## 333067       2359            UA       595  N535UA               262
+## 337213       2245            AA       194  N5EVAA               367
+## 372929       1045            HA        11  N585HA               162
+## 396990       1809            NW       360  N525US               213
+## 415550       1946            UA        77  N667UA               299
+## 449626       2041            UA        39  N669UA               330
+## 454313       1055            HA        11  N596HA               307
 ##        CRSElapsedTime AirTime ArrDelay DepDelay Origin Dest Distance
 ## 71351             208     184      899      888    SFO  MSP     1589
 ## 80042             331     323      741      727    SFO  LIH     2447
 ## 115794            217     175     1639     1659    SFO  MSP     1589
+## 168750            209     165     1073     1098    SFO  MSP     1589
+## 258029            320     189      851      827    SFO  HNL     2398
+## 258288            271     228      821      802    SFO  DTW     2079
+## 290635            210     188      942      944    SFO  MSP     1589
+## 333067            278     235      923      939    SFO  ANC     2018
+## 337213            335     323     1160     1128    SFO  BOS     2704
+## 372929            130     123      832      800    SFO  HNL     2398
+## 396990            224     191     1149     1160    SFO  MSP     1589
+## 415550            341     272     1036     1078    SFO  HNL     2398
+## 449626            321     299      804      795    SFO  OGG     2338
+## 454313            305     286      835      833    SFO  HNL     2398
 ##        TaxiIn TaxiOut Cancelled CancellationCode Diverted CarrierDelay
 ## 71351      13      22         0                         0          888
 ## 80042       5      17         0                         0          652
 ## 115794      3      19         0                         0         1639
+## 168750      5      14         0                         0         1048
+## 258029      8      27         0                         0          827
+## 258288     33      29         0                         0          802
+## 290635      4      16         0                         0          884
+## 333067      4      23         0                         0          844
+## 337213     25      19         0                         0          993
+## 372929      6      33         0                         0          800
+## 396990      9      13         0                         0         1106
+## 415550      2      25         0                         0          710
+## 449626      6      25         0                         0          795
+## 454313      7      14         0                         0          835
 ##        WeatherDelay NASDelay SecurityDelay LateAircraftDelay DepDelayCens
 ## 71351             0       11             0                 0           60
 ## 80042             0       14             0                75           60
 ## 115794            0        0             0                 0           60
+## 168750            6        0             0                19           60
+## 258029            0        0             0                24           60
+## 258288            0       19             0                 0           60
+## 290635            0        0             0                58           60
+## 333067            0        0             0                79           60
+## 337213            0       32             0               135           60
+## 372929            0        0             0                32           60
+## 396990            0        0             0                43           60
+## 415550            0        0             0               326           60
+## 449626            0        9             0                 0           60
+## 454313            0        0             0                 0           60
 ##        DayOfWeekSun
 ## 71351           Sat
 ## 80042           Sat
 ## 115794          Wed
-##  [ reached getOption(&quot;max.print&quot;) -- omitted 11 rows ]
+## 168750          Tue
+## 258029          Thu
+## 258288          Thu
+## 290635          Thu
+## 333067          Mon
+## 337213          Mon
+## 372929          Sun
+## 396990          Mon
+## 415550          Sat
+## 449626          Sat
+## 454313          Thu
 </code></pre>
 
 <p>5) using <em>dplyr</em> tools such as <em>filter()</em> and <em>select()</em> &ndash; more in Module 5</p>
@@ -1216,8 +1378,8 @@ rta[1:5, 1:5]
 unlist(lapply(rta, class))[1:5]
 </code></pre>
 
-<pre><code>##        time      X40010      X40015      X40020      X40025 
-## &quot;character&quot; &quot;character&quot; &quot;character&quot; &quot;character&quot; &quot;character&quot;
+<pre><code>##     time   X40010   X40015   X40020   X40025 
+## &quot;factor&quot; &quot;factor&quot; &quot;factor&quot; &quot;factor&quot; &quot;factor&quot;
 </code></pre>
 
 <pre><code class="r"># ?read.table
@@ -1240,7 +1402,7 @@ rta2[3,3]
 levels(rta[ , 2])[c(1:5, 3041:3044)]
 </code></pre>
 
-<pre><code>## NULL
+<pre><code>## [1] &quot;&quot;     &quot;1000&quot; &quot;1001&quot; &quot;1002&quot; &quot;1003&quot; &quot;997&quot;  &quot;998&quot;  &quot;999&quot;  &quot;x&quot;
 </code></pre>
 
 <pre><code class="r">rta3 &lt;- read.table(&quot;../data/RTAData.csv&quot;, sep = &quot;,&quot;, head = TRUE, 
@@ -1265,19 +1427,53 @@ missing[1:5]
 
 <pre><code>##                  time X40010 X40015 X40020 X40025 X40030 X40035 X40040
 ## 1167 2010-03-04 01:16     NA     NA     NA     NA     NA     NA     NA
+## 1168 2010-03-04 01:19     NA     NA     NA     NA     NA     NA     NA
+## 1169 2010-03-04 01:22     NA     NA     NA     NA     NA     NA     NA
+## 1170 2010-03-04 01:25     NA     NA     NA     NA     NA     NA     NA
+## 1171 2010-03-04 01:28     NA     NA     NA     NA     NA     NA     NA
+## 1172 2010-03-04 01:31     NA     NA     NA     NA     NA     NA     NA
 ##      X40045 X40050 X40055 X40060 X40065 X40070 X40075 X40080 X40085 X40090
 ## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
 ##      X40092 X40095 X40100 X40105 X40110 X40115 X40120 X40125 X40130 X40135
 ## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
 ##      X40140 X40145 X40150 X41010 X41015 X41020 X41025 X41030 X41035 X41040
 ## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
 ##      X41045 X41050 X41055 X41060 X41065 X41070 X41075 X41080 X41085 X41090
 ## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
 ##      X41095 X41100 X41105 X41110 X41115 X41120 X41125 X41130 X41135 X41140
 ## 1167     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1168     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA     NA     NA     NA     NA     NA     NA
 ##      X41145 X41150 X41155 X41160
 ## 1167     NA     NA     NA     NA
-##  [ reached getOption(&quot;max.print&quot;) -- omitted 5 rows ]
+## 1168     NA     NA     NA     NA
+## 1169     NA     NA     NA     NA
+## 1170     NA     NA     NA     NA
+## 1171     NA     NA     NA     NA
+## 1172     NA     NA     NA     NA
 </code></pre>
 
 <p>It&#39;s good to first look at your data in plain text format outside of R and then to check it after you&#39;ve read it into R.</p>

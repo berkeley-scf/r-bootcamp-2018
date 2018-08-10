@@ -606,14 +606,14 @@ plot3 <- ggplot(data = northern_hem, aes(x = Year, y = Gold)) +
 grid.arrange(plot1, plot2, plot3, nrow=3, ncol = 1)
 ```
 
-## `patchwork`: Combining Multiple `ggplot2`: Plots
+# `patchwork`: Combining Multiple `ggplot2` plots
 
 * The `patchwork` package may be used to combine multiple `ggplot2` plots using
   a small set of operators similar to the pipe.
 * This requires less syntax than using `gridExtra` and allows complex
   arrangements to be built nearly effortlessly.
 
-```{r, warning=FALSE, fig.cap=" "}
+```{r, warning=FALSE, fig.cap=" ", fig.width=12}
 # Install and initialize patchwork library
 #devtools::install_github("thomasp85/patchwork")
 library(patchwork)
@@ -647,7 +647,7 @@ plot1 / plot2 / plot3
 (plot1 / plot2 / plot3) & theme_bw()
 ```
 
-Feel free to explore more at https://github.com/thomasp85/patchwork.
+Feel free to explore more at [https://github.com/thomasp85/patchwork](https://github.com/thomasp85/patchwork).
 
 # Exporting
 

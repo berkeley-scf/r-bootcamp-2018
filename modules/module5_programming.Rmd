@@ -1,5 +1,5 @@
-% R bootcamp, Module 6: Programming
-% August 2017, UC Berkeley
+% R bootcamp, Module 5: Programming
+% August 2018, UC Berkeley
 % Chris Paciorek, with contributions from [Nima Hejazi](http://nimahejazi.org)
 
 ```{r chunksetup, include=FALSE}

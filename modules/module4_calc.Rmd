@@ -1,6 +1,6 @@
 % R bootcamp, Module 4: Calculations
-% August 2017, UC Berkeley
-% Chris Paciorek
+% August 2018, UC Berkeley
+% Sean Wu (based on materials developed by Chris Paciorek)
 
 ```{r chunksetup, include=FALSE} 
 # include any code here you don't want to show up in the document,

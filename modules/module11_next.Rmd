@@ -1,5 +1,5 @@
 % R bootcamp, Module 11: Next steps
-% August 2017, UC Berkeley
+% August 2018, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE} 

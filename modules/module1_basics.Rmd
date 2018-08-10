@@ -1,5 +1,5 @@
 % R bootcamp, Module 1: Basics
-% August 2017, UC Berkeley
+% August 2018, UC Berkeley
 % Chris Paciorek
 
 ```{r chunksetup, include=FALSE, cache=TRUE} 
@@ -124,11 +124,16 @@ getwd()
 ## if the result is not the 'modules' subdirectory of the bootcamp
 ## directory, set the working directly along the lines of this:
 ##
-## setwd('/Users/paciorek/Desktop/r-bootcamp-2017/modules')
+## setwd('/Users/paciorek/Desktop/r-bootcamp-2018/modules')
 ##
 ## replace '~/Desktop' with whatever directory you put the bootcamp
-## materials in; e.g./ 'C:\\Users\\sarah\\r-bootcamp-2017\\modules'
+## materials in; e.g. on Windows it might be something like
+## 'C:\\Users\\sarah\\r-bootcamp-2018\\modules'
 ##
+## If you've done that correctly, then the next command reads
+## in the dataset from the 'data' directory. In the next
+## command R finds that directory relative to the current
+## working directory.
 air <- read.csv(file.path('..', 'data', 'airline.csv'),
     stringsAsFactors = FALSE)
 #######################################################################
