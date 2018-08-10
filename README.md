@@ -1,8 +1,6 @@
 # r-bootcamp-2018
 SCF/D-Lab R bootcamp at UC Berkeley, August 2018
 
-Note that at the moment the actual content of the modules (see the `modules` directory) is simply the material from last year. Material will be updated as the time of the bootcamp approaches, but this should give you a good idea of what we will cover.
-
 ## Description
 
 ### Overview
@@ -36,9 +34,7 @@ Note that street parking in Berkeley near campus on Saturdays is generally subje
 
 ## Preparing for the course - course content
 
-Course content is available through Github at https://github.com/berkeley-scf/r-bootcamp-2018. Please download a copy before arriving at the bootcamp.
-
-To download the course materials, you have two options (if you're familiar with Git you'll already know what to do):
+Course content is available through Github. Please download a copy of the course materials before arriving at the bootcamp using one of the two options below (if you're familiar with Git you'll also know how to do this by cloning the repository):
 
   1) open RStudio. Go to “File→New Project” and select “Version Control” and “Git”. Enter 'https://github.com/berkeley-scf/r-bootcamp-2018' as the “Repository URL” and click “Create Project” (you can choose the directory in which to place the project with the “Create project as subdirectory of” option). It should create a “r-bootcamp-2018” directory with all of the materials within whichever directory you chose.
 
