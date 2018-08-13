@@ -99,7 +99,7 @@ If you don't want to bother using Git or have problems, simply download a zip fi
 - It is a full-featured programming language, in particular a scripting language (with similarities to Matlab and Python)
 - It can be run interactively or as a batch/background job
 - R is being actively developed with ongoing updates/new releases
-- R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see [CRAN](https://www.cran.r-project.org/web/packages/index.html) for the thousands of add-on packages
+- R has a variety of built-in as well as community-provided packages that extend its functionality with code and data; see [CRAN](https://cran.r-project.org/web/packages/index.html) for the thousands of add-on packages
 - It is freely-available and modifiable 
 - Available for Windows, Mac OS X, and [Linux](http://dilbert.com/strips/comic/1995-06-24/)
 
@@ -119,6 +119,7 @@ The pieces of an R session include:
 
 - The R console
 - Scripts containing your code
+  - The script window also has Notebook capabilities like Jupyter notebooks
 - Help files
 - Graphics windows
 - Workspace containing your objects, which hold data and information

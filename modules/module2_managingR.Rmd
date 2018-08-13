@@ -63,7 +63,7 @@ From the command line, you generally will just do
 ```{r eval = FALSE}
 install.packages('fields') 
 ```
-That should work without specifying the repository from which to download the package (though sometimes you will be given a menu of repositories from which to select) but sometimes you'll get errors indicating a package is not available for your version of R if you don't include an explicit repository. In this case you'll likely need to use a repository that uses `http` rather than `https`, e.g.,
+That should work without specifying the repository from which to download the package (though sometimes you will be given a menu of repositories from which to select) but sometimes you'll get errors indicating a package is not available for your version of R if you don't include an explicit repository. In this case youmight need to use a repository that uses `http` rather than `https`, e.g.,
 
 ```{r eval = FALSE}
 install.packages('fields', repos = 'http://cran.cnr.berkeley.edu') 
@@ -77,10 +77,11 @@ install.packages('fields', lib = file.path('~', 'R'))
 If you're using R directly installed on your laptop (i.e., most of you), now (or at the break) would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:
 
 ```{r eval=FALSE}
-install.packages(c('chron','colorspace','DBI','devtools','dichromat','digest',
-                   'doParallel', 'dplyr', 'fields','foreach','ggplot2',
-                   'gridExtra','gtable','inline', 'iterators','knitr',
-                   'labeling','lme4','mapproj','maps','munsell', 'proto',
+install.packages(c('chron','colorspace','codetools', 'DBI','devtools',
+                   'dichromat','digest','doParallel', 'dplyr', 'fields',
+                   'foreach','ggplot2','gridExtra','gtable','inline',
+                   'iterators','knitr','labeling','lattice','lme4',
+                   'mapproj','maps','munsell','proftools','proto','purrr',
                    'rbenchmark','RColorBrewer','Rcpp','reshape2','rJava',
                    'RSQLite', 'scales','spam','stringr','tidyr','xlsx',
                    'xlsxjars','xtable'))
@@ -134,9 +135,9 @@ Packages are available as "Package source", namely the raw code and help files, 
 To look at the raw R code (and possibly C/C++/Fortran code included in some packages), download and unzip the package source tarball. From the command line of a Linux/Mac terminal (note this won't look right in the slides version of the HTML):
 
 ```{r source_code, engine='bash', eval=FALSE}
-curl http://www.cran.r-project.org/src/contrib/fields_6.8.tar.gz \
-     -o fields_6.8.tar.gz
-tar -xvzf fields_6.8.tar.gz
+curl https://cran.r-project.org/src/contrib/fields_9.6.tar.gz \
+     -o fields_9.6.tar.gz
+tar -xvzf fields_9.6.tar.gz
 cd fields
 ls R
 ls src
@@ -156,7 +157,7 @@ Why make a package?
 * It helps make your work reproducible
 * It forces you to be more formal about your coding, which will improve your code
 
-See the *devtools* package and `package.skeleton()` for some useful tools to help you create a package. And there are lots of tips/tutorials online, in particular [Hadley Wickham's R packages book](http://r-pkgs.had.co.nz/).
+See the *devtools* package and `package.skeleton()` for some useful tools to help you create a package. And there are lots of tips/tutorials online, in particular [Hadley Wickham's R packages book](https://r-pkgs.had.co.nz/).
 
 # The working directory
 
@@ -267,7 +268,7 @@ As you're gathering by now, I've used Git and Github to manage all the content f
 
 We'll go through a short example of making changes to the r-bootcamp-2018 repository. In this case you don't have permission to make changes so you'll just have to follow along as I do it. However, you could start your own repository and then you'd be able to do similar things.
 
-Note that there are [graphical interfaces to Git](http://git-scm.com/downloads/guis) that you might want to check out, but here I'm just going to do it from the command line on my Mac.
+Note that there are [graphical interfaces to Git](https://git-scm.com/downloads/guis) that you might want to check out, but here I'm just going to do it from the command line on my Mac.
 
 The basic notion we need is a *commit*. As we make changes to our files, we want to commit those changes to the repository regularly. A *commit* is a set of changes recorded with Git. We will often then *push* those changes to a remote copy of the repository, such as on Github.
 
@@ -294,13 +295,13 @@ The changes are then available to anyone to *pull* from the remote repository, a
 
 There are several mailing lists that have lots of useful postings. In general if you have an error, others have already posted about it.
 
-- R help: [R mailing lists archive](http://tolstoy.newcastle.edu.au/R/)
-- [Stack Overflow](http://stackoverflow.com) (R stuff will be tagged with [R])
+- R help: [R mailing lists archive](https://tolstoy.newcastle.edu.au/R/)
+- [Stack Overflow](https://stackoverflow.com) (R stuff will be tagged with [R])
 - R help special interest groups (SIG) such as *r-sig-hpc* (high performance computing), *r-sig-mac* (R on Macs), etc. (not easily searchable)
 - Simple Google searches 
     - You may want to include "in R", with the quotes in the search
     - To search a SIG you might include the name of the SIG in the search string
-    - [Rseek.org](http://Rseek.org) for Google searches restricted to sites that have information on R
+    - [Rseek.org](https://Rseek.org) for Google searches restricted to sites that have information on R
 
 If you are searching you often want to search for a specific error message. Remember to use double quotes around your error message so it is not broken into individual words by the search engine. 
 
@@ -308,11 +309,11 @@ If you are searching you often want to search for a specific error message. Reme
 
 The main rule of thumb is to do your homework first to make sure the answer is not already available on the mailing list or in other documentation. Some of the folks who respond to mailing list questions are not the friendliest so it helps to have a thick skin, even if you have done your homework. On the plus side, they are very knowledgeable and include the world's foremost R experts/developers.
 
-Here are some guidelines when posting to one of the R mailing lists [http://www.r-project.org/posting-guide.html](http://www.r-project.org/posting-guide.html)
+Here are some guidelines when posting to one of the R mailing lists [https://www.r-project.org/posting-guide.html](https://www.r-project.org/posting-guide.html)
 
 `sessionInfo()` is a function that will give information about your R version, OS, etc., that you can include in your posting.
 
-You also want to include a short, focused, [reproducible](http://adv-r.had.co.nz/Reproducibility.html) example of your problem that others can run. 
+You also want to include a short, focused, [reproducible](https://adv-r.had.co.nz/Reproducibility.html) example of your problem that others can run. 
 
 
 # Breakout

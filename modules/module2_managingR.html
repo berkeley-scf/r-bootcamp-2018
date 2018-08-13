@@ -328,7 +328,7 @@ ls()
 <pre><code class="r">install.packages(&#39;fields&#39;) 
 </code></pre>
 
-<p>That should work without specifying the repository from which to download the package (though sometimes you will be given a menu of repositories from which to select) but sometimes you&#39;ll get errors indicating a package is not available for your version of R if you don&#39;t include an explicit repository. In this case you&#39;ll likely need to use a repository that uses <code>http</code> rather than <code>https</code>, e.g.,</p>
+<p>That should work without specifying the repository from which to download the package (though sometimes you will be given a menu of repositories from which to select) but sometimes you&#39;ll get errors indicating a package is not available for your version of R if you don&#39;t include an explicit repository. In this case youmight need to use a repository that uses <code>http</code> rather than <code>https</code>, e.g.,</p>
 
 <pre><code class="r">install.packages(&#39;fields&#39;, repos = &#39;http://cran.cnr.berkeley.edu&#39;) 
 </code></pre>
@@ -340,10 +340,11 @@ ls()
 
 <p>If you&#39;re using R directly installed on your laptop (i.e., most of you), now (or at the break) would be a good point to install the various packages we need for the bootcamp, which can be done easily with the following command:</p>
 
-<pre><code class="r">install.packages(c(&#39;chron&#39;,&#39;colorspace&#39;,&#39;DBI&#39;,&#39;devtools&#39;,&#39;dichromat&#39;,&#39;digest&#39;,
-                   &#39;doParallel&#39;, &#39;dplyr&#39;, &#39;fields&#39;,&#39;foreach&#39;,&#39;ggplot2&#39;,
-                   &#39;gridExtra&#39;,&#39;gtable&#39;,&#39;inline&#39;, &#39;iterators&#39;,&#39;knitr&#39;,
-                   &#39;labeling&#39;,&#39;lme4&#39;,&#39;mapproj&#39;,&#39;maps&#39;,&#39;munsell&#39;, &#39;proto&#39;,
+<pre><code class="r">install.packages(c(&#39;chron&#39;,&#39;colorspace&#39;,&#39;codetools&#39;, &#39;DBI&#39;,&#39;devtools&#39;,
+                   &#39;dichromat&#39;,&#39;digest&#39;,&#39;doParallel&#39;, &#39;dplyr&#39;, &#39;fields&#39;,
+                   &#39;foreach&#39;,&#39;ggplot2&#39;,&#39;gridExtra&#39;,&#39;gtable&#39;,&#39;inline&#39;,
+                   &#39;iterators&#39;,&#39;knitr&#39;,&#39;labeling&#39;,&#39;lattice&#39;,&#39;lme4&#39;,
+                   &#39;mapproj&#39;,&#39;maps&#39;,&#39;munsell&#39;,&#39;proftools&#39;,&#39;proto&#39;,&#39;purrr&#39;,
                    &#39;rbenchmark&#39;,&#39;RColorBrewer&#39;,&#39;Rcpp&#39;,&#39;reshape2&#39;,&#39;rJava&#39;,
                    &#39;RSQLite&#39;, &#39;scales&#39;,&#39;spam&#39;,&#39;stringr&#39;,&#39;tidyr&#39;,&#39;xlsx&#39;,
                    &#39;xlsxjars&#39;,&#39;xtable&#39;))
@@ -401,7 +402,7 @@ lm(y ~ x)
 </code></pre>
 
 <pre><code>## y ~ x
-## &lt;environment: 0x43e4588&gt;
+## &lt;environment: 0x31a8c78&gt;
 </code></pre>
 
 <pre><code class="r">stats::lm(y ~ x)
@@ -427,9 +428,9 @@ lm(y ~ x)
 
 <p>To look at the raw R code (and possibly C/C++/Fortran code included in some packages), download and unzip the package source tarball. From the command line of a Linux/Mac terminal (note this won&#39;t look right in the slides version of the HTML):</p>
 
-<pre><code class="bash">curl http://www.cran.r-project.org/src/contrib/fields_6.8.tar.gz \
-     -o fields_6.8.tar.gz
-tar -xvzf fields_6.8.tar.gz
+<pre><code class="bash">curl https://cran.r-project.org/src/contrib/fields_9.6.tar.gz \
+     -o fields_9.6.tar.gz
+tar -xvzf fields_9.6.tar.gz
 cd fields
 ls R
 ls src
@@ -451,7 +452,7 @@ ls data
 <li>It forces you to be more formal about your coding, which will improve your code</li>
 </ul>
 
-<p>See the <em>devtools</em> package and <code>package.skeleton()</code> for some useful tools to help you create a package. And there are lots of tips/tutorials online, in particular <a href="http://r-pkgs.had.co.nz/">Hadley Wickham&#39;s R packages book</a>.</p>
+<p>See the <em>devtools</em> package and <code>package.skeleton()</code> for some useful tools to help you create a package. And there are lots of tips/tutorials online, in particular <a href="https://r-pkgs.had.co.nz/">Hadley Wickham&#39;s R packages book</a>.</p>
 
 <h1>The working directory</h1>
 
@@ -561,7 +562,7 @@ print(xtable(table(air$UniqueCarrier, air$Cancelled)), type = &quot;html&quot;)
 </code></pre>
 
 <pre><code>## &lt;!-- html table generated in R 3.4.3 by xtable 1.8-2 package --&gt;
-## &lt;!-- Mon Aug 13 15:02:19 2018 --&gt;
+## &lt;!-- Mon Aug 13 15:56:38 2018 --&gt;
 ## &lt;table border=1&gt;
 ## &lt;tr&gt; &lt;th&gt;  &lt;/th&gt; &lt;th&gt; 0 &lt;/th&gt; &lt;th&gt; 1 &lt;/th&gt;  &lt;/tr&gt;
 ##   &lt;tr&gt; &lt;td align=&quot;right&quot;&gt; AA &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 49222 &lt;/td&gt; &lt;td align=&quot;right&quot;&gt; 1033 &lt;/td&gt; &lt;/tr&gt;
@@ -617,7 +618,7 @@ print(xtable(table(air$UniqueCarrier, air$Cancelled)), type = &quot;html&quot;)
 
 <p>We&#39;ll go through a short example of making changes to the r-bootcamp-2018 repository. In this case you don&#39;t have permission to make changes so you&#39;ll just have to follow along as I do it. However, you could start your own repository and then you&#39;d be able to do similar things.</p>
 
-<p>Note that there are <a href="http://git-scm.com/downloads/guis">graphical interfaces to Git</a> that you might want to check out, but here I&#39;m just going to do it from the command line on my Mac.</p>
+<p>Note that there are <a href="https://git-scm.com/downloads/guis">graphical interfaces to Git</a> that you might want to check out, but here I&#39;m just going to do it from the command line on my Mac.</p>
 
 <p>The basic notion we need is a <em>commit</em>. As we make changes to our files, we want to commit those changes to the repository regularly. A <em>commit</em> is a set of changes recorded with Git. We will often then <em>push</em> those changes to a remote copy of the repository, such as on Github.</p>
 
@@ -646,15 +647,15 @@ git push
 <p>There are several mailing lists that have lots of useful postings. In general if you have an error, others have already posted about it.</p>
 
 <ul>
-<li>R help: <a href="http://tolstoy.newcastle.edu.au/R/">R mailing lists archive</a></li>
-<li><a href="http://stackoverflow.com">Stack Overflow</a> (R stuff will be tagged with [R])</li>
+<li>R help: <a href="https://tolstoy.newcastle.edu.au/R/">R mailing lists archive</a></li>
+<li><a href="https://stackoverflow.com">Stack Overflow</a> (R stuff will be tagged with [R])</li>
 <li>R help special interest groups (SIG) such as <em>r-sig-hpc</em> (high performance computing), <em>r-sig-mac</em> (R on Macs), etc. (not easily searchable)</li>
 <li>Simple Google searches 
 
 <ul>
 <li>You may want to include &ldquo;in R&rdquo;, with the quotes in the search</li>
 <li>To search a SIG you might include the name of the SIG in the search string</li>
-<li><a href="http://Rseek.org">Rseek.org</a> for Google searches restricted to sites that have information on R</li>
+<li><a href="https://Rseek.org">Rseek.org</a> for Google searches restricted to sites that have information on R</li>
 </ul></li>
 </ul>
 
@@ -664,11 +665,11 @@ git push
 
 <p>The main rule of thumb is to do your homework first to make sure the answer is not already available on the mailing list or in other documentation. Some of the folks who respond to mailing list questions are not the friendliest so it helps to have a thick skin, even if you have done your homework. On the plus side, they are very knowledgeable and include the world&#39;s foremost R experts/developers.</p>
 
-<p>Here are some guidelines when posting to one of the R mailing lists <a href="http://www.r-project.org/posting-guide.html">http://www.r-project.org/posting-guide.html</a></p>
+<p>Here are some guidelines when posting to one of the R mailing lists <a href="https://www.r-project.org/posting-guide.html">https://www.r-project.org/posting-guide.html</a></p>
 
 <p><code>sessionInfo()</code> is a function that will give information about your R version, OS, etc., that you can include in your posting.</p>
 
-<p>You also want to include a short, focused, <a href="http://adv-r.had.co.nz/Reproducibility.html">reproducible</a> example of your problem that others can run. </p>
+<p>You also want to include a short, focused, <a href="https://adv-r.had.co.nz/Reproducibility.html">reproducible</a> example of your problem that others can run. </p>
 
 <h1>Breakout</h1>
 

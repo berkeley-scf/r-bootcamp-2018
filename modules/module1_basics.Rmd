@@ -29,6 +29,8 @@ log(100, base = 10)
 
 Think of a mathematical operation you need - can you guess how to do it in R?
 
+Side note to presenter: turn off R Notebook inline view via RStudio -> Preferences -> R Markdown -> Show output inline ...
+
 # Assigning values to R objects
 
 A key action in R is to store values in the form of R objects, and to examine the value of R objects.
@@ -126,7 +128,7 @@ getwd()
 ##
 ## setwd('/Users/paciorek/Desktop/r-bootcamp-2018/modules')
 ##
-## replace '~/Desktop' with whatever directory you put the bootcamp
+## replace '/Users/paciorek/Desktop' with whatever directory you put the bootcamp
 ## materials in; e.g. on Windows it might be something like
 ## 'C:\\Users\\sarah\\r-bootcamp-2018\\modules'
 ##
@@ -234,8 +236,6 @@ help(lm)
 ?lm
 
 ?log
-
-## ??'regr' # take out the '#' to demo live - there's an issue with Markdown processing...
 ```
 
 # Basic kinds of R objects
@@ -380,7 +380,8 @@ We'll see a little bit of *base* graphics here and then *lattice* and *ggplot2* 
 hist(air$DepDelay)
 ## make a random subset for quicker plotting:
 set.seed(1)  # make the subset reproducible
-subset <- air[sample(1:nrow(air), 10000, replace = FALSE), ]
+randomRows <- sample(1:nrow(air), 10000, replace = FALSE)
+subset <- air[randomRows, ]
 ## censor the outliers to limit plotting range
 subset$DepDelay[subset$DepDelay > 60*3] <- 60*3
 plot(subset$DepDelay ~ subset$Distance)
