@@ -82,7 +82,7 @@ legend("topleft", legend = c('IAH', 'ORD'), col = c('red', 'blue'), cex = 0.4,
 
 ```{r, basics2}
 ## 1 ##
-install.packages('lmtest', repos = 'http://cran.cnr.berkeley.edu')
+install.packages('lmtest', repos = 'https://cran.cnr.berkeley.edu')
 
 ## 2 ##
 getwd()
@@ -238,36 +238,7 @@ air$DayMinutes <- (air$Hour-1)*minutesPerHour + air$Minute
 hist(air$DayMinutes)
 ```
 
-# Module 5: Data manipulation using the tidyverse
-
-```{r, basics5}
-library(plyr)
-
-## 1 ##
-gap_median_lifeExp <- gapminder %>%
-    group_by(continent) %>%
-    summarize(med_lifeExp = median(lifeExp))
-
-## 2 ## 
-gapminder_pop_continent <- gapminder %>%
-    group_by(continent, year) %>%
-    mutate(continent_pop = sum(pop))
-
-## 3 ##
-gap_rel_gdp <- gapminder %>%
-    group_by(continent, year) %>%
-    mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap)) %>%
-    ungroup() %>%
-    arrange(desc(gdpPercap_diff))
-
-## 4 ##
-gap_wider <- gap_rel_gdp %>% 
-  select(country, year, gdpPercap_diff) %>% 
-  spread(year, gdpPercap_diff)
-
-```
-
-# Module 6: Programming
+# Module 5: Programming
 
 ```{r, basics6}
 ## 1 ##
@@ -347,6 +318,36 @@ f(1)
 ls(environment(f))
 environment(f)$x
 ```
+
+# Module 6: Data manipulation using the tidyverse
+
+```{r, basics5}
+library(plyr)
+
+## 1 ##
+gap_median_lifeExp <- gapminder %>%
+    group_by(continent) %>%
+    summarize(med_lifeExp = median(lifeExp))
+
+## 2 ## 
+gapminder_pop_continent <- gapminder %>%
+    group_by(continent, year) %>%
+    mutate(continent_pop = sum(pop))
+
+## 3 ##
+gap_rel_gdp <- gapminder %>%
+    group_by(continent, year) %>%
+    mutate(gdpPercap_diff = gdpPercap - mean(gdpPercap)) %>%
+    ungroup() %>%
+    arrange(desc(gdpPercap_diff))
+
+## 4 ##
+gap_wider <- gap_rel_gdp %>% 
+  select(country, year, gdpPercap_diff) %>% 
+  spread(year, gdpPercap_diff)
+
+```
+
 
 # 7) Module 7: Core tools
 

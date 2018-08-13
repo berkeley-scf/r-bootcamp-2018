@@ -302,7 +302,7 @@ designed such that the only effect of the function is through the return value.
 
 **Side effects** are when a function affects the state of the world in
 addition to its return value.  Can you think of any side effects that
-you saw an R function produce from yesterday?  What about:
+you saw an R function produce from earlier today?  What about:
 
 - `library()`
 - `setwd()`
