@@ -5,8 +5,8 @@
 ```{r chunksetup, include=FALSE} 
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
-require(foreign)
-require(fields)
+library(foreign)
+library(fields)
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
 air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
@@ -83,7 +83,7 @@ Some decompositions
 
 ```{r cache=TRUE}
 ## next 3 lines generate a positive definite matrix
-require(fields)
+library(fields)
 times <- seq(0, 1, length = 100)
 R <- exp(-rdist(times) / 0.2) # a correlation matrix
 ######################################################

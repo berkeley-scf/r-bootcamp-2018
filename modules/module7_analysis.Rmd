@@ -5,8 +5,8 @@
 ```{r chunksetup, include=FALSE} 
 # include any code here you don't want to show up in the document,
 # e.g. package and dataset loading
-require(fields)
-require(foreign)
+library(fields)
+library(foreign)
 if(!('modules' %in% unlist(strsplit(getwd(), split = '/')))) setwd('modules')
 air <- read.csv(file.path('..', 'data', 'airline.csv'), stringsAsFactors = FALSE)
 ```
@@ -256,7 +256,7 @@ R provides functionality for optimization - finding maxima or minima of a functi
 A workhorse is `optim()`, which implements a number of optimization algorithms. 
 
 ```{r eval=FALSE, fig.cap = ""} 
-require(fields)  
+library(fields)  
 ```
 ```{r fig.width=11, fig.height=5}
  banana <- function(x) {   ## Rosenbrock Banana function

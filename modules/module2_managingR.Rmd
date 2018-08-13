@@ -235,7 +235,7 @@ dev.off()
 `xtable()` formats tables for HTML and Latex (the default).
 
 ```{r}
-require(xtable)
+library(xtable)
 print(xtable(table(air$UniqueCarrier, air$Cancelled)), type = "html")
 ```
 

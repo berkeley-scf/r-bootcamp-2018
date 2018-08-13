@@ -95,8 +95,8 @@ The fields of an S4 class are called 'slots'. Instead of `x$field` you do `x@fie
 Here's a bit of an example of an S4 class for a linear mixed effects model from *lme4*:
 
 ```{r}
-require(lme4)
-require(methods)
+library(lme4)
+library(methods)
 fm1 <- lmer(Reaction ~ Days + (Days|Subject), sleepstudy)
 class(fm1)
 methods(class = "lmerMod")
@@ -449,9 +449,9 @@ To use multiple cores on a single machine, use the *parallel* back-end from the 
 
 ```{r cache=TRUE}
 # note to CJP: don't run in RStudio
-require(parallel)
-require(doParallel)
-require(foreach)
+library(parallel)
+library(doParallel)
+library(foreach)
 
 nCores <- 4  # actually only 2 on my laptop, but appears hyperthreaded
 registerDoParallel(nCores)
@@ -487,7 +487,7 @@ Here's `parLapply`:
 
 
 ```{r cache=TRUE}
-require(parallel)
+library(parallel)
 nCores <- 4
 cluster <- makeCluster(nCores)
 cluster
@@ -504,7 +504,7 @@ out[1:5]
 And here is `mclapply`, which is similar:
 
 ```{r cache=TRUE}
-require(parallel)
+library(parallel)
 nCores <- 4
 out2 <- mclapply(unique(air$Dest), fitFun, mc.cores = nCores)
 out2[1:5]
