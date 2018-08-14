@@ -490,9 +490,9 @@ There are some other useful packages in the [tidyverse](http://www.tidyverse.org
 
 2. Use `dplyr` to add a column to the gapminder dataset that contains the total population of the continent of each observation in a given year. For example, if the first observation is Afghanistan in 1952, the new column would contain the population of Asia in 1952.
 
-3. Use `dplyr` to: add a column called `gdpPercap_diff` that contains the difference between the observation's `gdpPercap` and the mean `gdpPercap` of the continent in that year. Arrange the dataframe by the column you just created, in descending order (so that the relatively richest country/years are listed first)
+3. Use `dplyr` to add a column called `gdpPercap_diff` that contains the difference between the observation's `gdpPercap` and the mean `gdpPercap` of the continent in that year. Arrange the dataframe by the column you just created, in descending order (so that the relatively richest country/years are listed first)
 
-**hint**: You might have to `ungroup()` before you `arrange()`.
+   **hint**: You might have to `ungroup()` before you `arrange()`.
 
 ### `tidyr`
 

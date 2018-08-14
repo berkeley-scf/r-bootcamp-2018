@@ -21,7 +21,7 @@ We'll just see the basics of how to fit regressions here.
 
 # Inference/Regression
 
-- Running regressions in R is extremely simple, very straightforwd (though doing things with standard errors requires a little extra work)
+- Running regressions in R is generally straightforward.
 
 - Most basic, catch-all regression function in R is *glm*
 
@@ -183,7 +183,7 @@ Some of the distributions include the following (in the form of their random num
 
 # Distributions in action
 
-```{r}
+```{r, fig.cap = ""}
 pnorm(1.96)
 qnorm(.975)
 dbinom(0:10, size = 10, prob = 0.3)

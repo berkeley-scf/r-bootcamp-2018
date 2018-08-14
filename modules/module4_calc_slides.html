@@ -73,7 +73,7 @@ chi2_df1000 &lt;-<span class="st"> </span><span class="kw">sum</span>(chi2vals)
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="fl">1e6</span>)
 <span class="kw">system.time</span>(trunc &lt;-<span class="st"> </span><span class="kw">ifelse</span>(vals &gt;<span class="st"> </span><span class="dv">0</span>, vals, <span class="dv">0</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.064   0.004   0.066</code></pre>
+##   0.068   0.000   0.066</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">system.time</span>(vals &lt;-<span class="st"> </span>vals *<span class="st"> </span>(vals &gt;<span class="st"> </span><span class="dv">0</span>))</code></pre></div>
 <pre><code>##    user  system elapsed 
 ##   0.004   0.000   0.005</code></pre>
@@ -198,7 +198,7 @@ for(i in <span class="dv">1</span>:n)
       vals[i] &lt;-<span class="st"> </span>i
 })</code></pre></div>
 <pre><code>##    user  system elapsed 
-##   0.040   0.000   0.039</code></pre>
+##   0.036   0.000   0.034</code></pre>
 <p>Here's how to pre-allocate an empty list:</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">vals &lt;-<span class="st"> </span><span class="kw">list</span>(); <span class="kw">length</span>(vals) &lt;-<span class="st"> </span>n
 <span class="kw">head</span>(vals)</code></pre></div>
@@ -269,7 +269,7 @@ test[[<span class="dv">2</span>]]</code></pre></div>
 <p>There are a bunch of <code>apply()</code> variants, as well as parallelized versions of them:</p>
 <ul>
 <li><code>tapply()</code>, <code>vapply()</code>, <code>mapply()</code>, <code>rapply()</code>, <code>eapply()</code></li>
-<li>for parallelized versions see Module 10 or <code>?clusterApply</code>)</li>
+<li>for parallelized versions see Module 10 or <code>?clusterApply</code></li>
 </ul>
 </div>
 <div id="tabulation" class="slide section level1">
@@ -512,7 +512,7 @@ subsets &lt;-<span class="st"> </span><span class="kw">split</span>(airSmall, ai
 ##   ORD  0  0  1  0 -1  2  0  0 -1 -1 -1  2
 ##   PHX -1 -1 -1 -2 -2  0 -1 -1 -2 -2 -2  0
 ##   SEA -2 -1 -1 -2 -1  1  0 -1 -3 -3 -2  1</code></pre>
-<p>Notice the 'long' vs. 'wide' formats. You'll see more about that sort of thing in Module 5.</p>
+<p>Notice the 'long' vs. 'wide' formats. You'll see more about that sort of thing in Module 6.</p>
 </div>
 <div id="discretization" class="slide section level1">
 <h1>Discretization</h1>
@@ -555,12 +555,13 @@ airSmall$Month &lt;-<span class="st"> </span><span class="kw">relevel</span>(air
 airSmall$Dest &lt;-<span class="st"> </span><span class="kw">as.character</span>(airSmall$Dest)
 
 out &lt;-<span class="st"> </span><span class="kw">by</span>(airSmall, airSmall$Dest, 
-function(x) {
-  if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(x$late))) 
-    <span class="co"># fit logistic regression</span>
-    <span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> x) 
-  else <span class="ot">NA</span>
-})
+    function(x) {
+      if(<span class="kw">sum</span>(!<span class="kw">is.na</span>(x$late))) 
+        <span class="co"># fit logistic regression</span>
+        <span class="kw">glm</span>(late ~<span class="st"> </span>Month, <span class="dt">family =</span> binomial, <span class="dt">data =</span> x) 
+      else <span class="ot">NA</span>
+    }
+)
 <span class="kw">length</span>(out)</code></pre></div>
 <pre><code>## [1] 10</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(out[[<span class="st">'IAH'</span>]])</code></pre></div>
@@ -691,8 +692,15 @@ ord[<span class="dv">1</span>:<span class="dv">5</span>]</code></pre></div>
 <p>We often need to combine data across multiple data frames, merging on common fields (i.e., <em>keys</em>). In database terminology, this is a <em>join</em> operation.</p>
 <p>Here's an example where we want to add a column indicating the number of flights to the given destination.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">numFlights &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">table</span>(air$Dest))
-
-air2 &lt;-<span class="st"> </span><span class="kw">merge</span>(air, numFlights, <span class="dt">by.x =</span> <span class="st">'Dest'</span>, <span class="dt">by.y =</span> <span class="st">'Var1'</span>,
+<span class="kw">head</span>(numFlights)</code></pre></div>
+<pre><code>##   Var1  Freq
+## 1  ABQ  2467
+## 2  ACV 10402
+## 3  ANC   613
+## 4  ASE   166
+## 5  ATL 13374
+## 6  AUS  1705</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">air2 &lt;-<span class="st"> </span><span class="kw">merge</span>(air, numFlights, <span class="dt">by.x =</span> <span class="st">'Dest'</span>, <span class="dt">by.y =</span> <span class="st">'Var1'</span>,
      <span class="dt">all.x =</span> <span class="ot">TRUE</span>, <span class="dt">all.y =</span> <span class="ot">FALSE</span>)
 <span class="kw">dim</span>(air)</code></pre></div>
 <pre><code>## [1] 539895     31</code></pre>

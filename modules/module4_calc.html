@@ -229,7 +229,7 @@ system.time(trunc &lt;- ifelse(vals &gt; 0, vals, 0))
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.064   0.004   0.065
+##   0.064   0.000   0.064
 </code></pre>
 
 <pre><code class="r">system.time(vals &lt;- vals * (vals &gt; 0))
@@ -422,7 +422,7 @@ for(i in 1:n)
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.032   0.000   0.034
+##   0.036   0.000   0.037
 </code></pre>
 
 <p>Here&#39;s how to pre-allocate an empty list: </p>
@@ -532,7 +532,7 @@ test[[2]]
 
 <ul>
 <li><code>tapply()</code>, <code>vapply()</code>, <code>mapply()</code>, <code>rapply()</code>, <code>eapply()</code></li>
-<li>for parallelized versions see Module 10 or <code>?clusterApply</code>)</li>
+<li>for parallelized versions see Module 10 or <code>?clusterApply</code></li>
 </ul>
 
 <h1>Tabulation</h1>
@@ -819,7 +819,7 @@ xtabs(DepDelay ~ ., data = agg)
 ##   SEA -2 -1 -1 -2 -1  1  0 -1 -3 -3 -2  1
 </code></pre>
 
-<p>Notice the &#39;long&#39; vs. &#39;wide&#39; formats. You&#39;ll see more about that sort of thing in Module 5.</p>
+<p>Notice the &#39;long&#39; vs. &#39;wide&#39; formats. You&#39;ll see more about that sort of thing in Module 6.</p>
 
 <h1>Discretization</h1>
 
@@ -867,12 +867,13 @@ airSmall$Month &lt;- relevel(airSmall$Month, &quot;5&quot;)
 airSmall$Dest &lt;- as.character(airSmall$Dest)
 
 out &lt;- by(airSmall, airSmall$Dest, 
-function(x) {
-  if(sum(!is.na(x$late))) 
-    # fit logistic regression
-    glm(late ~ Month, family = binomial, data = x) 
-  else NA
-})
+    function(x) {
+      if(sum(!is.na(x$late))) 
+        # fit logistic regression
+        glm(late ~ Month, family = binomial, data = x) 
+      else NA
+    }
+)
 length(out)
 </code></pre>
 
@@ -1027,8 +1028,19 @@ head(air_ordered)
 <p>Here&#39;s an example where we want to add a column indicating the number of flights to the given destination.</p>
 
 <pre><code class="r">numFlights &lt;- as.data.frame(table(air$Dest))
+head(numFlights)
+</code></pre>
 
-air2 &lt;- merge(air, numFlights, by.x = &#39;Dest&#39;, by.y = &#39;Var1&#39;,
+<pre><code>##   Var1  Freq
+## 1  ABQ  2467
+## 2  ACV 10402
+## 3  ANC   613
+## 4  ASE   166
+## 5  ATL 13374
+## 6  AUS  1705
+</code></pre>
+
+<pre><code class="r">air2 &lt;- merge(air, numFlights, by.x = &#39;Dest&#39;, by.y = &#39;Var1&#39;,
      all.x = TRUE, all.y = FALSE)
 dim(air)
 </code></pre>

@@ -203,7 +203,7 @@ test[[2]]
 There are a bunch of `apply()` variants, as well as parallelized versions of them:
 
 * `tapply()`, `vapply()`, `mapply()`, `rapply()`, `eapply()`
-* for parallelized versions see Module 10 or `?clusterApply`)
+* for parallelized versions see Module 10 or `?clusterApply`
 
 # Tabulation 
 
@@ -256,7 +256,7 @@ agg <- aggregate(DepDelay ~ Dest + Month, data = airSmall, FUN = median)
 xtabs(DepDelay ~ ., data = agg)
 ```
 
-Notice the 'long' vs. 'wide' formats. You'll see more about that sort of thing in Module 5.
+Notice the 'long' vs. 'wide' formats. You'll see more about that sort of thing in Module 6.
 
 # Discretization
 
@@ -281,12 +281,13 @@ airSmall$Month <- relevel(airSmall$Month, "5")
 airSmall$Dest <- as.character(airSmall$Dest)
 
 out <- by(airSmall, airSmall$Dest, 
-function(x) {
-  if(sum(!is.na(x$late))) 
-    # fit logistic regression
-    glm(late ~ Month, family = binomial, data = x) 
-  else NA
-})
+    function(x) {
+      if(sum(!is.na(x$late))) 
+        # fit logistic regression
+        glm(late ~ Month, family = binomial, data = x) 
+      else NA
+    }
+)
 length(out)
 summary(out[['IAH']])
 summary(out[['ORD']])
@@ -317,6 +318,7 @@ Here's an example where we want to add a column indicating the number of flights
 
 ```{r} 
 numFlights <- as.data.frame(table(air$Dest))
+head(numFlights)
 
 air2 <- merge(air, numFlights, by.x = 'Dest', by.y = 'Var1',
      all.x = TRUE, all.y = FALSE)

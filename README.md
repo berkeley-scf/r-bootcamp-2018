@@ -18,7 +18,7 @@ No prior experience with R is expected, but some familiarity with programming co
 
 Course logistics
 
-Location: Genetics & Plant Biology (GPB) 100 ([map](https://www.google.com/maps/@37.8735542,-122.2650818,18z), UC Berkeley campus.
+Location: Genetics & Plant Biology (GPB) 100, UC Berkeley campus ([map](https://www.google.com/maps/@37.8735542,-122.2650818,18z)).
 
 Time: 
   - Saturday, Aug. 18, 8:15 am - 5 pm
