@@ -258,7 +258,8 @@ A workhorse is `optim()`, which implements a number of optimization algorithms.
 ```{r eval=FALSE, fig.cap = ""} 
 library(fields)  
 ```
-```{r fig.width=11, fig.height=5}
+
+```{r fig.width=11, fig.height=5, fig.cap = ""}
  banana <- function(x) {   ## Rosenbrock Banana function
          x1 <- x[1]
          x2 <- x[2]
@@ -342,13 +343,13 @@ There's lots more packages/functionality for dates/times: see *lubridate* and `?
 
 5) Consider the code where we used `sample()`.  Initialize a storage vector of 500 zeroes. Set up a bootstrap using a for loop, with 500 bootstrap datasets. Here are the steps within each iteration:
 
-- resample with replacement a new dataset of the same size as the actual dataset
-- assign the value of the mean of the delay for the bootstrap dataset into the storage vector
-- repeat
+  - resample with replacement a new dataset of the same size as the actual dataset
+  - assign the value of the mean of the delay for the bootstrap dataset into the storage vector
+  - repeat
 
 Now plot a histogram of the 500 values - this is an estimate of the sampling distribution of the sample mean. 
 
-6) Modify the GAMs of delay on month and time to set `k` to a variety of values and see how the estimated relationships change. 
+6) Modify the GAMs of delay on month and time to set `k` to a variety of values for `SchedDepCont` and see how the estimated relationships change. 
 
 ### Advanced 
 

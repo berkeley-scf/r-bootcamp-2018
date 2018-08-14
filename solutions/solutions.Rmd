@@ -420,7 +420,7 @@ fold_size[nFolds] <- n - (nFolds - 1)*fold_size[1]
 
 fold <- rep(1:nFolds, times = fold_size)
 table(fold)
-set.seed(0)
+set.seed(1)
 air$Fold <- sample(fold, replace = TRUE)
 
 ## 9 ##
