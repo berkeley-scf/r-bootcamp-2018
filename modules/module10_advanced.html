@@ -297,24 +297,28 @@ mod2$residuals[1:20] # access field with list-like syntax
 <pre><code>##  [1] predict.ar*                predict.Arima*            
 ##  [3] predict.arima0*            predict.bam               
 ##  [5] predict.bs*                predict.bSpline*          
-##  [7] predict.gam                predict.glm               
-##  [9] predict.glmmPQL*           predict.gls*              
-## [11] predict.gnls*              predict.HoltWinters*      
-## [13] predict.jam*               predict.lda*              
-## [15] predict.lm                 predict.lme*              
-## [17] predict.lmList*            predict.lmList4*          
-## [19] predict.loess*             predict.lqs*              
-## [21] predict.mca*               predict.merMod*           
-## [23] predict.mlm*               predict.nbSpline*         
-## [25] predict.nlme*              predict.nls*              
-## [27] predict.npolySpline*       predict.ns*               
-## [29] predict.pbSpline*          predict.polr*             
-## [31] predict.poly*              predict.polySpline*       
-## [33] predict.ppolySpline*       predict.ppr*              
-## [35] predict.prcomp*            predict.princomp*         
-## [37] predict.qda*               predict.rlm*              
-## [39] predict.smooth.spline*     predict.smooth.spline.fit*
-## [41] predict.StructTS*         
+##  [7] predict.fastTps            predict.gam               
+##  [9] predict.glm                predict.glmmPQL*          
+## [11] predict.gls*               predict.gnls*             
+## [13] predict.HoltWinters*       predict.interp.surface    
+## [15] predict.jam*               predict.Krig              
+## [17] predict.lda*               predict.lm                
+## [19] predict.lme*               predict.lmList*           
+## [21] predict.lmList4*           predict.loess*            
+## [23] predict.lqs*               predict.mca*              
+## [25] predict.merMod*            predict.mKrig             
+## [27] predict.mlm*               predict.nbSpline*         
+## [29] predict.nlme*              predict.nls*              
+## [31] predict.npolySpline*       predict.ns*               
+## [33] predict.pbSpline*          predict.polr*             
+## [35] predict.poly*              predict.polySpline*       
+## [37] predict.ppolySpline*       predict.ppr*              
+## [39] predict.prcomp*            predict.princomp*         
+## [41] predict.qda*               predict.qsreg             
+## [43] predict.rlm*               predict.smooth.spline*    
+## [45] predict.smooth.spline.fit* predict.sreg              
+## [47] predict.StructTS*          predict.surface           
+## [49] predict.surface.default    predict.Tps               
 ## see &#39;?methods&#39; for accessing help and source code
 </code></pre>
 
@@ -323,7 +327,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x561e26128298&gt;
+## &lt;bytecode: 0x424e088&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
@@ -393,8 +397,8 @@ rboot2018
 
 <p>Here&#39;s a bit of an example of an S4 class for a linear mixed effects model from <em>lme4</em>:</p>
 
-<pre><code class="r">require(lme4)
-require(methods)
+<pre><code class="r">library(lme4)
+library(methods)
 fm1 &lt;- lmer(Reaction ~ Days + (Days|Subject), sleepstudy)
 class(fm1)
 </code></pre>
@@ -826,31 +830,25 @@ db &lt;- dbConnect(SQLite(), dbname = &quot;../data/stackoverflow-2016.db&quot;)
 dbListTables(db)
 </code></pre>
 
-<pre><code>## character(0)
+<pre><code>## [1] &quot;answers&quot;          &quot;maxRepByQuestion&quot; &quot;questions&quot;       
+## [4] &quot;questionsAugment&quot; &quot;questions_tags&quot;   &quot;users&quot;
 </code></pre>
 
 <pre><code class="r">dbListFields(db, &quot;questions&quot;)
 </code></pre>
 
-<pre><code>## Error in result_create(conn@ptr, statement): no such table: questions
+<pre><code>## [1] &quot;questionid&quot;   &quot;creationdate&quot; &quot;score&quot;        &quot;viewcount&quot;   
+## [5] &quot;title&quot;        &quot;ownerid&quot;
 </code></pre>
 
 <pre><code class="r">## simple filter operation
 popular &lt;- dbGetQuery(db, &quot;select * from questions 
    where viewcount &gt; 10000&quot;)
-</code></pre>
-
-<pre><code>## Error in result_create(conn@ptr, statement): no such table: questions
-</code></pre>
-
-<pre><code class="r">## a join followed by a filter operation
+## a join followed by a filter operation
 popularR &lt;- dbGetQuery(db, &quot;select * from questions join questions_tags
    on questions.questionid = questions_tags.questionid
    where viewcount &gt; 10000 and
    tag = &#39;r&#39;&quot;)
-</code></pre>
-
-<pre><code>## Error in result_create(conn@ptr, statement): no such table: questions
 </code></pre>
 
 <h1>Computer architecture</h1>
@@ -956,28 +954,12 @@ U &lt;- chol(crossprod(x))
 
 <p>The <em>foreach</em> package provides a way to do a for loop using multiple cores. It can use a variety of &#39;back-ends&#39; that handle the nitty-gritty of the parallelization. </p>
 
-<p>To use multiple cores on a single machine, use the <em>parallel</em> back-end from the <em>doParallel</em> package (or <em>multicore</em> from <em>doMC</em>)</p>
+<p>To use multiple cores on a single machine, use the <em>parallel</em> back-end from the <em>doParallel</em> package.</p>
 
 <pre><code class="r"># note to CJP: don&#39;t run in RStudio
-require(parallel)
-</code></pre>
-
-<pre><code>## Loading required package: parallel
-</code></pre>
-
-<pre><code class="r">require(doParallel)
-</code></pre>
-
-<pre><code>## Loading required package: doParallel
-</code></pre>
-
-<pre><code>## Loading required package: foreach
-</code></pre>
-
-<pre><code>## Loading required package: iterators
-</code></pre>
-
-<pre><code class="r">require(foreach)
+library(parallel)
+library(doParallel)
+library(foreach)
 
 nCores &lt;- 4  # actually only 2 on my laptop, but appears hyperthreaded
 registerDoParallel(nCores)
@@ -1077,7 +1059,7 @@ out[1:5]
 
 <p>Here&#39;s <code>parLapply</code>:</p>
 
-<pre><code class="r">require(parallel)
+<pre><code class="r">library(parallel)
 nCores &lt;- 4
 cluster &lt;- makeCluster(nCores)
 cluster
@@ -1168,76 +1150,18 @@ out[1:5]
 
 <p>And here is <code>mclapply</code>, which is similar:</p>
 
-<pre><code class="r">require(parallel)
+<pre><code class="r">library(parallel)
 nCores &lt;- 4
 out2 &lt;- mclapply(unique(air$Dest), fitFun, mc.cores = nCores)
-out2[1:5]
 </code></pre>
 
-<pre><code>## [[1]]
-## 
-## Family: gaussian 
-## Link function: identity 
-## 
-## Formula:
-## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
-## 
-## Estimated degrees of freedom:
-## 7.51 7.49  total = 23 
-## 
-## GCV score: 1051.858     
-## 
-## [[2]]
-## 
-## Family: gaussian 
-## Link function: identity 
-## 
-## Formula:
-## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
-## 
-## Estimated degrees of freedom:
-## 7.46 8.64  total = 24.1 
-## 
-## GCV score: 1325.755     
-## 
-## [[3]]
-## 
-## Family: gaussian 
-## Link function: identity 
-## 
-## Formula:
-## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
-## 
-## Estimated degrees of freedom:
-## 5.93 8.70  total = 22.63 
-## 
-## GCV score: 639.5956     
-## 
-## [[4]]
-## 
-## Family: gaussian 
-## Link function: identity 
-## 
-## Formula:
-## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
-## 
-## Estimated degrees of freedom:
-## 7.84 8.51  total = 24.35 
-## 
-## GCV score: 880.4363     
-## 
-## [[5]]
-## 
-## Family: gaussian 
-## Link function: identity 
-## 
-## Formula:
-## DepDelay ~ Year + s(Month) + s(Hour) + as.factor(DayOfWeek)
-## 
-## Estimated degrees of freedom:
-## 8.00 5.68  total = 21.69 
-## 
-## GCV score: 1367.66
+<pre><code>## Error in mcfork(): unable to fork, possible reason: Cannot allocate memory
+</code></pre>
+
+<pre><code class="r">out2[1:5]
+</code></pre>
+
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;out2&#39; not found
 </code></pre>
 
 <p>One thing to keep in mind is whether the different tasks all take about the same amount of time or widely different times. In the latter case, one wants to sequentially dispatch tasks as earlier tasks finish, rather than dispatching a block of tasks to each core. Some of these parallel <em>apply</em> variants allow you to control this. </p>

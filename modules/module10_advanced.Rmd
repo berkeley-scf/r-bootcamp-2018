@@ -445,7 +445,7 @@ First, make sure your iterations are independent and don't involve sequential ca
 
 The *foreach* package provides a way to do a for loop using multiple cores. It can use a variety of 'back-ends' that handle the nitty-gritty of the parallelization. 
 
-To use multiple cores on a single machine, use the *parallel* back-end from the *doParallel* package (or *multicore* from *doMC*)
+To use multiple cores on a single machine, use the *parallel* back-end from the *doParallel* package.
 
 ```{r cache=TRUE}
 # note to CJP: don't run in RStudio
