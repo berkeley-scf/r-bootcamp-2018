@@ -269,7 +269,7 @@ f &lt;- function() {y &lt;- 3; print(x + y)}
 findGlobals(f)
 </code></pre>
 
-<pre><code>## [1] &quot;{&quot;     &quot;+&quot;     &quot;&lt;-&quot;    &quot;print&quot; &quot;x&quot;
+<pre><code>## [1] &quot;&lt;-&quot;    &quot;{&quot;     &quot;+&quot;     &quot;print&quot; &quot;x&quot;
 </code></pre>
 
 <ul>
@@ -289,7 +289,7 @@ dim(mat); print(mat)
 <pre><code class="r">colSums(mat)
 </code></pre>
 
-<pre><code>## Error in colSums(mat): &#39;x&#39; must be an array of at least two dimensions
+<pre><code>## Error in base::colSums(x, na.rm = na.rm, dims = dims, ...): &#39;x&#39; must be an array of at least two dimensions
 </code></pre>
 
 <pre><code class="r">mat &lt;- matrix(1:4, 2, 2)[1, , drop = FALSE]
@@ -330,7 +330,7 @@ buggyFun(air)
 ## [28] &quot;SecurityDelay&quot;     &quot;LateAircraftDelay&quot;
 </code></pre>
 
-<pre><code>## Error in rowSums(myDF): &#39;x&#39; must be numeric
+<pre><code>## Error in base::rowSums(x, na.rm = na.rm, dims = dims, ...): &#39;x&#39; must be numeric
 </code></pre>
 
 <pre><code class="r">if(FALSE) {
@@ -385,22 +385,19 @@ execution, and reporting.  For more information, see Bioconductor&#39;s <a href=
 </code></pre>
 
 <pre><code>##    user  system elapsed 
-##   0.531   0.004   0.535
+##   0.800   0.024   0.825
 </code></pre>
 
 <pre><code class="r">library(rbenchmark)
-</code></pre>
-
-<pre><code>## Error in library(rbenchmark): there is no package called &#39;rbenchmark&#39;
-</code></pre>
-
-<pre><code class="r">x &lt;- rnorm(1e7)
+x &lt;- rnorm(1e7)
 benchmark(ifelse(x &lt; 0, x, 0),
                    x[x &lt; 0] &lt;- 0, replications = 5,
                    columns = c(&#39;replications&#39;, &#39;elapsed&#39;))
 </code></pre>
 
-<pre><code>## Error in benchmark(ifelse(x &lt; 0, x, 0), x[x &lt; 0] &lt;- 0, replications = 5, : could not find function &quot;benchmark&quot;
+<pre><code>##   replications elapsed
+## 1            5   3.246
+## 2            5   0.198
 </code></pre>
 
 <h1>Profiling your code</h1>
@@ -442,63 +439,110 @@ y &lt;- rnorm(5000)
 x &lt;- matrix(rnorm(5000*1000), nrow = 5000)
 
 library(proftools)
+
+pd1 &lt;- profileExpr(lr_slow(y, x))
+hotPaths(pd1)
 </code></pre>
 
-<pre><code>## Error in library(proftools): there is no package called &#39;proftools&#39;
-</code></pre>
-
-<pre><code class="r">pd1 &lt;- profileExpr(lr_slow(y, x))
-</code></pre>
-
-<pre><code>## Error in profileExpr(lr_slow(y, x)): could not find function &quot;profileExpr&quot;
-</code></pre>
-
-<pre><code class="r">hotPaths(pd1)
-</code></pre>
-
-<pre><code>## Error in hotPaths(pd1): could not find function &quot;hotPaths&quot;
+<pre><code>##  path                  total.pct self.pct
+##  lr_slow               54.29      0.00   
+##  . %*% (&lt;text&gt;:2)      28.57     28.57   
+##  . t (&lt;text&gt;:3)        11.43      0.00   
+##  . . standardGeneric   11.43      0.00   
+##  . . . t               11.43      0.00   
+##  . . . . t.default     11.43     11.43   
+##  . solve (&lt;text&gt;:4)    10.00      0.00   
+##  . . standardGeneric   10.00      0.00   
+##  . . . solve           10.00      0.00   
+##  . . . . solve.default 10.00     10.00   
+##  . t (&lt;text&gt;:2)         4.29      0.00   
+##  . . standardGeneric    4.29      0.00   
+##  . . . t                4.29      0.00   
+##  . . . . t.default      4.29      4.29   
+##  lazyLoadDBfetch       45.71      0.00   
+##  . &lt;Anonymous&gt;         45.71      0.00   
+##  . . lazyLoadDBfetch   45.71     45.71
 </code></pre>
 
 <pre><code class="r">hotPaths(pd1, value = &#39;time&#39;)
 </code></pre>
 
-<pre><code>## Error in hotPaths(pd1, value = &quot;time&quot;): could not find function &quot;hotPaths&quot;
+<pre><code>##  path                  total.time self.time
+##  lr_slow               0.76       0.00     
+##  . %*% (&lt;text&gt;:2)      0.40       0.40     
+##  . t (&lt;text&gt;:3)        0.16       0.00     
+##  . . standardGeneric   0.16       0.00     
+##  . . . t               0.16       0.00     
+##  . . . . t.default     0.16       0.16     
+##  . solve (&lt;text&gt;:4)    0.14       0.00     
+##  . . standardGeneric   0.14       0.00     
+##  . . . solve           0.14       0.00     
+##  . . . . solve.default 0.14       0.14     
+##  . t (&lt;text&gt;:2)        0.06       0.00     
+##  . . standardGeneric   0.06       0.00     
+##  . . . t               0.06       0.00     
+##  . . . . t.default     0.06       0.06     
+##  lazyLoadDBfetch       0.64       0.00     
+##  . &lt;Anonymous&gt;         0.64       0.00     
+##  . . lazyLoadDBfetch   0.64       0.64
 </code></pre>
 
 <pre><code class="r">pd1 &lt;- profileExpr(lr_medium(y, x))
+hotPaths(pd1)
 </code></pre>
 
-<pre><code>## Error in profileExpr(lr_medium(y, x)): could not find function &quot;profileExpr&quot;
-</code></pre>
-
-<pre><code class="r">hotPaths(pd1)
-</code></pre>
-
-<pre><code>## Error in hotPaths(pd1): could not find function &quot;hotPaths&quot;
+<pre><code>##  path                   total.pct self.pct
+##  lr_medium              100.00     0.00   
+##  . crossprod (&lt;text&gt;:9)  58.82     0.00   
+##  . . crossprod           58.82     0.00   
+##  . . . base::crossprod   58.82    58.82   
+##  . solve (&lt;text&gt;:11)     41.18     0.00   
+##  . . standardGeneric     41.18     0.00   
+##  . . . solve             41.18     0.00   
+##  . . . . solve.default   41.18    41.18
 </code></pre>
 
 <pre><code class="r">hotPaths(pd1, value = &#39;time&#39;)
 </code></pre>
 
-<pre><code>## Error in hotPaths(pd1, value = &quot;time&quot;): could not find function &quot;hotPaths&quot;
+<pre><code>##  path                   total.time self.time
+##  lr_medium              0.34       0.00     
+##  . crossprod (&lt;text&gt;:9) 0.20       0.00     
+##  . . crossprod          0.20       0.00     
+##  . . . base::crossprod  0.20       0.20     
+##  . solve (&lt;text&gt;:11)    0.14       0.00     
+##  . . standardGeneric    0.14       0.00     
+##  . . . solve            0.14       0.00     
+##  . . . . solve.default  0.14       0.14
 </code></pre>
 
 <pre><code class="r">pd3 &lt;- profileExpr(lr_fast(y, x))
+hotPaths(pd3)
 </code></pre>
 
-<pre><code>## Error in profileExpr(lr_fast(y, x)): could not find function &quot;profileExpr&quot;
-</code></pre>
-
-<pre><code class="r">hotPaths(pd3)
-</code></pre>
-
-<pre><code>## Error in hotPaths(pd3): could not find function &quot;hotPaths&quot;
+<pre><code>##  path                    total.pct self.pct
+##  lr_fast                 100.00     0.00   
+##  . crossprod (&lt;text&gt;:16)  90.91     0.00   
+##  . . crossprod            90.91     0.00   
+##  . . . base::crossprod    90.91    90.91   
+##  . chol (&lt;text&gt;:18)        9.09     0.00   
+##  . . standardGeneric       9.09     0.00   
+##  . . . chol                9.09     0.00   
+##  . . . . chol.default      9.09     9.09
 </code></pre>
 
 <pre><code class="r">hotPaths(pd3, value = &#39;time&#39;)
 </code></pre>
 
-<pre><code>## Error in hotPaths(pd3, value = &quot;time&quot;): could not find function &quot;hotPaths&quot;
+<pre><code>##  path                    total.time self.time
+##  lr_fast                 0.22       0.00     
+##  . crossprod (&lt;text&gt;:16) 0.20       0.00     
+##  . . crossprod           0.20       0.00     
+##  . . . base::crossprod   0.20       0.20     
+##  . chol (&lt;text&gt;:18)      0.02       0.00     
+##  . . standardGeneric     0.02       0.00     
+##  . . . chol              0.02       0.00     
+##  . . . . chol.default    0.02       0.02
 </code></pre>
 
 <p>You might also check out <em>profvis</em> for an alternative to displaying profiling information
@@ -518,7 +562,7 @@ generated by <em>Rprof</em>.</p>
 object.size(x)
 </code></pre>
 
-<pre><code>## 80000048 bytes
+<pre><code>## 80000040 bytes
 </code></pre>
 
 <pre><code class="r">1e7*8/1e6  # direct calculation of Mb
@@ -538,8 +582,8 @@ gc()
 </code></pre>
 
 <pre><code>##             used  (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells   1662187  88.8    2543994  135.9   2543994  135.9
-## Vcells 112580473 859.0  172028004 1312.5 142974531 1090.9
+## Ncells   1518162  81.1    2637877  140.9   2637877  140.9
+## Vcells 111270362 849.0  180429712 1376.6 149866341 1143.4
 </code></pre>
 
 <pre><code class="r">rm(x)
@@ -547,8 +591,8 @@ gc()
 </code></pre>
 
 <pre><code>##            used (Mb) gc trigger   (Mb)  max used   (Mb)
-## Ncells  1662196 88.8    2543994  135.9   2543994  135.9
-## Vcells 12580500 96.0  137622403 1050.0 142974531 1090.9
+## Ncells  1518171 81.1    2637877  140.9   2637877  140.9
+## Vcells 11270389 86.0  144343769 1101.3 149866341 1143.4
 </code></pre>
 
 <h1>Scripting</h1>
