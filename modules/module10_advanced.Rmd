@@ -38,7 +38,7 @@ sub <- air[air$Month == 1, ]  # to speed up the next steps
 yb <- sub$DepDelay > 15
 yc <- sub$DepDelay
 yc[yc > 180] <- 180
-x <- sub$Dist
+x <- sub$Distance
 mod1 <- lm(yc ~ x)
 mod2 <- glm(yb ~ x, family = binomial)
 mod2$residuals[1:20] # access field with list-like syntax

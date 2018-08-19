@@ -319,7 +319,7 @@ mat
 <pre><code class="r">attributes(air)$names
 </code></pre>
 
-<pre><code>##  [1] &quot;Year&quot;              &quot;Month&quot;             &quot;DayofMonth&quot;       
+<pre><code>##  [1] &quot;Year&quot;              &quot;Month&quot;             &quot;DayOfMonth&quot;       
 ##  [4] &quot;DayOfWeek&quot;         &quot;DepTime&quot;           &quot;CRSDepTime&quot;       
 ##  [7] &quot;ArrTime&quot;           &quot;CRSArrTime&quot;        &quot;UniqueCarrier&quot;    
 ## [10] &quot;FlightNum&quot;         &quot;TailNum&quot;           &quot;ActualElapsedTime&quot;
@@ -614,7 +614,7 @@ class(air)
 <pre><code class="r">head(air)
 </code></pre>
 
-<pre><code>##   Year Month DayofMonth DayOfWeek DepTime CRSDepTime ArrTime CRSArrTime
+<pre><code>##   Year Month DayOfMonth DayOfWeek DepTime CRSDepTime ArrTime CRSArrTime
 ## 1 2005     1          1         6    1211       1216    1451       1502
 ## 2 2005     1          2         7    1209       1216    1447       1502
 ## 3 2005     1          3         1    1213       1216    1454       1502
@@ -657,7 +657,7 @@ class(air)
 <pre><code>## &#39;data.frame&#39;:    539895 obs. of  29 variables:
 ##  $ Year             : int  2005 2005 2005 2005 2005 2005 2005 2005 2005 2005 ...
 ##  $ Month            : int  1 1 1 1 1 1 1 1 1 1 ...
-##  $ DayofMonth       : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ DayOfMonth       : int  1 2 3 4 5 6 7 8 9 10 ...
 ##  $ DayOfWeek        : int  6 7 1 2 3 4 5 6 7 1 ...
 ##  $ DepTime          : int  1211 1209 1213 NA 1211 1214 1330 1213 1206 1338 ...
 ##  $ CRSDepTime       : int  1216 1216 1216 1216 1216 1215 1215 1215 1215 1215 ...
@@ -715,7 +715,7 @@ class(air)
 ## $Month
 ## [1] &quot;integer&quot;
 ## 
-## $DayofMonth
+## $DayOfMonth
 ## [1] &quot;integer&quot;
 ## 
 ## $DayOfWeek
@@ -811,7 +811,7 @@ class(air)
 head(someFields)
 </code></pre>
 
-<pre><code>##   DayofMonth DepTime
+<pre><code>##   DayOfMonth DepTime
 ## 1          1    1211
 ## 2          2    1209
 ## 3          3    1213
@@ -1060,7 +1060,7 @@ vec[cond]
 <pre><code class="r">air[air$DepDelay &gt; 60*12 &amp; !is.na(air$DepDelay), ]
 </code></pre>
 
-<pre><code>##        Year Month DayofMonth DayOfWeek DepTime CRSDepTime ArrTime
+<pre><code>##        Year Month DayOfMonth DayOfWeek DepTime CRSDepTime ArrTime
 ## 71351  2005     7         23         6     633       1545    1212
 ## 80042  2005     8         20         6    2237       1030     122
 ## 115794 2005    11          2         3    1009        630    1526
@@ -1170,7 +1170,7 @@ vec[cond]
 <pre><code class="r">subset(air, DepDelay &gt; 60*12)
 </code></pre>
 
-<pre><code>##        Year Month DayofMonth DayOfWeek DepTime CRSDepTime ArrTime
+<pre><code>##        Year Month DayOfMonth DayOfWeek DepTime CRSDepTime ArrTime
 ## 71351  2005     7         23         6     633       1545    1212
 ## 80042  2005     8         20         6    2237       1030     122
 ## 115794 2005    11          2         3    1009        630    1526
@@ -1517,7 +1517,7 @@ missing[1:5]
 
 <p>11) Make the destination variable a factor variable and reorder the levels by the number of arrivals from SFO at the destinations. Now create a boxplot of departure delay by destination for January, 2005.</p>
 
-<p>12) Create row names for the data frame based on concatenating the Year, Month, DayofMonth, UniqueCarrier and FlightNum fields. You may run into a problem with the data that you need to resolve before you&#39;re able to do this&hellip;</p>
+<p>12) Create row names for the data frame based on concatenating the Year, Month, DayOfMonth, UniqueCarrier and FlightNum fields. You may run into a problem with the data that you need to resolve before you&#39;re able to do this&hellip;</p>
 
 </body>
 

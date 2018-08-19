@@ -290,7 +290,7 @@ pplot <- function(x, y, ...) {
 sub <- air[sample(1:nrow(air), 10000, replace = FALSE), ]
 sub$DepDelay[sub$DepDelay > 120] <- 120
 sub$DepDelay[sub$DepDelay < -30] <- -30
-pplot(sub$Dist, sub$DepDelay, xlab = 'distance (miles)',
+pplot(sub$Distance, sub$DepDelay, xlab = 'distance (miles)',
       ylab = 'delay (minutes)', log = 'x')
 ```
 

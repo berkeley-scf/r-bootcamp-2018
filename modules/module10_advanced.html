@@ -230,7 +230,7 @@ sub &lt;- air[air$Month == 1, ]  # to speed up the next steps
 yb &lt;- sub$DepDelay &gt; 15
 yc &lt;- sub$DepDelay
 yc[yc &gt; 180] &lt;- 180
-x &lt;- sub$Dist
+x &lt;- sub$Distance
 mod1 &lt;- lm(yc ~ x)
 mod2 &lt;- glm(yb ~ x, family = binomial)
 mod2$residuals[1:20] # access field with list-like syntax
@@ -321,7 +321,7 @@ mod2$residuals[1:20] # access field with list-like syntax
 
 <pre><code>## function (object, ...) 
 ## UseMethod(&quot;predict&quot;)
-## &lt;bytecode: 0x2ac7398&gt;
+## &lt;bytecode: 0x2be5f20&gt;
 ## &lt;environment: namespace:stats&gt;
 </code></pre>
 
