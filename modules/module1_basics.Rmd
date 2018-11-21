@@ -229,13 +229,15 @@ hist(rnorm(1000))
 
 # Getting help about a function
 
-To get information about a function you know exists, use `help` or `?`, e.g., `?lm`. For information on a general topic, use `apropos` or `??`
+To get information about a function you know exists, use `help` or `?`, e.g., `?lm`. For information on a general topic, use `apropos`.
 
 ```{r eval = FALSE}
 help(lm)
 ?lm
 
 ?log
+
+apropos("mean")
 ```
 
 # Basic kinds of R objects

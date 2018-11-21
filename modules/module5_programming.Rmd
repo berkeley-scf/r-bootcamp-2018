@@ -149,6 +149,16 @@ generally convert other values to logical values.
 Zero evaluates to `FALSE`, all other numbers evaluate to `TRUE`. In general
 strings are not converted to booleans.
 
+A more robust alternative is to use `isTRUE()`:
+
+```{r, if-bug-fix}
+air$late <- rep(0, nrow(air))
+for (i in 1:20) {
+      if(isTRUE(air$DepDelay[i] > 15))
+          air$late[i] <- 1 else air$late[i] <- 0
+}
+
+
 # Flow control: `next` and `break` statements
 
 `next` skips the current evaluation of the loop statements:
